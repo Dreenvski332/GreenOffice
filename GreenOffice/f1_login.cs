@@ -43,7 +43,7 @@ namespace GreenOffice
                 {
                     try
                     {
-                        MySqlCommand loginChecker = new MySqlCommand($"SELECT user.email, user.password FROM user WHERE user.email = @email AND user.password = @password");
+                        MySqlCommand loginChecker = new MySqlCommand($"SELECT user.email, user.password, user.isAdmin FROM user WHERE user.email = @email AND user.password = @password");
                         loginChecker.Parameters.AddWithValue("@email", emailTextbox.Text);
                         loginChecker.Parameters.AddWithValue("@password", passwordTextbox.Text);
                         loginChecker.CommandType = CommandType.Text;
@@ -53,31 +53,41 @@ namespace GreenOffice
                             databaseConnection.Open();
                             MySqlDataReader sqlDataReader = loginChecker.ExecuteReader();
                             bool querySuccessful = sqlDataReader.HasRows;
-                            sqlDataReader.Close();
                             if (querySuccessful == true)
                             {
-                                if (emailTextbox.Text.Equals("admin") && passwordTextbox.Text.Equals("123"))
+                                if (sqlDataReader.Read())
                                 {
-                                    using (StreamWriter usernameWriter = new StreamWriter(pathFactory.userString))
+                                    int isAdmin = sqlDataReader.GetInt32("isAdmin");
+                                    if (isAdmin == 1)
                                     {
-                                        usernameWriter.Write(emailTextbox.Text);
-                                    }
+                                        using (StreamWriter usernameWriter = new StreamWriter(pathFactory.userString))
+                                        {
+                                            usernameWriter.Write(emailTextbox.Text);
+                                        }
 
-                                    this.Hide();
-                                    f3_adminBody Open_f3_adminBody = new f3_adminBody();
-                                    Open_f3_adminBody.ShowDialog();
+                                        this.Hide();
+                                        f3_adminBody Open_f3_adminBody = new f3_adminBody();
+                                        Open_f3_adminBody.ShowDialog();
+                                        sqlDataReader.Close();
+                                    }
+                                    else
+                                    {
+                                        using (StreamWriter usernameWriter = new StreamWriter(pathFactory.userString))
+                                        {
+                                            usernameWriter.Write(emailTextbox.Text);
+                                        }
+
+                                        this.Hide();
+                                        f4_userBody Open_f4_userBody = new f4_userBody();
+                                        Open_f4_userBody.ShowDialog();
+                                        sqlDataReader.Close();
+                                    }
                                 }
                                 else
                                 {
-                                    using (StreamWriter usernameWriter = new StreamWriter(pathFactory.userString))
-                                    {
-                                        usernameWriter.Write(emailTextbox.Text);
-                                    }
-
-                                    this.Hide();
-                                    f4_userBody Open_f4_userBody = new f4_userBody();
-                                    Open_f4_userBody.ShowDialog();
+                                    MessageBox.Show("I need more bullets, Bigger weapons");
                                 }
+                                
                             }
                             else
                             {
