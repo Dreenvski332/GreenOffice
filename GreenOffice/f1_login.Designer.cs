@@ -104,6 +104,7 @@
             this.loginButton.TabIndex = 2;
             this.loginButton.Text = "zaloguj.";
             this.loginButton.UseVisualStyleBackColor = false;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // settingsButton
             // 
