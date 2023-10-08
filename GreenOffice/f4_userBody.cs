@@ -33,10 +33,19 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd();
                 string connectionString = connection;
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES ('[value-1]','[value-2]','[value-3]')";
+                String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES ('@startTime','@date','@userEmail')";
                 try
                 {
-                    
+                    using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
+                    {
+                        addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("H:mm"));
+                        addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                        addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+                        
+                        databaseConnection.Open();
+                        int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
+                        databaseConnection.Close();
+                    }
                 }
                 catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
             }
