@@ -85,7 +85,7 @@ namespace GreenOffice
                                 }
                                 else
                                 {
-                                    MessageBox.Show("I need more bullets, Bigger weapons");
+                                    MessageBox.Show("Nieoczekiwany błąd rozróżniania rodzaju użytkownika");
                                 }
                                 
                             }

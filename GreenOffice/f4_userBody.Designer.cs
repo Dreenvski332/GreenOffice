@@ -33,10 +33,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerButton = new System.Windows.Forms.Button();
             this.timerGroupbox = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.timerStartButton = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.timerGroupbox.SuspendLayout();
             this.SuspendLayout();
@@ -79,24 +79,15 @@
             // 
             // timerGroupbox
             // 
+            this.timerGroupbox.Controls.Add(this.timerStartButton);
             this.timerGroupbox.Controls.Add(this.button4);
             this.timerGroupbox.Controls.Add(this.button3);
             this.timerGroupbox.Controls.Add(this.button2);
-            this.timerGroupbox.Controls.Add(this.button1);
             this.timerGroupbox.Location = new System.Drawing.Point(0, 103);
             this.timerGroupbox.Name = "timerGroupbox";
             this.timerGroupbox.Size = new System.Drawing.Size(1184, 566);
             this.timerGroupbox.TabIndex = 3;
             this.timerGroupbox.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(157, 130);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "zacznij czasomierz";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -125,6 +116,16 @@
             this.button4.Text = "zakończ przerwę";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // timerStartButton
+            // 
+            this.timerStartButton.Location = new System.Drawing.Point(157, 127);
+            this.timerStartButton.Name = "timerStartButton";
+            this.timerStartButton.Size = new System.Drawing.Size(155, 23);
+            this.timerStartButton.TabIndex = 6;
+            this.timerStartButton.Text = "zacznij czasomierz";
+            this.timerStartButton.UseVisualStyleBackColor = true;
+            this.timerStartButton.Click += new System.EventHandler(this.timerStartButton_Click);
+            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,6 +153,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button timerStartButton;
     }
 }
