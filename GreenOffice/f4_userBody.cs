@@ -33,13 +33,15 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd();
                 string connectionString = connection;
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES ('@startTime','@date','@userEmail')";
+                String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES (@startTime,@date,@userEmail)";
                 try
                 {
                     using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
                     {
-                        addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("H:mm"));
-                        addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                        string time = DateTime.Now.ToString("hh:mm");
+                        string date = DateTime.Now.ToString("yyyy-MM-dd");
+                        addStartingTimeCommand.Parameters.AddWithValue("@startTime", time);
+                        addStartingTimeCommand.Parameters.AddWithValue("@date", date);
                         addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
                         
                         databaseConnection.Open();
