@@ -118,6 +118,7 @@
             resources.ApplyResources(this.creditsButton, "creditsButton");
             this.creditsButton.Name = "creditsButton";
             this.creditsButton.UseVisualStyleBackColor = true;
+            this.creditsButton.Click += new System.EventHandler(this.creditsButton_Click);
             // 
             // f2_conSettings
             // 

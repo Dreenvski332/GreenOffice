@@ -68,5 +68,11 @@ namespace GreenOffice
             }
             this.Close();
         }
+
+        private void creditsButton_Click(object sender, EventArgs e)
+        {
+            f5_credits Open_f5_credits = new f5_credits();
+            Open_f5_credits.ShowDialog();
+        }
     }
 }
