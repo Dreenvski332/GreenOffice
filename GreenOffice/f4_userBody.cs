@@ -18,6 +18,7 @@ namespace GreenOffice
         {
             InitializeComponent();
             timerGroupbox.Visible = false;
+            viewUserTextbox.Text = f1_login.email;
         }
 
         private void timerButton_Click(object sender, EventArgs e)

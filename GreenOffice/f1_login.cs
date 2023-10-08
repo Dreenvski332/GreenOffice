@@ -14,11 +14,12 @@ namespace GreenOffice
 {
     public partial class f1_login : Form
     {
+        public static string email = "";
         public f1_login()
         {
             InitializeComponent();
         }
-
+        
         private void settingsButton_Click(object sender, EventArgs e)
         {
                 f2_conSettings Open_f2_conSettings = new f2_conSettings();
@@ -76,7 +77,7 @@ namespace GreenOffice
                                         {
                                             usernameWriter.Write(emailTextbox.Text);
                                         }
-
+                                        email = emailTextbox.Text;
                                         this.Hide();
                                         f4_userBody Open_f4_userBody = new f4_userBody();
                                         Open_f4_userBody.ShowDialog();

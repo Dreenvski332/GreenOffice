@@ -33,16 +33,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerButton = new System.Windows.Forms.Button();
             this.timerGroupbox = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.timerStartButton = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.headerGroupBox.SuspendLayout();
             this.timerGroupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // headerGroupBox
             // 
+            this.headerGroupBox.Controls.Add(this.viewUserTextbox);
             this.headerGroupBox.Controls.Add(this.label1);
             this.headerGroupBox.Controls.Add(this.timerButton);
             this.headerGroupBox.Location = new System.Drawing.Point(0, 0);
@@ -89,23 +91,15 @@
             this.timerGroupbox.TabIndex = 3;
             this.timerGroupbox.TabStop = false;
             // 
-            // button2
+            // timerStartButton
             // 
-            this.button2.Location = new System.Drawing.Point(157, 178);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(155, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "zakończ czasomierz";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(157, 235);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(155, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "zacznij przerwę";
-            this.button3.UseVisualStyleBackColor = true;
+            this.timerStartButton.Location = new System.Drawing.Point(157, 127);
+            this.timerStartButton.Name = "timerStartButton";
+            this.timerStartButton.Size = new System.Drawing.Size(155, 23);
+            this.timerStartButton.TabIndex = 6;
+            this.timerStartButton.Text = "zacznij czasomierz";
+            this.timerStartButton.UseVisualStyleBackColor = true;
+            this.timerStartButton.Click += new System.EventHandler(this.timerStartButton_Click);
             // 
             // button4
             // 
@@ -116,15 +110,33 @@
             this.button4.Text = "zakończ przerwę";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // timerStartButton
+            // button3
             // 
-            this.timerStartButton.Location = new System.Drawing.Point(157, 127);
-            this.timerStartButton.Name = "timerStartButton";
-            this.timerStartButton.Size = new System.Drawing.Size(155, 23);
-            this.timerStartButton.TabIndex = 6;
-            this.timerStartButton.Text = "zacznij czasomierz";
-            this.timerStartButton.UseVisualStyleBackColor = true;
-            this.timerStartButton.Click += new System.EventHandler(this.timerStartButton_Click);
+            this.button3.Location = new System.Drawing.Point(157, 235);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(155, 23);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "zacznij przerwę";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(157, 178);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(155, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "zakończ czasomierz";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // viewUserTextbox
+            // 
+            this.viewUserTextbox.BackColor = System.Drawing.Color.White;
+            this.viewUserTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.viewUserTextbox.Location = new System.Drawing.Point(1000, 12);
+            this.viewUserTextbox.Name = "viewUserTextbox";
+            this.viewUserTextbox.ReadOnly = true;
+            this.viewUserTextbox.Size = new System.Drawing.Size(178, 20);
+            this.viewUserTextbox.TabIndex = 4;
             // 
             // f4_userBody
             // 
@@ -154,5 +166,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button timerStartButton;
+        private System.Windows.Forms.TextBox viewUserTextbox;
     }
 }
