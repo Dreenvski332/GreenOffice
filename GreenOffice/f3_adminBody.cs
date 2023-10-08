@@ -15,6 +15,12 @@ namespace GreenOffice
         public f3_adminBody()
         {
             InitializeComponent();
+            timerGroupbox.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e) //timer button
+        {
+            timerGroupbox.Visible = true;
         }
     }
 }
