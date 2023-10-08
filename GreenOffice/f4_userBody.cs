@@ -38,10 +38,8 @@ namespace GreenOffice
                 {
                     using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
                     {
-                        string time = DateTime.Now.ToString("hh:mm");
-                        string date = DateTime.Now.ToString("yyyy-MM-dd");
-                        addStartingTimeCommand.Parameters.AddWithValue("@startTime", time);
-                        addStartingTimeCommand.Parameters.AddWithValue("@date", date);
+                        addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("hh:mm"));
+                        addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                         addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
                         
                         databaseConnection.Open();
