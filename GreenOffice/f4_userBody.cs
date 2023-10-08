@@ -15,6 +15,12 @@ namespace GreenOffice
         public f4_userBody()
         {
             InitializeComponent();
+            timerGroupbox.Visible = false;
+        }
+
+        private void timerButton_Click(object sender, EventArgs e)
+        {
+            timerGroupbox.Visible = true;
         }
     }
 }
