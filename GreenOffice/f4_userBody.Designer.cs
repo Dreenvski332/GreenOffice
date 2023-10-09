@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(f4_userBody));
             this.headerGroupBox = new System.Windows.Forms.GroupBox();
+            this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timerButton = new System.Windows.Forms.Button();
             this.timerGroupbox = new System.Windows.Forms.GroupBox();
@@ -37,7 +38,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.headerGroupBox.SuspendLayout();
             this.timerGroupbox.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +52,16 @@
             this.headerGroupBox.Size = new System.Drawing.Size(1184, 97);
             this.headerGroupBox.TabIndex = 1;
             this.headerGroupBox.TabStop = false;
+            // 
+            // viewUserTextbox
+            // 
+            this.viewUserTextbox.BackColor = System.Drawing.Color.White;
+            this.viewUserTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.viewUserTextbox.Location = new System.Drawing.Point(1000, 12);
+            this.viewUserTextbox.Name = "viewUserTextbox";
+            this.viewUserTextbox.ReadOnly = true;
+            this.viewUserTextbox.Size = new System.Drawing.Size(178, 20);
+            this.viewUserTextbox.TabIndex = 4;
             // 
             // label1
             // 
@@ -127,16 +137,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "zakończ czasomierz";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // viewUserTextbox
-            // 
-            this.viewUserTextbox.BackColor = System.Drawing.Color.White;
-            this.viewUserTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.viewUserTextbox.Location = new System.Drawing.Point(1000, 12);
-            this.viewUserTextbox.Name = "viewUserTextbox";
-            this.viewUserTextbox.ReadOnly = true;
-            this.viewUserTextbox.Size = new System.Drawing.Size(178, 20);
-            this.viewUserTextbox.TabIndex = 4;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // f4_userBody
             // 
