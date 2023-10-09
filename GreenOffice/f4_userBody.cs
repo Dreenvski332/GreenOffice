@@ -131,7 +131,7 @@ namespace GreenOffice
                             else
                             {
                                 databaseConnection.Close();
-                                MessageBox.Show("Praca dnia \" + DateTime.Now.ToString(\"yyyy-MM-dd\") + \" już została zakończona");
+                                MessageBox.Show("Praca dnia " + DateTime.Now.ToString("yyyy-MM-dd") + " już została zakończona");
                             }
                         }
                         catch
