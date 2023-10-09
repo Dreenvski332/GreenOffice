@@ -33,35 +33,45 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd();
                 string connectionString = connection;
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand workStartChecker = new MySqlCommand($"SELECT date, userEmail FROM timer WHERE date=@date AND userEmail=@userEmail");
-                workStartChecker.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
-                workStartChecker.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+                try
+                {
+                    MySqlCommand workStartChecker = new MySqlCommand($"SELECT date, userEmail FROM timer WHERE date=@date AND userEmail=@userEmail");
+                    workStartChecker.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                    workStartChecker.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+                    workStartChecker.CommandType = CommandType.Text;
+                    workStartChecker.Connection = databaseConnection;
 
-                databaseConnection.Open();
-                MySqlDataReader sqlDataReader = workStartChecker.ExecuteReader();
-                bool querySuccessful = sqlDataReader.HasRows;
-                if(querySuccessful == true)
-                {
-                    MessageBox.Show("Dzisiejszego dnia, praca została już rozpoczęta");
-                }
-                else
-                {
-                    String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES (@startTime,@date,@userEmail)";
-                    try
+                    databaseConnection.Open();
+                    MySqlDataReader sqlDataReaderWorkStart = workStartChecker.ExecuteReader();
+                    bool queryWorkCheckerSuccessful = sqlDataReaderWorkStart.HasRows;
+                    if (queryWorkCheckerSuccessful == true)
                     {
-                        using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
-                        {
-                            addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("hh:mm"));
-                            addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
-                            addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
-
-                            databaseConnection.Open();
-                            int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
-                            databaseConnection.Close();
-                        }
+                        databaseConnection.Close();
+                        MessageBox.Show("Dzisiejszego dnia, praca została już rozpoczęta");
                     }
-                    catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
+                    else
+                    {
+                        databaseConnection.Close();
+                        String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES (@startTime,@date,@userEmail)";
+                        try
+                        {
+                            using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
+                            {
+                                addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("hh:mm"));
+                                addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                                addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+
+                                databaseConnection.Open();
+                                int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
+                                databaseConnection.Close();
+                            }
+                        }
+                        catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
+                    }
                 }
+                catch
+                { MessageBox.Show("Nieoczewkiwany błąd sprawdzania rejestru pracy na dzień " + DateTime.Now.ToString("yyyy-MM-dd")); }
+                
             }
         }
 
