@@ -47,7 +47,7 @@ namespace GreenOffice
                     if (queryWorkCheckerSuccessful == true)
                     {
                         databaseConnection.Close();
-                        MessageBox.Show("Dzisiejszego dnia, praca została już rozpoczęta");
+                        MessageBox.Show("Praca dnia " + DateTime.Now.ToString("yyyy-MM-dd") + " została już rozpoczęta");
                     }
                     else
                     {
@@ -64,6 +64,7 @@ namespace GreenOffice
                                 databaseConnection.Open();
                                 int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
                                 databaseConnection.Close();
+                                MessageBox.Show("Praca rozpoczęta");
                             }
                         }
                         catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
@@ -83,7 +84,7 @@ namespace GreenOffice
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 try
                 {
-                    MySqlCommand workEndChecker = new MySqlCommand($"SELECT date, userEmail FROM timer WHERE date=@date AND userEmail=@userEmail");
+                    MySqlCommand workEndChecker = new MySqlCommand($"SELECT startTime, date, userEmail FROM timer WHERE startTime IS NOT NULL AND date=@date AND userEmail=@userEmail");
                     workEndChecker.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
                     workEndChecker.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
                     workEndChecker.CommandType = CommandType.Text;
@@ -92,47 +93,55 @@ namespace GreenOffice
                     databaseConnection.Open();
                     MySqlDataReader sqlDataReaderWorkEnd = workEndChecker.ExecuteReader();
                     bool queryWorkCheckerSuccessful = sqlDataReaderWorkEnd.HasRows;
-                    if (queryWorkCheckerSuccessful == true)
+                    if(queryWorkCheckerSuccessful == true) 
                     {
-                        databaseConnection.Close();
-                        MySqlCommand workStartTimeChecker = new MySqlCommand($"SELECT startTime, endTime FROM timer WHERE startTime IS NULL AND endTime IS NULL AND date=@date AND userEmail=@userEmail");
-                        workStartTimeChecker.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
-                        workStartTimeChecker.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
-                        workStartTimeChecker.CommandType = CommandType.Text;
-                        workStartTimeChecker.Connection = databaseConnection;
+                        try
+                        {
+                            MySqlCommand workEndTimeChecker = new MySqlCommand($"SELECT endTime, date, userEmail FROM timer WHERE endTime IS NULL AND date=@date AND userEmail=@userEmail");
+                            workEndTimeChecker.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                            workEndTimeChecker.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+                            workEndTimeChecker.CommandType = CommandType.Text;
+                            workEndTimeChecker.Connection = databaseConnection;
 
-                        databaseConnection.Open();
-                        MySqlDataReader sqlDataReaderWorkStartChecker = workStartTimeChecker.ExecuteReader();
-                        bool queryWorkStartCheckerSuccessful = sqlDataReaderWorkStartChecker.HasRows;
-                        if(queryWorkStartCheckerSuccessful == true)
-                        {
-                            MessageBox.Show("Nie rozpoczęto dzisiaj pracy");
-                        }
-                        else
-                        {
-                            databaseConnection.Close();
-                            String addStartingTimeQuery = "UPDATE timer SET endtime=@endTime WHERE date=@date AND userEmail=@userEmail";
-                            try
+                            databaseConnection.Open();
+                            MySqlDataReader sqlDataReaderWorkEndTime = workEndTimeChecker.ExecuteReader();
+                            bool queryWorkEndTimeCheckerSuccessful = sqlDataReaderWorkEndTime.HasRows;
+                            if (queryWorkEndTimeCheckerSuccessful == true)
                             {
-                                using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
+                                databaseConnection.Close();
+                                String addStartingTimeQuery = "UPDATE timer SET endtime=@endTime WHERE date=@date AND userEmail=@userEmail";
+                                try
                                 {
-                                    string time = DateTime.Now.ToString("hh:mm");
-                                    string date = DateTime.Now.ToString("yyyy-MM-dd");
-                                    addStartingTimeCommand.Parameters.AddWithValue("@endTime", time);
-                                    addStartingTimeCommand.Parameters.AddWithValue("@date", date);
-                                    addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+                                    using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
+                                    {
+                                        string time = DateTime.Now.ToString("hh:mm");
+                                        string date = DateTime.Now.ToString("yyyy-MM-dd");
+                                        addStartingTimeCommand.Parameters.AddWithValue("@endTime", time);
+                                        addStartingTimeCommand.Parameters.AddWithValue("@date", date);
+                                        addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
 
-                                    databaseConnection.Open();
-                                    int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
-                                    databaseConnection.Close();
+                                        databaseConnection.Open();
+                                        int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
+                                        databaseConnection.Close();
+                                        MessageBox.Show("Praca zakończona");
+                                    }
                                 }
+                                catch { MessageBox.Show("Nieoczekiwany błąd kończenia pracy"); }
                             }
-                            catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
+                            else
+                            {
+                                databaseConnection.Close();
+                                MessageBox.Show("Praca dnia \" + DateTime.Now.ToString(\"yyyy-MM-dd\") + \" już została zakończona");
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Nieoczekiwany błąd zakończenia pracy");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Nieoczekiwany błąd przy zakończeniu pracy");
+                        MessageBox.Show("W dniu " + DateTime.Now.ToString("yyyy-MM-dd") + " nie rozpoczęto pracy.");
                     }
                 }
                 catch { MessageBox.Show("Nieoczewkiwany błąd sprawdzania rejestru pracy na dzień " + DateTime.Now.ToString("yyyy-MM-dd")); }
