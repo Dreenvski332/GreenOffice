@@ -37,7 +37,7 @@
             this.timerStartButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.endTimerButton = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.timerGroupbox.SuspendLayout();
             this.SuspendLayout();
@@ -94,7 +94,7 @@
             this.timerGroupbox.Controls.Add(this.timerStartButton);
             this.timerGroupbox.Controls.Add(this.button4);
             this.timerGroupbox.Controls.Add(this.button3);
-            this.timerGroupbox.Controls.Add(this.button2);
+            this.timerGroupbox.Controls.Add(this.endTimerButton);
             this.timerGroupbox.Location = new System.Drawing.Point(0, 103);
             this.timerGroupbox.Name = "timerGroupbox";
             this.timerGroupbox.Size = new System.Drawing.Size(1184, 566);
@@ -129,15 +129,15 @@
             this.button3.Text = "zacznij przerwę";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // endTimerButton
             // 
-            this.button2.Location = new System.Drawing.Point(157, 178);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(155, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "zakończ czasomierz";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.endTimerButton.Location = new System.Drawing.Point(157, 178);
+            this.endTimerButton.Name = "endTimerButton";
+            this.endTimerButton.Size = new System.Drawing.Size(155, 23);
+            this.endTimerButton.TabIndex = 3;
+            this.endTimerButton.Text = "zakończ czasomierz";
+            this.endTimerButton.UseVisualStyleBackColor = true;
+            this.endTimerButton.Click += new System.EventHandler(this.endTimerButton_Click);
             // 
             // f4_userBody
             // 
@@ -165,7 +165,7 @@
         private System.Windows.Forms.GroupBox timerGroupbox;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button endTimerButton;
         private System.Windows.Forms.Button timerStartButton;
         private System.Windows.Forms.TextBox viewUserTextbox;
     }
