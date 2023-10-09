@@ -50,5 +50,34 @@ namespace GreenOffice
                 catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                String addStartingTimeQuery = "UPDATE timer SET endtime=@endTime WHERE date=@date AND userEmail=@userEmail";
+                try
+                {
+                    using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
+                    {
+                        string time = DateTime.Now.ToString("hh:mm");
+                        string date = DateTime.Now.ToString("yyyy-MM-dd");
+                        addStartingTimeCommand.Parameters.AddWithValue("@endTime", time);
+                        addStartingTimeCommand.Parameters.AddWithValue("@date", date);
+                        addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+
+                        databaseConnection.Open();
+                        int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
+                        databaseConnection.Close();
+                    }
+                }
+                catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
+            }
+        }
     }
 }
