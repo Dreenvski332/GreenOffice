@@ -33,21 +33,35 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd();
                 string connectionString = connection;
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES (@startTime,@date,@userEmail)";
-                try
+                MySqlCommand workStartChecker = new MySqlCommand($"SELECT date, userEmail FROM timer WHERE date=@date AND userEmail=@userEmail");
+                workStartChecker.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                workStartChecker.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+
+                databaseConnection.Open();
+                MySqlDataReader sqlDataReader = workStartChecker.ExecuteReader();
+                bool querySuccessful = sqlDataReader.HasRows;
+                if(querySuccessful == true)
                 {
-                    using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
-                    {
-                        addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("hh:mm"));
-                        addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
-                        addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
-                        
-                        databaseConnection.Open();
-                        int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
-                        databaseConnection.Close();
-                    }
+                    MessageBox.Show("Dzisiejszego dnia, praca została już rozpoczęta");
                 }
-                catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
+                else
+                {
+                    String addStartingTimeQuery = "INSERT INTO `timer`(`startTime`, `date`, `userEmail`) VALUES (@startTime,@date,@userEmail)";
+                    try
+                    {
+                        using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection))
+                        {
+                            addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("hh:mm"));
+                            addStartingTimeCommand.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                            addStartingTimeCommand.Parameters.AddWithValue("@userEmail", viewUserTextbox.Text);
+
+                            databaseConnection.Open();
+                            int queryFeedback = addStartingTimeCommand.ExecuteNonQuery();
+                            databaseConnection.Close();
+                        }
+                    }
+                    catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); }
+                }
             }
         }
 
