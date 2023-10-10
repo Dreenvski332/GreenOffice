@@ -14,11 +14,11 @@ namespace GreenOffice
     public partial class f2_conSettings : Form
     {
         public f2_conSettings()
-        {
+        { //sets up info about connection to DB from pathFactory - it must be done on initialization so that it synchronizes with pathFactory
             InitializeComponent();
-            PathFactory pathFactory = new PathFactory();
+            PathFactory pathFactory = new PathFactory(); //to establish pathFactory as... well pathFactory
             using (StreamReader streamReaderSource = new StreamReader(pathFactory.sourceString))
-            {
+            { //all of those are only responsible for writing data from path factory into textboxes
                 sourceTextbox.Text = streamReaderSource.ReadToEnd();
             }
             using (StreamReader streamReaderPort = new StreamReader(pathFactory.portString))
@@ -40,10 +40,10 @@ namespace GreenOffice
         }
 
         private void saveButton_Click(object sender, EventArgs e)
-        {
+        { //now on save, data from textboxes are sent and saved in pathFactory, so that next time this window is booted up, new data will be displayed
             PathFactory pathFactory = new PathFactory();
             using (StreamWriter connectionWriter = new StreamWriter(pathFactory.connString))
-            {
+            { // this one saves all data needed to connect to DB in one string - it's later used as a string to connect to database
                 connectionWriter.Write($"datasource=" + sourceTextbox.Text + "; port=" + portTextbox.Text + "; username=" + usernameTextbox.Text + "; password=" + passwordTextbox.Text + "; database=" + databaseTextbox.Text);
             }
             using (StreamWriter sourceWriter = new StreamWriter(pathFactory.sourceString))
@@ -71,7 +71,7 @@ namespace GreenOffice
 
         private void creditsButton_Click(object sender, EventArgs e)
         {
-            f5_credits Open_f5_credits = new f5_credits();
+            f5_credits Open_f5_credits = new f5_credits(); //opens up graphics credits
             Open_f5_credits.ShowDialog();
         }
     }

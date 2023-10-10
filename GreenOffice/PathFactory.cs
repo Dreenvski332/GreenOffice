@@ -8,13 +8,13 @@ namespace GreenOffice
 {
     public class PathFactory
     {
-        public string connString = @"C:\Users\Admin1\Desktop\GreenOffice\settings\connection.txt";
-        static string pathString = @"C:\Users\Admin1\Desktop\GreenOffice\settings\";
-        public string sourceString = pathString + "source.txt";
-        public string portString = pathString + "port.txt";
-        public string usernameString = pathString + "username.txt";
-        public string passwordString = pathString + "password.txt";
-        public string databaseString = pathString + "database.txt";
-        public string userString = pathString + "user.txt";
+        public string connString = @"C:\Users\Admin1\Desktop\GreenOffice\settings\connection.txt"; //this is the combined string used to connect to DB
+        static string pathString = @"C:\Users\Admin1\Desktop\GreenOffice\settings\"; //this sets path to pathFactory files, it's just easier to change in needed
+        public string sourceString = pathString + "source.txt"; //source so like: 127.0.0.1
+        public string portString = pathString + "port.txt"; // port should look like this: 3306
+        public string usernameString = pathString + "username.txt"; //username for the database: root
+        public string passwordString = pathString + "password.txt"; //password, at default there isn't one
+        public string databaseString = pathString + "database.txt"; //name of the database in this case: greenoffice
+        public string userString = pathString + "user.txt"; //user is still saved in pathFactory it's a remnant, doesn't do anything
     }
 }
