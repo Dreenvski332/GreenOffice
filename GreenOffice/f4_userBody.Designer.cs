@@ -34,12 +34,20 @@
             this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.endTimerButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.calendarLabel = new System.Windows.Forms.Label();
+            this.timeoutButton = new System.Windows.Forms.Button();
+            this.calendarButton = new System.Windows.Forms.Button();
             this.timerButton = new System.Windows.Forms.Button();
+            this.timeoutLabel = new System.Windows.Forms.Label();
             this.headerGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // headerGroupBox
             // 
+            this.headerGroupBox.Controls.Add(this.timeoutLabel);
+            this.headerGroupBox.Controls.Add(this.timeoutButton);
+            this.headerGroupBox.Controls.Add(this.calendarLabel);
+            this.headerGroupBox.Controls.Add(this.calendarButton);
             this.headerGroupBox.Controls.Add(this.timerStartButton);
             this.headerGroupBox.Controls.Add(this.viewUserTextbox);
             this.headerGroupBox.Controls.Add(this.endTimerButton);
@@ -53,7 +61,11 @@
             // 
             // timerStartButton
             // 
-            this.timerStartButton.Location = new System.Drawing.Point(1017, 38);
+            this.timerStartButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timerStartButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timerStartButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timerStartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timerStartButton.Location = new System.Drawing.Point(1000, 41);
             this.timerStartButton.Name = "timerStartButton";
             this.timerStartButton.Size = new System.Drawing.Size(155, 23);
             this.timerStartButton.TabIndex = 6;
@@ -64,16 +76,24 @@
             // viewUserTextbox
             // 
             this.viewUserTextbox.BackColor = System.Drawing.Color.White;
+            this.viewUserTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.viewUserTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.viewUserTextbox.Location = new System.Drawing.Point(1000, 12);
+            this.viewUserTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewUserTextbox.Location = new System.Drawing.Point(976, 12);
+            this.viewUserTextbox.Multiline = true;
             this.viewUserTextbox.Name = "viewUserTextbox";
             this.viewUserTextbox.ReadOnly = true;
-            this.viewUserTextbox.Size = new System.Drawing.Size(178, 20);
+            this.viewUserTextbox.Size = new System.Drawing.Size(202, 23);
             this.viewUserTextbox.TabIndex = 4;
+            this.viewUserTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // endTimerButton
             // 
-            this.endTimerButton.Location = new System.Drawing.Point(1017, 67);
+            this.endTimerButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.endTimerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.endTimerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.endTimerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.endTimerButton.Location = new System.Drawing.Point(1000, 70);
             this.endTimerButton.Name = "endTimerButton";
             this.endTimerButton.Size = new System.Drawing.Size(155, 23);
             this.endTimerButton.TabIndex = 3;
@@ -87,9 +107,48 @@
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
             this.label1.Location = new System.Drawing.Point(12, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.Size = new System.Drawing.Size(116, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Czasomierz";
+            this.label1.Text = "Ewidencja czasu pracy";
+            // 
+            // calendarLabel
+            // 
+            this.calendarLabel.AutoSize = true;
+            this.calendarLabel.Location = new System.Drawing.Point(168, 75);
+            this.calendarLabel.Name = "calendarLabel";
+            this.calendarLabel.Size = new System.Drawing.Size(104, 13);
+            this.calendarLabel.TabIndex = 2;
+            this.calendarLabel.Text = "Personalny terminarz";
+            // 
+            // timeoutButton
+            // 
+            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
+            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timeoutButton.FlatAppearance.BorderSize = 0;
+            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timeoutButton.Location = new System.Drawing.Point(338, 12);
+            this.timeoutButton.Name = "timeoutButton";
+            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
+            this.timeoutButton.TabIndex = 8;
+            this.timeoutButton.UseVisualStyleBackColor = true;
+            // 
+            // calendarButton
+            // 
+            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
+            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.calendarButton.FlatAppearance.BorderSize = 0;
+            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.calendarButton.Location = new System.Drawing.Point(189, 12);
+            this.calendarButton.Name = "calendarButton";
+            this.calendarButton.Size = new System.Drawing.Size(60, 60);
+            this.calendarButton.TabIndex = 7;
+            this.calendarButton.UseVisualStyleBackColor = true;
             // 
             // timerButton
             // 
@@ -100,12 +159,21 @@
             this.timerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
             this.timerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
             this.timerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timerButton.Location = new System.Drawing.Point(12, 12);
+            this.timerButton.Location = new System.Drawing.Point(37, 12);
             this.timerButton.Name = "timerButton";
             this.timerButton.Size = new System.Drawing.Size(60, 60);
             this.timerButton.TabIndex = 0;
             this.timerButton.UseVisualStyleBackColor = true;
             this.timerButton.Click += new System.EventHandler(this.timerButton_Click);
+            // 
+            // timeoutLabel
+            // 
+            this.timeoutLabel.AutoSize = true;
+            this.timeoutLabel.Location = new System.Drawing.Point(316, 75);
+            this.timeoutLabel.Name = "timeoutLabel";
+            this.timeoutLabel.Size = new System.Drawing.Size(104, 13);
+            this.timeoutLabel.TabIndex = 2;
+            this.timeoutLabel.Text = "Zarejestrój dni wolne";
             // 
             // f4_userBody
             // 
@@ -131,5 +199,9 @@
         private System.Windows.Forms.Button endTimerButton;
         private System.Windows.Forms.Button timerStartButton;
         private System.Windows.Forms.TextBox viewUserTextbox;
+        private System.Windows.Forms.Label calendarLabel;
+        private System.Windows.Forms.Button calendarButton;
+        private System.Windows.Forms.Button timeoutButton;
+        private System.Windows.Forms.Label timeoutLabel;
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,9 +15,11 @@ namespace GreenOffice
 {
     public partial class f4_userBody : Form
     {
+
         public f4_userBody()
         {
             InitializeComponent();
+
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
         }
 
@@ -125,6 +128,16 @@ namespace GreenOffice
                 }
                 catch { MessageBox.Show("Nieoczekiwany błąd weryfikacji rozpoczęcia pracy"); }
             }
+        }
+    }
+    public class MyMonthCalendar : MonthCalendar
+    {
+        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            SetWindowTheme(Handle, string.Empty, string.Empty);
+            base.OnHandleCreated(e);
         }
     }
 }
