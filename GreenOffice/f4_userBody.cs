@@ -17,13 +17,11 @@ namespace GreenOffice
         public f4_userBody()
         {
             InitializeComponent();
-            timerGroupbox.Visible = false;
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
         }
 
         private void timerButton_Click(object sender, EventArgs e)
         {
-            timerGroupbox.Visible = true;
         }
         private void timerStartButton_Click(object sender, EventArgs e)
         {
