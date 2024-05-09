@@ -44,7 +44,9 @@
             // 
             // headerGroupBox
             // 
+            this.headerGroupBox.Controls.Add(this.timerStartButton);
             this.headerGroupBox.Controls.Add(this.viewUserTextbox);
+            this.headerGroupBox.Controls.Add(this.endTimerButton);
             this.headerGroupBox.Controls.Add(this.label1);
             this.headerGroupBox.Controls.Add(this.timerButton);
             this.headerGroupBox.Location = new System.Drawing.Point(0, 0);
@@ -91,10 +93,8 @@
             // 
             // timerGroupbox
             // 
-            this.timerGroupbox.Controls.Add(this.timerStartButton);
             this.timerGroupbox.Controls.Add(this.button4);
             this.timerGroupbox.Controls.Add(this.button3);
-            this.timerGroupbox.Controls.Add(this.endTimerButton);
             this.timerGroupbox.Location = new System.Drawing.Point(0, 103);
             this.timerGroupbox.Name = "timerGroupbox";
             this.timerGroupbox.Size = new System.Drawing.Size(1184, 566);
@@ -103,7 +103,7 @@
             // 
             // timerStartButton
             // 
-            this.timerStartButton.Location = new System.Drawing.Point(157, 127);
+            this.timerStartButton.Location = new System.Drawing.Point(1017, 38);
             this.timerStartButton.Name = "timerStartButton";
             this.timerStartButton.Size = new System.Drawing.Size(155, 23);
             this.timerStartButton.TabIndex = 6;
@@ -131,7 +131,7 @@
             // 
             // endTimerButton
             // 
-            this.endTimerButton.Location = new System.Drawing.Point(157, 178);
+            this.endTimerButton.Location = new System.Drawing.Point(1017, 67);
             this.endTimerButton.Name = "endTimerButton";
             this.endTimerButton.Size = new System.Drawing.Size(155, 23);
             this.endTimerButton.TabIndex = 3;
