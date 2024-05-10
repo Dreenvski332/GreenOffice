@@ -24,32 +24,99 @@ namespace GreenOffice
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
         {
             timerPanel.Visible = true;
+            string trashcan = "";
+            displayDateTextbox.Text = trashcan;
+            displayFinishTimeTextbox.Text = trashcan;
+            displayStartTimeTextbox.Text = trashcan;
+
 
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
             using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
             {
-                string connection = streamReader.ReadToEnd();
-                string connectionString = connection;
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-
-                MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month");
-                startingTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
-                startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
-                startingTimeQuery.CommandType = CommandType.Text;
-                startingTimeQuery.Connection = databaseConnection;
-                databaseConnection.Open();
-
-                MySqlDataReader reader = startingTimeQuery.ExecuteReader();
-
-                while (reader.Read())
+                try
                 {
-                    DateTime date = reader.GetDateTime("startDate");
-                    string formattedDate = date.ToString("yyyy-MM-dd"); // Format the date
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                    // Append each date to the TextBox with a new line
-                    displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
+                    MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                    displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                    displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    displayDateQuery.CommandType = CommandType.Text;
+                    displayDateQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+
+                    MySqlDataReader reader = displayDateQuery.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime date = reader.GetDateTime("startDate");
+                        string formattedDate = date.ToString("yyyy-MM-dd"); // Format the date
+
+                        // Append each date to the TextBox with a new line
+                        displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                catch { MessageBox.Show("Błąd wczytywania daty z bazy danych"); }
+            }
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                try
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+
+                    MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startTimer FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                    displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                    displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    displayDateQuery.CommandType = CommandType.Text;
+                    displayDateQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+
+                    MySqlDataReader reader = displayDateQuery.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime startTime = reader.GetDateTime("startTime");
+                        string formattedDate = startTime.ToString("H:mm"); // Format the date
+
+                        // Append each date to the TextBox with a new line
+                        displayStartTimeTextbox.AppendText(formattedDate + Environment.NewLine);
+                    }
+                    reader.Close();
+                }
+                catch { MessageBox.Show("Błąd wczytywania godziny rozpoczęcia pracy z bazy danych"); }
+            }
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                try
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+
+                    MySqlCommand displayDateQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                    displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                    displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    displayDateQuery.CommandType = CommandType.Text;
+                    displayDateQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+
+                    MySqlDataReader reader = displayDateQuery.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime date = reader.GetDateTime("finishTime");
+                        string formattedDate = date.ToString("H:mm"); // Format the date
+
+                        // Append each date to the TextBox with a new line
+                        displayFinishTimeTextbox.AppendText(formattedDate + Environment.NewLine);
+                    }
+                    reader.Close();
+                }
+                catch { MessageBox.Show("Błąd wczytywania godziny zakończenia pracy z bazy danych"); }
             }
         }
         private void timerStartButton_Click(object sender, EventArgs e)
