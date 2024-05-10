@@ -39,23 +39,17 @@ namespace GreenOffice
                 startingTimeQuery.Connection = databaseConnection;
                 databaseConnection.Open();
 
-                MySqlDataAdapter startDataAdapter = new MySqlDataAdapter(startingTimeQuery);
-                DataTable startingTimeTable = new DataTable();
-                startDataAdapter.Fill(startingTimeTable);
-                StringBuilder stringBuilderStart = new StringBuilder();
-                foreach (DataRow row in startingTimeTable.Rows)
+                MySqlDataReader reader = startingTimeQuery.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    for (int i = 0; i < startingTimeTable.Columns.Count; i++)
-                    {
-                        stringBuilderStart.Append(row[i].ToString());
-                        if (i < startingTimeTable.Columns.Count - 1)
-                        {
-                            stringBuilderStart.Append("\t");
-                        }
-                    }
-                    stringBuilderStart.AppendLine();
+                    DateTime date = reader.GetDateTime("startDate");
+                    string formattedDate = date.ToString("yyyy-MM-dd"); // Format the date
+
+                    // Append each date to the TextBox with a new line
+                    displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
                 }
-                displayDateTextbox.Text = stringBuilderStart.ToString();
+                reader.Close();
             }
         }
         private void timerStartButton_Click(object sender, EventArgs e)
