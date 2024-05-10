@@ -31,14 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(f4_userBody));
             this.headerGroupBox = new System.Windows.Forms.GroupBox();
             this.timeoutLabel = new System.Windows.Forms.Label();
-            this.timeoutButton = new System.Windows.Forms.Button();
             this.calendarLabel = new System.Windows.Forms.Label();
-            this.calendarButton = new System.Windows.Forms.Button();
             this.timerStartButton = new System.Windows.Forms.Button();
             this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.endTimerButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.timerPanelButton = new System.Windows.Forms.Button();
             this.timerPanel = new System.Windows.Forms.Panel();
             this.filterPanel = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -65,6 +62,9 @@
             this.displayStartTimeTextbox = new System.Windows.Forms.TextBox();
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
+            this.timeoutButton = new System.Windows.Forms.Button();
+            this.calendarButton = new System.Windows.Forms.Button();
+            this.timerPanelButton = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -98,21 +98,6 @@
             this.timeoutLabel.TabIndex = 2;
             this.timeoutLabel.Text = "Zarejestrój dni wolne";
             // 
-            // timeoutButton
-            // 
-            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
-            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timeoutButton.FlatAppearance.BorderSize = 0;
-            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timeoutButton.Location = new System.Drawing.Point(346, 12);
-            this.timeoutButton.Name = "timeoutButton";
-            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
-            this.timeoutButton.TabIndex = 8;
-            this.timeoutButton.UseVisualStyleBackColor = true;
-            // 
             // calendarLabel
             // 
             this.calendarLabel.AutoSize = true;
@@ -122,21 +107,6 @@
             this.calendarLabel.Size = new System.Drawing.Size(123, 15);
             this.calendarLabel.TabIndex = 2;
             this.calendarLabel.Text = "Personalny terminarz";
-            // 
-            // calendarButton
-            // 
-            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
-            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.calendarButton.FlatAppearance.BorderSize = 0;
-            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.calendarButton.Location = new System.Drawing.Point(198, 12);
-            this.calendarButton.Name = "calendarButton";
-            this.calendarButton.Size = new System.Drawing.Size(60, 60);
-            this.calendarButton.TabIndex = 7;
-            this.calendarButton.UseVisualStyleBackColor = true;
             // 
             // timerStartButton
             // 
@@ -191,24 +161,10 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Ewidencja czasu pracy";
             // 
-            // timerPanelButton
-            // 
-            this.timerPanelButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerPanelButton.BackgroundImage")));
-            this.timerPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.timerPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timerPanelButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.timerPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.timerPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.timerPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timerPanelButton.Location = new System.Drawing.Point(45, 12);
-            this.timerPanelButton.Name = "timerPanelButton";
-            this.timerPanelButton.Size = new System.Drawing.Size(60, 60);
-            this.timerPanelButton.TabIndex = 0;
-            this.timerPanelButton.UseVisualStyleBackColor = true;
-            this.timerPanelButton.Click += new System.EventHandler(this.timerPanelButton_Click);
-            // 
             // timerPanel
             // 
+            this.timerPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
+            this.timerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.timerPanel.Controls.Add(this.filterPanel);
             this.timerPanel.Controls.Add(this.codeMonthLabel);
             this.timerPanel.Controls.Add(this.displayFinishTimeTextbox);
@@ -269,7 +225,7 @@
             // 
             this.styczeńToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.styczeńToolStripMenuItem.Name = "styczeńToolStripMenuItem";
-            this.styczeńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.styczeńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.styczeńToolStripMenuItem.Text = "Styczeń";
             this.styczeńToolStripMenuItem.Click += new System.EventHandler(this.styczeńToolStripMenuItem_Click);
             // 
@@ -277,7 +233,7 @@
             // 
             this.lutyToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.lutyToolStripMenuItem.Name = "lutyToolStripMenuItem";
-            this.lutyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lutyToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.lutyToolStripMenuItem.Text = "Luty";
             this.lutyToolStripMenuItem.Click += new System.EventHandler(this.lutyToolStripMenuItem_Click);
             // 
@@ -285,7 +241,7 @@
             // 
             this.marzecToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.marzecToolStripMenuItem.Name = "marzecToolStripMenuItem";
-            this.marzecToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.marzecToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.marzecToolStripMenuItem.Text = "Marzec";
             this.marzecToolStripMenuItem.Click += new System.EventHandler(this.marzecToolStripMenuItem_Click);
             // 
@@ -293,7 +249,7 @@
             // 
             this.kwiecieńToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.kwiecieńToolStripMenuItem.Name = "kwiecieńToolStripMenuItem";
-            this.kwiecieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kwiecieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.kwiecieńToolStripMenuItem.Text = "Kwiecień";
             this.kwiecieńToolStripMenuItem.Click += new System.EventHandler(this.kwiecieńToolStripMenuItem_Click);
             // 
@@ -301,7 +257,7 @@
             // 
             this.majToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.majToolStripMenuItem.Name = "majToolStripMenuItem";
-            this.majToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.majToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.majToolStripMenuItem.Text = "Maj";
             this.majToolStripMenuItem.Click += new System.EventHandler(this.majToolStripMenuItem_Click);
             // 
@@ -309,7 +265,7 @@
             // 
             this.czerwiecToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.czerwiecToolStripMenuItem.Name = "czerwiecToolStripMenuItem";
-            this.czerwiecToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.czerwiecToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.czerwiecToolStripMenuItem.Text = "Czerwiec";
             this.czerwiecToolStripMenuItem.Click += new System.EventHandler(this.czerwiecToolStripMenuItem_Click);
             // 
@@ -317,7 +273,7 @@
             // 
             this.lipiecToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.lipiecToolStripMenuItem.Name = "lipiecToolStripMenuItem";
-            this.lipiecToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lipiecToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.lipiecToolStripMenuItem.Text = "Lipiec";
             this.lipiecToolStripMenuItem.Click += new System.EventHandler(this.lipiecToolStripMenuItem_Click);
             // 
@@ -325,7 +281,7 @@
             // 
             this.sierpieńToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.sierpieńToolStripMenuItem.Name = "sierpieńToolStripMenuItem";
-            this.sierpieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sierpieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.sierpieńToolStripMenuItem.Text = "Sierpień";
             this.sierpieńToolStripMenuItem.Click += new System.EventHandler(this.sierpieńToolStripMenuItem_Click);
             // 
@@ -333,7 +289,7 @@
             // 
             this.wrzesieńToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.wrzesieńToolStripMenuItem.Name = "wrzesieńToolStripMenuItem";
-            this.wrzesieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wrzesieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.wrzesieńToolStripMenuItem.Text = "Wrzesień";
             this.wrzesieńToolStripMenuItem.Click += new System.EventHandler(this.wrzesieńToolStripMenuItem_Click);
             // 
@@ -341,7 +297,7 @@
             // 
             this.październikToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.październikToolStripMenuItem.Name = "październikToolStripMenuItem";
-            this.październikToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.październikToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.październikToolStripMenuItem.Text = "Październik";
             this.październikToolStripMenuItem.Click += new System.EventHandler(this.październikToolStripMenuItem_Click);
             // 
@@ -349,7 +305,7 @@
             // 
             this.listopadToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.listopadToolStripMenuItem.Name = "listopadToolStripMenuItem";
-            this.listopadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.listopadToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.listopadToolStripMenuItem.Text = "Listopad";
             this.listopadToolStripMenuItem.Click += new System.EventHandler(this.listopadToolStripMenuItem_Click);
             // 
@@ -357,7 +313,7 @@
             // 
             this.grudzieńToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.grudzieńToolStripMenuItem.Name = "grudzieńToolStripMenuItem";
-            this.grudzieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grudzieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.grudzieńToolStripMenuItem.Text = "Grudzień";
             this.grudzieńToolStripMenuItem.Click += new System.EventHandler(this.grudzieńToolStripMenuItem_Click);
             // 
@@ -373,13 +329,13 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem2.Text = "2024";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem3.Text = "2023";
             // 
             // codeMonthLabel
@@ -450,6 +406,52 @@
             this.displayDateTextbox.ReadOnly = true;
             this.displayDateTextbox.Size = new System.Drawing.Size(77, 499);
             this.displayDateTextbox.TabIndex = 0;
+            // 
+            // timeoutButton
+            // 
+            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
+            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timeoutButton.FlatAppearance.BorderSize = 0;
+            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timeoutButton.Location = new System.Drawing.Point(346, 12);
+            this.timeoutButton.Name = "timeoutButton";
+            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
+            this.timeoutButton.TabIndex = 8;
+            this.timeoutButton.UseVisualStyleBackColor = true;
+            // 
+            // calendarButton
+            // 
+            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
+            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.calendarButton.FlatAppearance.BorderSize = 0;
+            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.calendarButton.Location = new System.Drawing.Point(198, 12);
+            this.calendarButton.Name = "calendarButton";
+            this.calendarButton.Size = new System.Drawing.Size(60, 60);
+            this.calendarButton.TabIndex = 7;
+            this.calendarButton.UseVisualStyleBackColor = true;
+            // 
+            // timerPanelButton
+            // 
+            this.timerPanelButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerPanelButton.BackgroundImage")));
+            this.timerPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timerPanelButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.timerPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timerPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timerPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timerPanelButton.Location = new System.Drawing.Point(45, 12);
+            this.timerPanelButton.Name = "timerPanelButton";
+            this.timerPanelButton.Size = new System.Drawing.Size(60, 60);
+            this.timerPanelButton.TabIndex = 0;
+            this.timerPanelButton.UseVisualStyleBackColor = true;
+            this.timerPanelButton.Click += new System.EventHandler(this.timerPanelButton_Click);
             // 
             // f4_userBody
             // 
