@@ -386,8 +386,8 @@
             // 
             this.codeMonthLabel.AutoSize = true;
             this.codeMonthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeMonthLabel.ForeColor = System.Drawing.Color.White;
-            this.codeMonthLabel.Location = new System.Drawing.Point(11, 9);
+            this.codeMonthLabel.ForeColor = System.Drawing.Color.IndianRed;
+            this.codeMonthLabel.Location = new System.Drawing.Point(3, 9);
             this.codeMonthLabel.Name = "codeMonthLabel";
             this.codeMonthLabel.Size = new System.Drawing.Size(13, 13);
             this.codeMonthLabel.TabIndex = 9;

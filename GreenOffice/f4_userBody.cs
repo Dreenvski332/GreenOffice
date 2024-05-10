@@ -57,11 +57,6 @@ namespace GreenOffice
                 }
                 displayDateTextbox.Text = stringBuilderStart.ToString();
             }
-
-            int currentMonth = DateTime.Now.Month;
-            int currentYear = DateTime.Now.Year;
-            string invisibleMonth = new DateTime(currentYear, currentMonth, 1).ToString("MM");
-            codeMonthLabel.Text = invisibleMonth;
         }
         private void timerStartButton_Click(object sender, EventArgs e)
         {
