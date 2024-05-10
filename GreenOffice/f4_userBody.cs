@@ -15,16 +15,53 @@ namespace GreenOffice
 {
     public partial class f4_userBody : Form
     {
-
+        // ============================ OVERALL BODY START ==================================
         public f4_userBody()
         {
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
         }
-
-        private void timerButton_Click(object sender, EventArgs e)
+        private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
         {
             timerPanel.Visible = true;
+
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+
+                MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                startingTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                startingTimeQuery.CommandType = CommandType.Text;
+                startingTimeQuery.Connection = databaseConnection;
+                databaseConnection.Open();
+
+                MySqlDataAdapter startDataAdapter = new MySqlDataAdapter(startingTimeQuery);
+                DataTable startingTimeTable = new DataTable();
+                startDataAdapter.Fill(startingTimeTable);
+                StringBuilder stringBuilderStart = new StringBuilder();
+                foreach (DataRow row in startingTimeTable.Rows)
+                {
+                    for (int i = 0; i < startingTimeTable.Columns.Count; i++)
+                    {
+                        stringBuilderStart.Append(row[i].ToString());
+                        if (i < startingTimeTable.Columns.Count - 1)
+                        {
+                            stringBuilderStart.Append("\t");
+                        }
+                    }
+                    stringBuilderStart.AppendLine();
+                }
+                displayDateTextbox.Text = stringBuilderStart.ToString();
+            }
+
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            string invisibleMonth = new DateTime(currentYear, currentMonth, 1).ToString("MM");
+            codeMonthLabel.Text = invisibleMonth;
         }
         private void timerStartButton_Click(object sender, EventArgs e)
         {
@@ -94,7 +131,7 @@ namespace GreenOffice
                     databaseConnection.Open();
                     MySqlDataReader readerRowExistence = rowExistenceChecker.ExecuteReader();
                     bool boolRowExistence = readerRowExistence.HasRows;
-                    if(boolRowExistence == true)
+                    if (boolRowExistence == true)
                     { //if row like that exists, then program checks whether the work has been ended for the day or not
                         databaseConnection.Close(); //QUERY BELLOW is looking for a ROW where startTime is set, but the endTime isn't \/
                         MySqlCommand verifyWorkStartChecker = new MySqlCommand($"SELECT * FROM timer WHERE timer.startTime IS NOT NULL AND timer.finishTime IS NULL AND timer.startDate=@startDate AND timer.username=@username");
@@ -129,15 +166,72 @@ namespace GreenOffice
                 catch { MessageBox.Show("Nieoczekiwany błąd weryfikacji rozpoczęcia pracy"); }
             }
         }
-    }
-    public class MyMonthCalendar : MonthCalendar
-    {
-        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
-        static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
-        protected override void OnHandleCreated(EventArgs e)
+
+
+        // ============================ OVERALL BODY END ====================================
+
+
+
+        // ============================ TIMER PANEL START ===================================
+        private void styczeńToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetWindowTheme(Handle, string.Empty, string.Empty);
-            base.OnHandleCreated(e);
+            codeMonthLabel.Text = "1";
         }
+
+        private void lutyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "2";
+        }
+
+        private void marzecToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "3";
+        }
+
+        private void kwiecieńToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "4";
+        }
+
+        private void majToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "5";
+        }
+
+        private void czerwiecToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "6";
+        }
+
+        private void lipiecToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "7";
+        }
+
+        private void sierpieńToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "8";
+        }
+
+        private void wrzesieńToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "9";
+        }
+
+        private void październikToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "10";
+        }
+
+        private void listopadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "11";
+        }
+
+        private void grudzieńToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            codeMonthLabel.Text = "12";
+        }
+        // ============================ TIMER PANEL END =====================================
     }
 }
