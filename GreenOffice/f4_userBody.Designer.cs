@@ -92,7 +92,7 @@
             // 
             this.timeoutLabel.AutoSize = true;
             this.timeoutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeoutLabel.Location = new System.Drawing.Point(316, 75);
+            this.timeoutLabel.Location = new System.Drawing.Point(278, 75);
             this.timeoutLabel.Name = "timeoutLabel";
             this.timeoutLabel.Size = new System.Drawing.Size(121, 15);
             this.timeoutLabel.TabIndex = 2;
@@ -102,7 +102,7 @@
             // 
             this.calendarLabel.AutoSize = true;
             this.calendarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calendarLabel.Location = new System.Drawing.Point(168, 75);
+            this.calendarLabel.Location = new System.Drawing.Point(149, 75);
             this.calendarLabel.Name = "calendarLabel";
             this.calendarLabel.Size = new System.Drawing.Size(123, 15);
             this.calendarLabel.TabIndex = 2;
@@ -416,7 +416,7 @@
             this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
             this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
             this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timeoutButton.Location = new System.Drawing.Point(346, 12);
+            this.timeoutButton.Location = new System.Drawing.Point(304, 12);
             this.timeoutButton.Name = "timeoutButton";
             this.timeoutButton.Size = new System.Drawing.Size(60, 60);
             this.timeoutButton.TabIndex = 8;
@@ -431,7 +431,7 @@
             this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
             this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
             this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.calendarButton.Location = new System.Drawing.Point(198, 12);
+            this.calendarButton.Location = new System.Drawing.Point(177, 12);
             this.calendarButton.Name = "calendarButton";
             this.calendarButton.Size = new System.Drawing.Size(60, 60);
             this.calendarButton.TabIndex = 7;
