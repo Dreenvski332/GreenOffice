@@ -40,6 +40,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerPanelButton = new System.Windows.Forms.Button();
             this.timerPanel = new System.Windows.Forms.Panel();
+            this.codeTimeSpanLabel = new System.Windows.Forms.Label();
+            this.timeSpanLabel = new System.Windows.Forms.Label();
+            this.displayTimeSpanTextbox = new System.Windows.Forms.TextBox();
             this.filterPanel = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.miesiącToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,9 +68,6 @@
             this.displayStartTimeTextbox = new System.Windows.Forms.TextBox();
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
-            this.displayTimeSpanTextbox = new System.Windows.Forms.TextBox();
-            this.timeSpanLabel = new System.Windows.Forms.Label();
-            this.codeTimeSpanLabel = new System.Windows.Forms.Label();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -230,6 +230,35 @@
             this.timerPanel.Name = "timerPanel";
             this.timerPanel.Size = new System.Drawing.Size(1160, 566);
             this.timerPanel.TabIndex = 2;
+            // 
+            // codeTimeSpanLabel
+            // 
+            this.codeTimeSpanLabel.AutoSize = true;
+            this.codeTimeSpanLabel.Location = new System.Drawing.Point(911, 81);
+            this.codeTimeSpanLabel.Name = "codeTimeSpanLabel";
+            this.codeTimeSpanLabel.Size = new System.Drawing.Size(41, 15);
+            this.codeTimeSpanLabel.TabIndex = 14;
+            this.codeTimeSpanLabel.Text = "label3";
+            // 
+            // timeSpanLabel
+            // 
+            this.timeSpanLabel.AutoSize = true;
+            this.timeSpanLabel.Location = new System.Drawing.Point(327, 36);
+            this.timeSpanLabel.Name = "timeSpanLabel";
+            this.timeSpanLabel.Size = new System.Drawing.Size(80, 15);
+            this.timeSpanLabel.TabIndex = 13;
+            this.timeSpanLabel.Text = "Suma godzin";
+            // 
+            // displayTimeSpanTextbox
+            // 
+            this.displayTimeSpanTextbox.BackColor = System.Drawing.Color.White;
+            this.displayTimeSpanTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.displayTimeSpanTextbox.Location = new System.Drawing.Point(327, 54);
+            this.displayTimeSpanTextbox.Name = "displayTimeSpanTextbox";
+            this.displayTimeSpanTextbox.ReadOnly = true;
+            this.displayTimeSpanTextbox.Size = new System.Drawing.Size(80, 21);
+            this.displayTimeSpanTextbox.TabIndex = 12;
+            this.displayTimeSpanTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // filterPanel
             // 
@@ -411,6 +440,7 @@
             this.displayFinishTimeTextbox.ReadOnly = true;
             this.displayFinishTimeTextbox.Size = new System.Drawing.Size(109, 499);
             this.displayFinishTimeTextbox.TabIndex = 5;
+            this.displayFinishTimeTextbox.TextChanged += new System.EventHandler(this.displayFinishTimeTextbox_TextChanged);
             // 
             // finishTimeLabel
             // 
@@ -461,35 +491,6 @@
             this.displayDateTextbox.ReadOnly = true;
             this.displayDateTextbox.Size = new System.Drawing.Size(77, 499);
             this.displayDateTextbox.TabIndex = 0;
-            // 
-            // displayTimeSpanTextbox
-            // 
-            this.displayTimeSpanTextbox.BackColor = System.Drawing.Color.White;
-            this.displayTimeSpanTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.displayTimeSpanTextbox.Location = new System.Drawing.Point(327, 54);
-            this.displayTimeSpanTextbox.Name = "displayTimeSpanTextbox";
-            this.displayTimeSpanTextbox.ReadOnly = true;
-            this.displayTimeSpanTextbox.Size = new System.Drawing.Size(80, 21);
-            this.displayTimeSpanTextbox.TabIndex = 12;
-            this.displayTimeSpanTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // timeSpanLabel
-            // 
-            this.timeSpanLabel.AutoSize = true;
-            this.timeSpanLabel.Location = new System.Drawing.Point(327, 36);
-            this.timeSpanLabel.Name = "timeSpanLabel";
-            this.timeSpanLabel.Size = new System.Drawing.Size(80, 15);
-            this.timeSpanLabel.TabIndex = 13;
-            this.timeSpanLabel.Text = "Suma godzin";
-            // 
-            // codeTimeSpanLabel
-            // 
-            this.codeTimeSpanLabel.AutoSize = true;
-            this.codeTimeSpanLabel.Location = new System.Drawing.Point(911, 81);
-            this.codeTimeSpanLabel.Name = "codeTimeSpanLabel";
-            this.codeTimeSpanLabel.Size = new System.Drawing.Size(41, 15);
-            this.codeTimeSpanLabel.TabIndex = 14;
-            this.codeTimeSpanLabel.Text = "label3";
             // 
             // f4_userBody
             // 
