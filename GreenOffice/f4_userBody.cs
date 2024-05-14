@@ -24,9 +24,9 @@ namespace GreenOffice
         }
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
         {
-            timerPanel.Visible = true;
-            string trashcan = "";
-            displayDateTextbox.Text = trashcan;
+            timerPanel.Visible = true; //well displays panel with Timer data
+            string trashcan = ""; //creates trashcan so I can dump all of the not needed anymore date there
+            displayDateTextbox.Text = trashcan; //basically just erase textboxes
             displayFinishTimeTextbox.Text = trashcan;
             displayStartTimeTextbox.Text = trashcan;
             displayTimeSpanTextbox.Text = trashcan;
@@ -41,7 +41,7 @@ namespace GreenOffice
                     string connectionString = connection;
                     MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                    MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                    MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //query that fetches startDate from DB
                     displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
                     displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
                     displayDateQuery.CommandType = CommandType.Text;
@@ -59,6 +59,7 @@ namespace GreenOffice
                         displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
                     }
                     reader.Close();
+                    databaseConnection.Close();
                 }
                 catch { MessageBox.Show("Błąd wczytywania daty z bazy danych"); }
             }
@@ -92,12 +93,14 @@ namespace GreenOffice
                     stringBuilderStart.AppendLine();
                 }
                 displayStartTimeTextbox.Text = stringBuilderStart.ToString();
+                databaseConnection.Close();
 
                 MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE username=@login AND MONTH(startDate)=@month");
                 finishTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
                 finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
                 finishTimeQuery.CommandType = CommandType.Text;
                 finishTimeQuery.Connection = databaseConnection;
+                databaseConnection.Open();
 
                 MySqlDataAdapter endDataAdapter = new MySqlDataAdapter(finishTimeQuery);
                 DataTable timeTable = new DataTable();
@@ -116,6 +119,7 @@ namespace GreenOffice
                     stringBuilderEnd.AppendLine();
                 }
                 displayFinishTimeTextbox.Text = stringBuilderEnd.ToString();
+                databaseConnection.Close();
             }
         }
         private void timerStartButton_Click(object sender, EventArgs e)
@@ -255,7 +259,6 @@ namespace GreenOffice
                 }
             }
         }
-
         private void styczeńToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeMonthLabel.Text = "1";
