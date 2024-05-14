@@ -255,6 +255,7 @@ namespace GreenOffice
                 }
             }
         }
+
         private void styczeńToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeMonthLabel.Text = "1";
