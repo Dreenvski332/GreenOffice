@@ -28,6 +28,7 @@ namespace GreenOffice
             displayDateTextbox.Text = trashcan;
             displayFinishTimeTextbox.Text = trashcan;
             displayStartTimeTextbox.Text = trashcan;
+            displayTimeSpanTextbox.Text = trashcan;
 
 
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
@@ -167,9 +168,11 @@ namespace GreenOffice
 
         private void endTimerButton_Click(object sender, EventArgs e)
         {
+
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
             using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
             {
+                bool whileLoopFinished = false;
                 string connection = streamReader.ReadToEnd(); //reads "connString" file
                 string connectionString = connection; //and makes a connection
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
@@ -199,18 +202,40 @@ namespace GreenOffice
                         if (boolVerifyWorkStart == true)
                         { //if a row like that exists then program updates said row with endTime - that is time when button was pressed
                             databaseConnection.Close();
-                            String addEndTimeQuery = "UPDATE timer SET finishTime=@finishTime WHERE startDate=@startDate AND username=@username";
-                            using (MySqlCommand addEndTimeCommand = new MySqlCommand(addEndTimeQuery, databaseConnection))
-                            {
-                                addEndTimeCommand.Parameters.AddWithValue("@finishTime", DateTime.Now.ToString("H:mm"));
-                                addEndTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd"));
-                                addEndTimeCommand.Parameters.AddWithValue("@username", viewUserTextbox.Text);
+                            MySqlCommand calculateTimeSpan = new MySqlCommand("SELECT startTime FROM timer WHERE startDate=@startDate AND username=@username");
+                            calculateTimeSpan.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                            calculateTimeSpan.Parameters.AddWithValue("@username", viewUserTextbox.Text);
+                            calculateTimeSpan.CommandType = CommandType.Text;
+                            calculateTimeSpan.Connection = databaseConnection;
+                            databaseConnection.Open();
 
-                                databaseConnection.Open();
-                                int queryFeedback = addEndTimeCommand.ExecuteNonQuery();
-                                databaseConnection.Close();
-                                MessageBox.Show("Praca zakończona"); //also a message not to leave user standing
+                            MySqlDataReader calculateTimeSpanReader = calculateTimeSpan.ExecuteReader();
+                            while (calculateTimeSpanReader.Read())
+                            {
+                                DateTime startTime = calculateTimeSpanReader.GetDateTime("startTime");
+                                DateTime finishTime = DateTime.Now;
+
+                                TimeSpan timeSpan = finishTime - startTime;
+                                codeTimeSpanLabel.Text = timeSpan.ToString();
                             }
+                            whileLoopFinished = true;
+                            if (whileLoopFinished == true)
+                            {
+                                String addEndTimeQuery = "UPDATE timer SET finishTime=@finishTime WHERE startDate=@startDate AND username=@username";
+                                using (MySqlCommand addEndTimeCommand = new MySqlCommand(addEndTimeQuery, databaseConnection))
+                                {
+                                    addEndTimeCommand.Parameters.AddWithValue("@finishTime", DateTime.Now.ToString("H:mm"));
+                                    addEndTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                                    addEndTimeCommand.Parameters.AddWithValue("@username", viewUserTextbox.Text);
+
+                                    databaseConnection.Open();
+                                    int queryFeedback = addEndTimeCommand.ExecuteNonQuery();
+                                    databaseConnection.Close();
+                                    MessageBox.Show("Praca zakończona"); //also a message not to leave user standing
+                                }
+                            }
+                            else { databaseConnection.Close(); MessageBox.Show("Nieoczekiwany błąd pobierania danych do kalkulacji przepracowanych godzin"); }
+                            
                         } //if row where startTime is set, and endTime isn't doesn't exist, then the only other option is that startTime and endTime are both set
                         else { databaseConnection.Close(); MessageBox.Show("W dniu " + DateTime.Now.ToString("yyyy-MM-dd") + " zakończono już pracę"); }
                     }//this is because option where startTime isn't set was filtered earlier, and there is no way to set endTime without startTime
@@ -218,6 +243,44 @@ namespace GreenOffice
                 }
                 catch { MessageBox.Show("Nieoczekiwany błąd weryfikacji rozpoczęcia pracy"); }
             }
+            //using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            //{
+            //    string connection = streamReader.ReadToEnd(); //reads "connString" file
+            //    string connectionString = connection; //and makes a connection
+            //    MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                
+            //    // Assuming startTime and finishTime columns are in datetime format
+            //    MySqlCommand chooseCurrentDateAndUserQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE startDate=@startDate AND username=@username");
+            //    chooseCurrentDateAndUserQuery.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd"));
+            //    chooseCurrentDateAndUserQuery.Parameters.AddWithValue("@username", viewUserTextbox.Text);
+            //    chooseCurrentDateAndUserQuery.CommandType = CommandType.Text;
+            //    chooseCurrentDateAndUserQuery.Connection = databaseConnection;
+            //    databaseConnection.Open();
+
+            //    MySqlDataReader readerChooseCurrentDateAndUser = chooseCurrentDateAndUserQuery.ExecuteReader();
+
+            //    while (readerChooseCurrentDateAndUser.Read())
+            //    {
+            //        DateTime startTime = readerChooseCurrentDateAndUser.GetDateTime("startTime");
+            //        DateTime finishTime = DateTime.Now;
+
+            //        TimeSpan timeSpan = finishTime - startTime;
+            //        codeTimeSpanLabel.Text = timeSpan.ToString();
+
+            //        // Assuming your_table has a column named timeSpan to store the result
+            //        string updateQuery = "UPDATE timer SET timeSpan = @timeSpan WHERE startTime = @startTime AND username=@username";
+
+            //        using (MySqlCommand updateCommand = new MySqlCommand(updateQuery, databaseConnection))
+            //        {
+            //            updateCommand.Parameters.AddWithValue("@username", viewUserTextbox.Text);
+            //            updateCommand.Parameters.AddWithValue("@timeSpan", timeSpan.ToString());
+            //            updateCommand.Parameters.AddWithValue("@startTime", startTime);
+
+            //            updateCommand.ExecuteNonQuery();
+            //        }
+            //    }
+                    
+            //}
         }
 
 
