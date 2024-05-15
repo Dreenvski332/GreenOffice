@@ -21,7 +21,30 @@ namespace GreenOffice
         {
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
+            frontPagePanel.Visible = true;
             timerPanel.Visible = false;
+
+
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+
+                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email");
+                displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                displayName.CommandType = CommandType.Text;
+                displayName.Connection = databaseConnection;
+
+                databaseConnection.Open();
+                using (MySqlDataReader readerDisplayName = displayName.ExecuteReader())
+                {
+                    readerDisplayName.Read();
+                    displayNameTextbox.Text = readerDisplayName["name"].ToString() + "!";
+                    databaseConnection.Close();
+                }
+            }
         }
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
         {
@@ -256,7 +279,11 @@ namespace GreenOffice
                 }
             }
         }
-
+        private void killTimerButton_Click(object sender, EventArgs e)
+        {
+            timerPanel.Visible = false;
+            frontPagePanel.Visible = true;
+        }
         private void styczeńToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeMonthLabel.Text = "1";
