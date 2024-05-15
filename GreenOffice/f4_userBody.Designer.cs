@@ -224,7 +224,7 @@
             this.timerPanel.Controls.Add(this.dateLabel);
             this.timerPanel.Controls.Add(this.displayDateTextbox);
             this.timerPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerPanel.Location = new System.Drawing.Point(12, 103);
+            this.timerPanel.Location = new System.Drawing.Point(12, 99);
             this.timerPanel.Name = "timerPanel";
             this.timerPanel.Size = new System.Drawing.Size(1160, 566);
             this.timerPanel.TabIndex = 2;
