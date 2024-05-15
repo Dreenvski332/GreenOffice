@@ -119,6 +119,7 @@
             this.calendarButton.Size = new System.Drawing.Size(60, 60);
             this.calendarButton.TabIndex = 7;
             this.calendarButton.UseVisualStyleBackColor = true;
+            this.calendarButton.Click += new System.EventHandler(this.calendarButton_Click);
             // 
             // timerStartButton
             // 
