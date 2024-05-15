@@ -95,7 +95,7 @@
             // 
             this.timeoutLabel.AutoSize = true;
             this.timeoutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeoutLabel.Location = new System.Drawing.Point(278, 75);
+            this.timeoutLabel.Location = new System.Drawing.Point(316, 75);
             this.timeoutLabel.Name = "timeoutLabel";
             this.timeoutLabel.Size = new System.Drawing.Size(121, 15);
             this.timeoutLabel.TabIndex = 2;
@@ -120,7 +120,7 @@
             // 
             this.calendarLabel.AutoSize = true;
             this.calendarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calendarLabel.Location = new System.Drawing.Point(149, 75);
+            this.calendarLabel.Location = new System.Drawing.Point(168, 75);
             this.calendarLabel.Name = "calendarLabel";
             this.calendarLabel.Size = new System.Drawing.Size(123, 15);
             this.calendarLabel.TabIndex = 2;
@@ -491,6 +491,52 @@
             this.displayDateTextbox.ReadOnly = true;
             this.displayDateTextbox.Size = new System.Drawing.Size(77, 499);
             this.displayDateTextbox.TabIndex = 0;
+            // 
+            // timeoutButton
+            // 
+            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
+            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timeoutButton.FlatAppearance.BorderSize = 0;
+            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timeoutButton.Location = new System.Drawing.Point(346, 12);
+            this.timeoutButton.Name = "timeoutButton";
+            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
+            this.timeoutButton.TabIndex = 8;
+            this.timeoutButton.UseVisualStyleBackColor = true;
+            // 
+            // calendarButton
+            // 
+            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
+            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.calendarButton.FlatAppearance.BorderSize = 0;
+            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.calendarButton.Location = new System.Drawing.Point(198, 12);
+            this.calendarButton.Name = "calendarButton";
+            this.calendarButton.Size = new System.Drawing.Size(60, 60);
+            this.calendarButton.TabIndex = 7;
+            this.calendarButton.UseVisualStyleBackColor = true;
+            // 
+            // timerPanelButton
+            // 
+            this.timerPanelButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerPanelButton.BackgroundImage")));
+            this.timerPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timerPanelButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.timerPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timerPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timerPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timerPanelButton.Location = new System.Drawing.Point(45, 12);
+            this.timerPanelButton.Name = "timerPanelButton";
+            this.timerPanelButton.Size = new System.Drawing.Size(60, 60);
+            this.timerPanelButton.TabIndex = 0;
+            this.timerPanelButton.UseVisualStyleBackColor = true;
+            this.timerPanelButton.Click += new System.EventHandler(this.timerPanelButton_Click);
             // 
             // f4_userBody
             // 
