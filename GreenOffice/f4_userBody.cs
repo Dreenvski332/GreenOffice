@@ -21,6 +21,7 @@ namespace GreenOffice
         {
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
+            timerPanel.Visible = false;
         }
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
         {
