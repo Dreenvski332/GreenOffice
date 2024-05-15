@@ -39,7 +39,7 @@
             this.endTimerButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timerButton = new System.Windows.Forms.Button();
-            this.timerPanel = new System.Windows.Forms.Panel();
+            this.Panel = new System.Windows.Forms.Panel();
             this.headerGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,9 +63,10 @@
             // timeoutLabel
             // 
             this.timeoutLabel.AutoSize = true;
+            this.timeoutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeoutLabel.Location = new System.Drawing.Point(316, 75);
             this.timeoutLabel.Name = "timeoutLabel";
-            this.timeoutLabel.Size = new System.Drawing.Size(104, 13);
+            this.timeoutLabel.Size = new System.Drawing.Size(121, 15);
             this.timeoutLabel.TabIndex = 2;
             this.timeoutLabel.Text = "Zarejestrój dni wolne";
             // 
@@ -87,9 +88,10 @@
             // calendarLabel
             // 
             this.calendarLabel.AutoSize = true;
+            this.calendarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calendarLabel.Location = new System.Drawing.Point(168, 75);
             this.calendarLabel.Name = "calendarLabel";
-            this.calendarLabel.Size = new System.Drawing.Size(104, 13);
+            this.calendarLabel.Size = new System.Drawing.Size(123, 15);
             this.calendarLabel.TabIndex = 2;
             this.calendarLabel.Text = "Personalny terminarz";
             // 
@@ -154,9 +156,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.Size = new System.Drawing.Size(131, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Ewidencja czasu pracy";
             // 
@@ -176,12 +179,13 @@
             this.timerButton.UseVisualStyleBackColor = true;
             this.timerButton.Click += new System.EventHandler(this.timerButton_Click);
             // 
-            // timerPanel
+            // Panel
             // 
-            this.timerPanel.Location = new System.Drawing.Point(12, 103);
-            this.timerPanel.Name = "timerPanel";
-            this.timerPanel.Size = new System.Drawing.Size(1160, 566);
-            this.timerPanel.TabIndex = 2;
+            this.Panel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Panel.Location = new System.Drawing.Point(12, 103);
+            this.Panel.Name = "Panel";
+            this.Panel.Size = new System.Drawing.Size(1160, 566);
+            this.Panel.TabIndex = 2;
             // 
             // f4_userBody
             // 
@@ -189,8 +193,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 681);
-            this.Controls.Add(this.timerPanel);
+            this.Controls.Add(this.Panel);
             this.Controls.Add(this.headerGroupBox);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f4_userBody";
             this.Text = "GREEN Office: Panel użytkownika";
@@ -212,6 +217,6 @@
         private System.Windows.Forms.Button calendarButton;
         private System.Windows.Forms.Button timeoutButton;
         private System.Windows.Forms.Label timeoutLabel;
-        private System.Windows.Forms.Panel timerPanel;
+        private System.Windows.Forms.Panel Panel;
     }
 }

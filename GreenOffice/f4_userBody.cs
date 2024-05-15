@@ -24,7 +24,7 @@ namespace GreenOffice
 
         private void timerButton_Click(object sender, EventArgs e)
         {
-            timerPanel.Visible = true;
+            Panel.Visible = true;
         }
         private void timerStartButton_Click(object sender, EventArgs e)
         {
