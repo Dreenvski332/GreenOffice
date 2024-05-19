@@ -25,23 +25,30 @@ namespace GreenOffice
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
             timerPanel.Visible = false;
+            mainCalendarPanel.Visible = false;
             currentYear = DateTime.Now.Year;
             currentMonth = DateTime.Now.Month;
             polishCulture = new CultureInfo("pl-PL");
         }
-            private void timerButton_Click(object sender, EventArgs e)
-            {
-                mainCalendarPanel.Visible = false;
-            }
-            private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
+        private void calendarButton_Click(object sender, EventArgs e)
         {
+            timerPanel.Visible = false;
+            mainCalendarPanel.Visible = true;
+            subCalendarPanel.Visible = true;
+            calendarJuicePanel.Visible = true;
+            DisplayCurrentMonth();
+        }
+        private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
+            { 
             timerPanel.Visible = true;
+            mainCalendarPanel.Visible = false;
+            subCalendarPanel.Visible = false;
+            calendarJuicePanel.Visible = false;
             string trashcan = "";
             displayDateTextbox.Text = trashcan;
             displayFinishTimeTextbox.Text = trashcan;
             displayStartTimeTextbox.Text = trashcan;
             displayTimeSpanTextbox.Text = trashcan;
-
 
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
             using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
@@ -327,14 +334,6 @@ namespace GreenOffice
             codeMonthLabel.Text = "12";
         }
         // ============================ TIMER PANEL END =====================================
-
-        private void calendarButton_Click(object sender, EventArgs e)
-        {
-            mainCalendarPanel.Visible = true;
-
-            DisplayCurrentMonth();
-
-        }
         private void DisplayCurrentMonth()
         {
             calendarJuicePanel.Controls.Clear();
@@ -351,9 +350,16 @@ namespace GreenOffice
             for (int day = 1; day <= daysInMonth; day++)
             {
                 DayUserControl dayUserControl = new DayUserControl();
-                dayUserControl.dayLabel = day;
+                dayUserControl.DayNumber = day;
                 calendarJuicePanel.Controls.Add(dayUserControl);
             }
+        }
+
+        
+
+        private void killCalendarButton_Click(object sender, EventArgs e)
+        {
+            mainCalendarPanel.Visible = false;
         }
 
         private void previousButton_Click(object sender, EventArgs e)
@@ -382,11 +388,6 @@ namespace GreenOffice
                 currentMonth++;
             }
             DisplayCurrentMonth();
-        }
-
-        private void killCalendarButton_Click(object sender, EventArgs e)
-        {
-            mainCalendarPanel.Visible = false;
         }
     }
 }

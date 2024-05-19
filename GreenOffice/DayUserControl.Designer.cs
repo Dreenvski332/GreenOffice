@@ -34,10 +34,10 @@
             // dayLabel
             // 
             this.dayLabel.AutoSize = true;
-            this.dayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dayLabel.Location = new System.Drawing.Point(12, 10);
             this.dayLabel.Name = "dayLabel";
-            this.dayLabel.Size = new System.Drawing.Size(21, 24);
+            this.dayLabel.Size = new System.Drawing.Size(17, 18);
             this.dayLabel.TabIndex = 0;
             this.dayLabel.Text = "1";
             this.dayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
