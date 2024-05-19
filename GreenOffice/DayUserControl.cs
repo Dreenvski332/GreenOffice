@@ -16,7 +16,6 @@ namespace GreenOffice
         {
             InitializeComponent();
         }
-        private int _dayNumber;
         public int DayNumber
         {
             get { return _dayNumber; }
@@ -25,11 +24,6 @@ namespace GreenOffice
                 _dayNumber = value;
                 dayLabel.Text = _dayNumber.ToString();
             }
-        }
-
-        private void DayUserControl_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
