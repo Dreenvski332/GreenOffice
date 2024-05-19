@@ -327,5 +327,66 @@ namespace GreenOffice
             codeMonthLabel.Text = "12";
         }
         // ============================ TIMER PANEL END =====================================
+
+        private void calendarButton_Click(object sender, EventArgs e)
+        {
+            mainCalendarPanel.Visible = true;
+
+            DisplayCurrentMonth();
+
+        }
+        private void DisplayCurrentMonth()
+        {
+            calendarJuicePanel.Controls.Clear();
+            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
+            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7;
+            monthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
+            yearLabel.Text = firstDayOfMonth.ToString("yyyy" + ",");
+            for (int i = 0; i < dayOfWeek; i++)
+            {
+                EmptyUserControl emptyUserControl = new EmptyUserControl();
+                calendarJuicePanel.Controls.Add(emptyUserControl);
+            }
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                DayUserControl dayUserControl = new DayUserControl();
+                dayUserControl.dayNumberLabel = day;
+                calendarJuicePanel.Controls.Add(dayUserControl);
+            }
+        }
+
+        private void previousButton_Click(object sender, EventArgs e)
+        {
+            if (currentMonth == 1)
+            {
+                currentMonth = 12;
+                currentYear--;
+            }
+            else
+            {
+                currentMonth--;
+            }
+            DisplayCurrentMonth();
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (currentMonth == 12)
+            {
+                currentMonth = 1;
+                currentYear++;
+            }
+            else
+            {
+                currentMonth++;
+            }
+            DisplayCurrentMonth();
+        }
+
+        private void killCalendarButton_Click(object sender, EventArgs e)
+        {
+            mainCalendarPanel.Visible = false;
+        }
     }
 }
