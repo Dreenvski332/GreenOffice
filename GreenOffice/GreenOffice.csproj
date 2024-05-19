@@ -36,6 +36,18 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="Core.Calendar, Version=1.0.5657.24798, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Core.Calendar.0.1.193\lib\net45\Core.Calendar.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Platform, Version=1.0.5586.30548, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Core.Common.0.1.4\lib\net45\Core.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Portable, Version=1.0.5586.30548, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Core.Common.0.1.4\lib\net45\Core.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.21.9.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.21.9\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -50,6 +62,9 @@
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.33.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.33\lib\net462\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -86,6 +101,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DayUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DayUserControl.Designer.cs">
+      <DependentUpon>DayUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmptyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmptyUserControl.Designer.cs">
+      <DependentUpon>EmptyUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="f3_adminBody.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +146,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DayUserControl.resx">
+      <DependentUpon>DayUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmptyUserControl.resx">
+      <DependentUpon>EmptyUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="f1_login.resx">
       <DependentUpon>f1_login.cs</DependentUpon>
     </EmbeddedResource>

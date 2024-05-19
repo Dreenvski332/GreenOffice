@@ -15,11 +15,14 @@ namespace GreenOffice
 {
     public partial class f4_userBody : Form
     {
-
+        private int currentYear;
+        private int currentMonth;
         public f4_userBody()
         {
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
+            currentYear = DateTime.Now.Year;
+            currentMonth = DateTime.Now.Month;
         }
 
         private void timerButton_Click(object sender, EventArgs e)
@@ -133,6 +136,28 @@ namespace GreenOffice
         private void calendarButton_Click(object sender, EventArgs e)
         {
             mainCalendarPanel.Visible = true;
+
+            DisplayCurrentMonth();
+
+        }
+        private void DisplayCurrentMonth()
+        {
+            calendarJuicePanel.Controls.Clear();
+            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
+            int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+
+            for (int i = 0; i < dayOfWeek; i++)
+            {
+                EmptyUserControl emptyUserControl = new EmptyUserControl();
+                calendarJuicePanel.Controls.Add(emptyUserControl);
+            }
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                DayUserControl dayUserControl = new DayUserControl();
+                dayUserControl.DayNumber = day;
+                calendarJuicePanel.Controls.Add(dayUserControl);
+            }
         }
     }
 }
