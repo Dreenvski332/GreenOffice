@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace GreenOffice
@@ -18,6 +19,7 @@ namespace GreenOffice
     {
         private int currentYear;
         private int currentMonth;
+        public int timerChecker = 1;
         private readonly CultureInfo polishCulture;
 
 
@@ -48,97 +50,9 @@ namespace GreenOffice
             mainCalendarPanel.Visible = false;
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
-            string trashcan = "";
-            displayDateTextbox.Text = trashcan;
-            displayFinishTimeTextbox.Text = trashcan;
-            displayStartTimeTextbox.Text = trashcan;
-            displayTimeSpanTextbox.Text = trashcan;
 
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
-            {
-                try
-                {
-                    string connection = streamReader.ReadToEnd();
-                    string connectionString = connection;
-                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                    MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month");
-                    displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
-                    displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
-                    displayDateQuery.CommandType = CommandType.Text;
-                    displayDateQuery.Connection = databaseConnection;
-                    databaseConnection.Open();
-
-                    MySqlDataReader reader = displayDateQuery.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        DateTime date = reader.GetDateTime("startDate");
-                        string formattedDate = date.ToString("yyyy-MM-dd"); // Format the date
-
-                        // Append each date to the TextBox with a new line
-                        displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
-                    }
-                    reader.Close();
-                }
-                catch { MessageBox.Show("Błąd wczytywania daty z bazy danych"); }
-            }
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
-            {
-                string connection = streamReader.ReadToEnd();
-                string connectionString = connection;
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-
-                MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE username=@login AND MONTH(startDate)=@month");
-                startingTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
-                startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
-                startingTimeQuery.CommandType = CommandType.Text;
-                startingTimeQuery.Connection = databaseConnection;
-                databaseConnection.Open();
-
-                MySqlDataAdapter startDataAdapter = new MySqlDataAdapter(startingTimeQuery);
-                DataTable startingTimeTable = new DataTable();
-                startDataAdapter.Fill(startingTimeTable);
-                StringBuilder stringBuilderStart = new StringBuilder();
-                foreach (DataRow row in startingTimeTable.Rows)
-                {
-                    for (int i = 0; i < startingTimeTable.Columns.Count; i++)
-                    {
-                        stringBuilderStart.Append(row[i].ToString());
-                        if (i < startingTimeTable.Columns.Count - 1)
-                        {
-                            stringBuilderStart.Append("\t");
-                        }
-                    }
-                    stringBuilderStart.AppendLine();
-                }
-                displayStartTimeTextbox.Text = stringBuilderStart.ToString();
-
-                MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE username=@login AND MONTH(startDate)=@month");
-                finishTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
-                finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
-                finishTimeQuery.CommandType = CommandType.Text;
-                finishTimeQuery.Connection = databaseConnection;
-
-                MySqlDataAdapter endDataAdapter = new MySqlDataAdapter(finishTimeQuery);
-                DataTable timeTable = new DataTable();
-                endDataAdapter.Fill(timeTable);
-                StringBuilder stringBuilderEnd = new StringBuilder();
-                foreach (DataRow row in timeTable.Rows)
-                {
-                    for (int i = 0; i < timeTable.Columns.Count; i++)
-                    {
-                        stringBuilderEnd.Append(row[i].ToString());
-                        if (i < timeTable.Columns.Count - 1)
-                        {
-                            stringBuilderEnd.Append("\t");
-                        }
-                    }
-                    stringBuilderEnd.AppendLine();
-                }
-                displayFinishTimeTextbox.Text = stringBuilderEnd.ToString();
-            }
+            timerStats();
         }
         private void timerStartButton_Click(object sender, EventArgs e)
         {
@@ -253,32 +167,6 @@ namespace GreenOffice
         // ============================ TIMER PANEL START ===================================
 
 
-        private void displayFinishTimeTextbox_TextChanged(object sender, EventArgs e)
-        {
-            string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            string[] finishTimes = displayFinishTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            TimeSpan totalDifference = TimeSpan.Zero;
-
-            // Iterate through each pair of start and finish times
-            for (int i = 0; i < startTimes.Length; i++)
-            {
-                // Parse the strings to DateTime
-                if (DateTime.TryParse(startTimes[i], out DateTime startTime) &&
-                    DateTime.TryParse(finishTimes[i], out DateTime finishTime))
-                {
-                    // Subtract finish time from start time and add to total difference
-                    totalDifference += finishTime - startTime;
-                    string formattedDifference = $"{(int)totalDifference.TotalHours}:{totalDifference.Minutes:D2}";
-                    displayTimeSpanTextbox.Text = formattedDifference.ToString();
-                }
-                else
-                {
-                    // Handle parsing error if needed
-                    MessageBox.Show($"Error parsing datetime at row {i + 1}");
-                    return;
-                }
-            }
-        }
         private void killTimerButton_Click(object sender, EventArgs e)
         {
             timerPanel.Visible = false;
@@ -342,7 +230,134 @@ namespace GreenOffice
         {
             codeMonthLabel.Text = "12";
         }
+        private void timerStats()
+        {
+            displayDateTextbox.Text = "";
+            displayFinishTimeTextbox.Text = "";
+            displayStartTimeTextbox.Text = "";
+            displayTimeSpanTextbox.Text = "";
+            try
+            {
 
+                PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+                {
+                    try
+                    {
+                        string connection = streamReader.ReadToEnd();
+                        string connectionString = connection;
+                        MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+
+                        MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                        displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                        displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                        displayDateQuery.CommandType = CommandType.Text;
+                        displayDateQuery.Connection = databaseConnection;
+                        databaseConnection.Open();
+
+                        MySqlDataReader reader = displayDateQuery.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            DateTime date = reader.GetDateTime("startDate");
+                            string formattedDate = date.ToString("yyyy-MM-dd"); // Format the date
+
+                            // Append each date to the TextBox with a new line
+                            displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
+                        }
+                        databaseConnection.Close();
+                        reader.Close();
+                    }
+                    catch { MessageBox.Show("Błąd wczytywania daty z bazy danych"); }
+                }
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+
+                    MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                    startingTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                    startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    startingTimeQuery.CommandType = CommandType.Text;
+                    startingTimeQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+
+                    MySqlDataAdapter startDataAdapter = new MySqlDataAdapter(startingTimeQuery);
+                    DataTable startingTimeTable = new DataTable();
+                    startDataAdapter.Fill(startingTimeTable);
+                    StringBuilder stringBuilderStart = new StringBuilder();
+                    foreach (DataRow row in startingTimeTable.Rows)
+                    {
+                        for (int i = 0; i < startingTimeTable.Columns.Count; i++)
+                        {
+                            stringBuilderStart.Append(row[i].ToString());
+                            if (i < startingTimeTable.Columns.Count - 1)
+                            {
+                                stringBuilderStart.Append("\t");
+                            }
+                        }
+                        stringBuilderStart.AppendLine();
+                    }
+                    databaseConnection.Close();
+                    displayStartTimeTextbox.Text = stringBuilderStart.ToString();
+
+                    MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE username=@login AND MONTH(startDate)=@month");
+                    finishTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text);
+                    finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    finishTimeQuery.CommandType = CommandType.Text;
+                    finishTimeQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+
+                    MySqlDataAdapter endDataAdapter = new MySqlDataAdapter(finishTimeQuery);
+                    DataTable timeTable = new DataTable();
+                    endDataAdapter.Fill(timeTable);
+                    StringBuilder stringBuilderEnd = new StringBuilder();
+                    foreach (DataRow row in timeTable.Rows)
+                    {
+                        for (int i = 0; i < timeTable.Columns.Count; i++)
+                        {
+                            stringBuilderEnd.Append(row[i].ToString());
+                            if (i < timeTable.Columns.Count - 1)
+                            {
+                                stringBuilderEnd.Append("\t");
+                            }
+                        }
+                        stringBuilderEnd.AppendLine();
+                    }
+                    databaseConnection.Close();
+                    displayFinishTimeTextbox.Text = stringBuilderEnd.ToString();
+                    string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] finishTimes = displayFinishTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                    TimeSpan totalDifference = TimeSpan.Zero;
+
+                    // Iterate through each pair of start and finish times
+                    for (int i = 0; i < startTimes.Length; i++)
+                    {
+                        // Parse the strings to DateTime
+                        if (DateTime.TryParse(startTimes[i], out DateTime startTime) &&
+                            DateTime.TryParse(finishTimes[i], out DateTime finishTime))
+                        {
+                            // Subtract finish time from start time and add to total difference
+                            totalDifference += finishTime - startTime;
+                            string formattedDifference = $"{(int)totalDifference.TotalHours}:{totalDifference.Minutes:D2}";
+                            displayTimeSpanTextbox.Text = formattedDifference.ToString();
+                        }
+                        else
+                        {
+                            // Handle parsing error if needed
+                            MessageBox.Show($"Error parsing datetime at row {i + 1}");
+                            return;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                timerPanel.Visible = true;
+                mainCalendarPanel.Visible = false;
+            }
+        }
 
         // ============================ TIMER PANEL END =====================================
 

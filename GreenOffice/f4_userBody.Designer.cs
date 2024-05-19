@@ -69,7 +69,6 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
             this.mainCalendarPanel = new System.Windows.Forms.Panel();
-            this.killCalendarButton = new System.Windows.Forms.Button();
             this.subCalendarPanel = new System.Windows.Forms.Panel();
             this.yearLabel = new System.Windows.Forms.Label();
             this.monthLabel = new System.Windows.Forms.Label();
@@ -83,6 +82,7 @@
             this.wednesdayLabel = new System.Windows.Forms.Label();
             this.tuesdayLabel = new System.Windows.Forms.Label();
             this.mondayLabel = new System.Windows.Forms.Label();
+            this.killCalendarButton = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -467,7 +467,6 @@
             this.displayFinishTimeTextbox.ReadOnly = true;
             this.displayFinishTimeTextbox.Size = new System.Drawing.Size(109, 499);
             this.displayFinishTimeTextbox.TabIndex = 5;
-            this.displayFinishTimeTextbox.TextChanged += new System.EventHandler(this.displayFinishTimeTextbox_TextChanged);
             // 
             // finishTimeLabel
             // 
@@ -529,23 +528,6 @@
             this.mainCalendarPanel.Size = new System.Drawing.Size(1160, 566);
             this.mainCalendarPanel.TabIndex = 3;
             this.mainCalendarPanel.Visible = false;
-            // 
-            // killCalendarButton
-            // 
-            this.killCalendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.killCalendarButton.FlatAppearance.BorderSize = 0;
-            this.killCalendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.killCalendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.killCalendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.killCalendarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.killCalendarButton.Location = new System.Drawing.Point(1105, 16);
-            this.killCalendarButton.Name = "killCalendarButton";
-            this.killCalendarButton.Size = new System.Drawing.Size(38, 38);
-            this.killCalendarButton.TabIndex = 15;
-            this.killCalendarButton.Text = "X";
-            this.killCalendarButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.killCalendarButton.UseVisualStyleBackColor = true;
-            this.killCalendarButton.Click += new System.EventHandler(this.killCalendarButton_Click);
             // 
             // subCalendarPanel
             // 
@@ -713,15 +695,32 @@
             this.mondayLabel.TabIndex = 3;
             this.mondayLabel.Text = "Poniedziałek";
             // 
+            // killCalendarButton
+            // 
+            this.killCalendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.killCalendarButton.FlatAppearance.BorderSize = 0;
+            this.killCalendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.killCalendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.killCalendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.killCalendarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.killCalendarButton.Location = new System.Drawing.Point(1105, 16);
+            this.killCalendarButton.Name = "killCalendarButton";
+            this.killCalendarButton.Size = new System.Drawing.Size(38, 38);
+            this.killCalendarButton.TabIndex = 15;
+            this.killCalendarButton.Text = "X";
+            this.killCalendarButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.killCalendarButton.UseVisualStyleBackColor = true;
+            this.killCalendarButton.Click += new System.EventHandler(this.killCalendarButton_Click);
+            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 681);
+            this.Controls.Add(this.headerGroupBox);
             this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.timerPanel);
-            this.Controls.Add(this.headerGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f4_userBody";
             this.Text = "GREEN Office: Panel użytkownika";
