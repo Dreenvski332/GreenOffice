@@ -67,10 +67,27 @@
             this.displayStartTimeTextbox = new System.Windows.Forms.TextBox();
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
+            this.mainCalendarPanel = new System.Windows.Forms.Panel();
+            this.killCalendarButton = new System.Windows.Forms.Button();
+            this.subCalendarPanel = new System.Windows.Forms.Panel();
+            this.yearLabel = new System.Windows.Forms.Label();
+            this.monthLabel = new System.Windows.Forms.Label();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.previousButton = new System.Windows.Forms.Button();
+            this.calendarJuicePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.sundayLabel = new System.Windows.Forms.Label();
+            this.saturdayLabel = new System.Windows.Forms.Label();
+            this.fridayLabel = new System.Windows.Forms.Label();
+            this.thursdayLabel = new System.Windows.Forms.Label();
+            this.wednesdayLabel = new System.Windows.Forms.Label();
+            this.tuesdayLabel = new System.Windows.Forms.Label();
+            this.mondayLabel = new System.Windows.Forms.Label();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.mainCalendarPanel.SuspendLayout();
+            this.subCalendarPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // headerGroupBox
@@ -213,6 +230,7 @@
             // 
             this.timerPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
             this.timerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerPanel.Controls.Add(this.mainCalendarPanel);
             this.timerPanel.Controls.Add(this.timeSpanLabel);
             this.timerPanel.Controls.Add(this.displayTimeSpanTextbox);
             this.timerPanel.Controls.Add(this.filterPanel);
@@ -481,6 +499,196 @@
             this.displayDateTextbox.Size = new System.Drawing.Size(77, 499);
             this.displayDateTextbox.TabIndex = 0;
             // 
+            // mainCalendarPanel
+            // 
+            this.mainCalendarPanel.Controls.Add(this.killCalendarButton);
+            this.mainCalendarPanel.Controls.Add(this.subCalendarPanel);
+            this.mainCalendarPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainCalendarPanel.Location = new System.Drawing.Point(0, 0);
+            this.mainCalendarPanel.Name = "mainCalendarPanel";
+            this.mainCalendarPanel.Size = new System.Drawing.Size(1160, 566);
+            this.mainCalendarPanel.TabIndex = 3;
+            // 
+            // killCalendarButton
+            // 
+            this.killCalendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.killCalendarButton.FlatAppearance.BorderSize = 0;
+            this.killCalendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.killCalendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.killCalendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.killCalendarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.killCalendarButton.Location = new System.Drawing.Point(1105, 16);
+            this.killCalendarButton.Name = "killCalendarButton";
+            this.killCalendarButton.Size = new System.Drawing.Size(38, 38);
+            this.killCalendarButton.TabIndex = 15;
+            this.killCalendarButton.Text = "X";
+            this.killCalendarButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.killCalendarButton.UseVisualStyleBackColor = true;
+            // 
+            // subCalendarPanel
+            // 
+            this.subCalendarPanel.Controls.Add(this.yearLabel);
+            this.subCalendarPanel.Controls.Add(this.monthLabel);
+            this.subCalendarPanel.Controls.Add(this.nextButton);
+            this.subCalendarPanel.Controls.Add(this.previousButton);
+            this.subCalendarPanel.Controls.Add(this.calendarJuicePanel);
+            this.subCalendarPanel.Controls.Add(this.sundayLabel);
+            this.subCalendarPanel.Controls.Add(this.saturdayLabel);
+            this.subCalendarPanel.Controls.Add(this.fridayLabel);
+            this.subCalendarPanel.Controls.Add(this.thursdayLabel);
+            this.subCalendarPanel.Controls.Add(this.wednesdayLabel);
+            this.subCalendarPanel.Controls.Add(this.tuesdayLabel);
+            this.subCalendarPanel.Controls.Add(this.mondayLabel);
+            this.subCalendarPanel.Location = new System.Drawing.Point(3, 3);
+            this.subCalendarPanel.Name = "subCalendarPanel";
+            this.subCalendarPanel.Size = new System.Drawing.Size(838, 560);
+            this.subCalendarPanel.TabIndex = 8;
+            // 
+            // yearLabel
+            // 
+            this.yearLabel.AutoSize = true;
+            this.yearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yearLabel.Location = new System.Drawing.Point(327, 501);
+            this.yearLabel.Name = "yearLabel";
+            this.yearLabel.Size = new System.Drawing.Size(50, 24);
+            this.yearLabel.TabIndex = 15;
+            this.yearLabel.Text = "year";
+            this.yearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // monthLabel
+            // 
+            this.monthLabel.AutoSize = true;
+            this.monthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthLabel.Location = new System.Drawing.Point(383, 501);
+            this.monthLabel.Name = "monthLabel";
+            this.monthLabel.Size = new System.Drawing.Size(68, 24);
+            this.monthLabel.TabIndex = 14;
+            this.monthLabel.Text = "month";
+            this.monthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nextButton
+            // 
+            this.nextButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
+            this.nextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nextButton.FlatAppearance.BorderSize = 0;
+            this.nextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.nextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextButton.Location = new System.Drawing.Point(756, 488);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(53, 53);
+            this.nextButton.TabIndex = 13;
+            this.nextButton.UseVisualStyleBackColor = true;
+            // 
+            // previousButton
+            // 
+            this.previousButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
+            this.previousButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.previousButton.FlatAppearance.BorderSize = 0;
+            this.previousButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.previousButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.previousButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previousButton.Location = new System.Drawing.Point(20, 488);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(53, 53);
+            this.previousButton.TabIndex = 9;
+            this.previousButton.UseVisualStyleBackColor = true;
+            // 
+            // calendarJuicePanel
+            // 
+            this.calendarJuicePanel.BackColor = System.Drawing.Color.White;
+            this.calendarJuicePanel.ColumnCount = 7;
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
+            this.calendarJuicePanel.Location = new System.Drawing.Point(3, 36);
+            this.calendarJuicePanel.Name = "calendarJuicePanel";
+            this.calendarJuicePanel.RowCount = 6;
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.Size = new System.Drawing.Size(832, 432);
+            this.calendarJuicePanel.TabIndex = 12;
+            // 
+            // sundayLabel
+            // 
+            this.sundayLabel.AutoSize = true;
+            this.sundayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sundayLabel.Location = new System.Drawing.Point(736, 13);
+            this.sundayLabel.Name = "sundayLabel";
+            this.sundayLabel.Size = new System.Drawing.Size(73, 20);
+            this.sundayLabel.TabIndex = 11;
+            this.sundayLabel.Text = "Niedziela";
+            // 
+            // saturdayLabel
+            // 
+            this.saturdayLabel.AutoSize = true;
+            this.saturdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saturdayLabel.Location = new System.Drawing.Point(616, 13);
+            this.saturdayLabel.Name = "saturdayLabel";
+            this.saturdayLabel.Size = new System.Drawing.Size(61, 20);
+            this.saturdayLabel.TabIndex = 10;
+            this.saturdayLabel.Text = "Sobota";
+            // 
+            // fridayLabel
+            // 
+            this.fridayLabel.AutoSize = true;
+            this.fridayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fridayLabel.Location = new System.Drawing.Point(496, 13);
+            this.fridayLabel.Name = "fridayLabel";
+            this.fridayLabel.Size = new System.Drawing.Size(53, 20);
+            this.fridayLabel.TabIndex = 7;
+            this.fridayLabel.Text = "Piątek";
+            // 
+            // thursdayLabel
+            // 
+            this.thursdayLabel.AutoSize = true;
+            this.thursdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thursdayLabel.Location = new System.Drawing.Point(376, 13);
+            this.thursdayLabel.Name = "thursdayLabel";
+            this.thursdayLabel.Size = new System.Drawing.Size(75, 20);
+            this.thursdayLabel.TabIndex = 6;
+            this.thursdayLabel.Text = "Czwartek";
+            // 
+            // wednesdayLabel
+            // 
+            this.wednesdayLabel.AutoSize = true;
+            this.wednesdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wednesdayLabel.Location = new System.Drawing.Point(256, 13);
+            this.wednesdayLabel.Name = "wednesdayLabel";
+            this.wednesdayLabel.Size = new System.Drawing.Size(52, 20);
+            this.wednesdayLabel.TabIndex = 5;
+            this.wednesdayLabel.Text = "Środa";
+            // 
+            // tuesdayLabel
+            // 
+            this.tuesdayLabel.AutoSize = true;
+            this.tuesdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tuesdayLabel.Location = new System.Drawing.Point(136, 13);
+            this.tuesdayLabel.Name = "tuesdayLabel";
+            this.tuesdayLabel.Size = new System.Drawing.Size(60, 20);
+            this.tuesdayLabel.TabIndex = 4;
+            this.tuesdayLabel.Text = "Wtorek";
+            // 
+            // mondayLabel
+            // 
+            this.mondayLabel.AutoSize = true;
+            this.mondayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mondayLabel.Location = new System.Drawing.Point(16, 13);
+            this.mondayLabel.Name = "mondayLabel";
+            this.mondayLabel.Size = new System.Drawing.Size(99, 20);
+            this.mondayLabel.TabIndex = 3;
+            this.mondayLabel.Text = "Poniedziałek";
+            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -500,6 +708,9 @@
             this.filterPanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.mainCalendarPanel.ResumeLayout(false);
+            this.subCalendarPanel.ResumeLayout(false);
+            this.subCalendarPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -544,5 +755,20 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Label timeSpanLabel;
         private System.Windows.Forms.TextBox displayTimeSpanTextbox;
+        private System.Windows.Forms.Panel mainCalendarPanel;
+        private System.Windows.Forms.Button killCalendarButton;
+        private System.Windows.Forms.Panel subCalendarPanel;
+        private System.Windows.Forms.Label yearLabel;
+        private System.Windows.Forms.Label monthLabel;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button previousButton;
+        private System.Windows.Forms.TableLayoutPanel calendarJuicePanel;
+        private System.Windows.Forms.Label sundayLabel;
+        private System.Windows.Forms.Label saturdayLabel;
+        private System.Windows.Forms.Label fridayLabel;
+        private System.Windows.Forms.Label thursdayLabel;
+        private System.Windows.Forms.Label wednesdayLabel;
+        private System.Windows.Forms.Label tuesdayLabel;
+        private System.Windows.Forms.Label mondayLabel;
     }
 }
