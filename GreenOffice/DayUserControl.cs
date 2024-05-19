@@ -16,6 +16,7 @@ namespace GreenOffice
         {
             InitializeComponent();
         }
+        private int _dayNumber;
         public int DayNumber
         {
             get { return _dayNumber; }

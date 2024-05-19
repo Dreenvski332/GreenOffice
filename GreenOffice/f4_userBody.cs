@@ -351,7 +351,7 @@ namespace GreenOffice
             for (int day = 1; day <= daysInMonth; day++)
             {
                 DayUserControl dayUserControl = new DayUserControl();
-                dayUserControl.dayNumberLabel = day;
+                dayUserControl.dayLabel = day;
                 calendarJuicePanel.Controls.Add(dayUserControl);
             }
         }
