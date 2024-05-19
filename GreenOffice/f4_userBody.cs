@@ -16,14 +16,24 @@ namespace GreenOffice
 {
     public partial class f4_userBody : Form
     {
+        private int currentYear;
+        private int currentMonth;
+        private readonly CultureInfo polishCulture;
         // ============================ OVERALL BODY START ==================================
         public f4_userBody()
         {
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
             timerPanel.Visible = false;
+            currentYear = DateTime.Now.Year;
+            currentMonth = DateTime.Now.Month;
+            polishCulture = new CultureInfo("pl-PL");
         }
-        private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
+            private void timerButton_Click(object sender, EventArgs e)
+            {
+                mainCalendarPanel.Visible = false;
+            }
+            private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
         {
             timerPanel.Visible = true;
             string trashcan = "";
