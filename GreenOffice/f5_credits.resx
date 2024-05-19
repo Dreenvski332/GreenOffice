@@ -123,7 +123,16 @@ Dodatkowo poprawiona przez grafika Natalię Wolską
 https://www.flaticon.com/free-icons/timer" Timer icons created by fjstudio - Flaticon
 (ikona czasomierza)
 https://www.flaticon.com/free-icons/settings" Settings icons created by Freepik - Flaticon
-(ikona ustawień)</value>
+(ikona ustawień)
+https://www.flaticon.com/free-icon/calendar_10156100?term=calendar&amp;page=1&amp;position=15&amp;origin=tag&amp;related_id=10156100
+(ikona kalendarza)
+https://www.flaticon.com/free-icon/google-docs_2991106?term=document&amp;page=1&amp;position=8&amp;origin=tag&amp;related_id=2991106
+(ikona dokumentu)
+https://www.flaticon.com/free-icon/next_318476?term=arrow&amp;page=1&amp;position=10&amp;origin=tag&amp;related_id=318476
+(ikona strzałki w prawo)
+https://www.flaticon.com/free-icon/back_2609370?term=arrow+left&amp;page=1&amp;position=9&amp;origin=search&amp;related_id=2609370
+(ikona strzałki w lewo)
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

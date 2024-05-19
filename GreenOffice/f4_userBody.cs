@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,12 +18,14 @@ namespace GreenOffice
     {
         private int currentYear;
         private int currentMonth;
+        private readonly CultureInfo polishCulture;
         public f4_userBody()
         {
             InitializeComponent();
             viewUserTextbox.Text = f1_login.email; //sets user email, puts it into textbox - taken from login screen
             currentYear = DateTime.Now.Year;
             currentMonth = DateTime.Now.Month;
+            polishCulture = new CultureInfo("pl-PL");
         }
 
         private void timerButton_Click(object sender, EventArgs e)
@@ -145,8 +148,9 @@ namespace GreenOffice
             calendarJuicePanel.Controls.Clear();
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
             int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
-            int dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
-
+            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7;
+            monthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
+            yearLabel.Text = firstDayOfMonth.ToString("yyyy" + ",");
             for (int i = 0; i < dayOfWeek; i++)
             {
                 EmptyUserControl emptyUserControl = new EmptyUserControl();
@@ -158,6 +162,34 @@ namespace GreenOffice
                 dayUserControl.DayNumber = day;
                 calendarJuicePanel.Controls.Add(dayUserControl);
             }
+        }
+
+        private void previousButton_Click(object sender, EventArgs e)
+        {
+            if (currentMonth == 1)
+            {
+                currentMonth = 12;
+                currentYear--;
+            }
+            else
+            {
+                currentMonth--;
+            }
+            DisplayCurrentMonth();
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (currentMonth == 12)
+            {
+                currentMonth = 1;
+                currentYear++;
+            }
+            else
+            {
+                currentMonth++;
+            }
+            DisplayCurrentMonth();
         }
     }
 }

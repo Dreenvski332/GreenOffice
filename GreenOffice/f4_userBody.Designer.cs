@@ -31,13 +31,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(f4_userBody));
             this.headerGroupBox = new System.Windows.Forms.GroupBox();
             this.timeoutLabel = new System.Windows.Forms.Label();
+            this.timeoutButton = new System.Windows.Forms.Button();
             this.calendarLabel = new System.Windows.Forms.Label();
+            this.calendarButton = new System.Windows.Forms.Button();
             this.timerStartButton = new System.Windows.Forms.Button();
             this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.endTimerButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.timerButton = new System.Windows.Forms.Button();
             this.mainCalendarPanel = new System.Windows.Forms.Panel();
             this.subCalendarPanel = new System.Windows.Forms.Panel();
+            this.yearLabel = new System.Windows.Forms.Label();
+            this.monthLabel = new System.Windows.Forms.Label();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.previousButton = new System.Windows.Forms.Button();
+            this.calendarJuicePanel = new System.Windows.Forms.TableLayoutPanel();
             this.sundayLabel = new System.Windows.Forms.Label();
             this.saturdayLabel = new System.Windows.Forms.Label();
             this.fridayLabel = new System.Windows.Forms.Label();
@@ -45,11 +53,6 @@
             this.wednesdayLabel = new System.Windows.Forms.Label();
             this.tuesdayLabel = new System.Windows.Forms.Label();
             this.mondayLabel = new System.Windows.Forms.Label();
-            this.calendarJuicePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.timeoutButton = new System.Windows.Forms.Button();
-            this.calendarButton = new System.Windows.Forms.Button();
-            this.timerButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
@@ -82,6 +85,21 @@
             this.timeoutLabel.TabIndex = 2;
             this.timeoutLabel.Text = "Zarejestrój dni wolne";
             // 
+            // timeoutButton
+            // 
+            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
+            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timeoutButton.FlatAppearance.BorderSize = 0;
+            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timeoutButton.Location = new System.Drawing.Point(338, 12);
+            this.timeoutButton.Name = "timeoutButton";
+            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
+            this.timeoutButton.TabIndex = 8;
+            this.timeoutButton.UseVisualStyleBackColor = true;
+            // 
             // calendarLabel
             // 
             this.calendarLabel.AutoSize = true;
@@ -91,6 +109,22 @@
             this.calendarLabel.Size = new System.Drawing.Size(123, 15);
             this.calendarLabel.TabIndex = 2;
             this.calendarLabel.Text = "Personalny terminarz";
+            // 
+            // calendarButton
+            // 
+            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
+            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.calendarButton.FlatAppearance.BorderSize = 0;
+            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.calendarButton.Location = new System.Drawing.Point(189, 12);
+            this.calendarButton.Name = "calendarButton";
+            this.calendarButton.Size = new System.Drawing.Size(60, 60);
+            this.calendarButton.TabIndex = 7;
+            this.calendarButton.UseVisualStyleBackColor = true;
+            this.calendarButton.Click += new System.EventHandler(this.calendarButton_Click);
             // 
             // timerStartButton
             // 
@@ -145,6 +179,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Ewidencja czasu pracy";
             // 
+            // timerButton
+            // 
+            this.timerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerButton.BackgroundImage")));
+            this.timerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timerButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.timerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timerButton.Location = new System.Drawing.Point(37, 12);
+            this.timerButton.Name = "timerButton";
+            this.timerButton.Size = new System.Drawing.Size(60, 60);
+            this.timerButton.TabIndex = 0;
+            this.timerButton.UseVisualStyleBackColor = true;
+            this.timerButton.Click += new System.EventHandler(this.timerButton_Click);
+            // 
             // mainCalendarPanel
             // 
             this.mainCalendarPanel.Controls.Add(this.subCalendarPanel);
@@ -156,7 +206,10 @@
             // 
             // subCalendarPanel
             // 
-            this.subCalendarPanel.Controls.Add(this.button1);
+            this.subCalendarPanel.Controls.Add(this.yearLabel);
+            this.subCalendarPanel.Controls.Add(this.monthLabel);
+            this.subCalendarPanel.Controls.Add(this.nextButton);
+            this.subCalendarPanel.Controls.Add(this.previousButton);
             this.subCalendarPanel.Controls.Add(this.calendarJuicePanel);
             this.subCalendarPanel.Controls.Add(this.sundayLabel);
             this.subCalendarPanel.Controls.Add(this.saturdayLabel);
@@ -167,8 +220,84 @@
             this.subCalendarPanel.Controls.Add(this.mondayLabel);
             this.subCalendarPanel.Location = new System.Drawing.Point(3, 3);
             this.subCalendarPanel.Name = "subCalendarPanel";
-            this.subCalendarPanel.Size = new System.Drawing.Size(875, 560);
+            this.subCalendarPanel.Size = new System.Drawing.Size(838, 560);
             this.subCalendarPanel.TabIndex = 8;
+            // 
+            // yearLabel
+            // 
+            this.yearLabel.AutoSize = true;
+            this.yearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.yearLabel.Location = new System.Drawing.Point(327, 501);
+            this.yearLabel.Name = "yearLabel";
+            this.yearLabel.Size = new System.Drawing.Size(50, 24);
+            this.yearLabel.TabIndex = 15;
+            this.yearLabel.Text = "year";
+            this.yearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // monthLabel
+            // 
+            this.monthLabel.AutoSize = true;
+            this.monthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthLabel.Location = new System.Drawing.Point(383, 501);
+            this.monthLabel.Name = "monthLabel";
+            this.monthLabel.Size = new System.Drawing.Size(68, 24);
+            this.monthLabel.TabIndex = 14;
+            this.monthLabel.Text = "month";
+            this.monthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nextButton
+            // 
+            this.nextButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
+            this.nextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nextButton.FlatAppearance.BorderSize = 0;
+            this.nextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.nextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextButton.Location = new System.Drawing.Point(756, 488);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(53, 53);
+            this.nextButton.TabIndex = 13;
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // previousButton
+            // 
+            this.previousButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
+            this.previousButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.previousButton.FlatAppearance.BorderSize = 0;
+            this.previousButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.previousButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.previousButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previousButton.Location = new System.Drawing.Point(20, 488);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(53, 53);
+            this.previousButton.TabIndex = 9;
+            this.previousButton.UseVisualStyleBackColor = true;
+            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
+            // 
+            // calendarJuicePanel
+            // 
+            this.calendarJuicePanel.ColumnCount = 7;
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
+            this.calendarJuicePanel.Location = new System.Drawing.Point(3, 36);
+            this.calendarJuicePanel.Name = "calendarJuicePanel";
+            this.calendarJuicePanel.RowCount = 6;
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.calendarJuicePanel.Size = new System.Drawing.Size(832, 432);
+            this.calendarJuicePanel.TabIndex = 12;
             // 
             // sundayLabel
             // 
@@ -240,85 +369,6 @@
             this.mondayLabel.TabIndex = 3;
             this.mondayLabel.Text = "Poniedziałek";
             // 
-            // calendarJuicePanel
-            // 
-            this.calendarJuicePanel.ColumnCount = 7;
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.Location = new System.Drawing.Point(3, 36);
-            this.calendarJuicePanel.Name = "calendarJuicePanel";
-            this.calendarJuicePanel.RowCount = 6;
-            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.Size = new System.Drawing.Size(832, 432);
-            this.calendarJuicePanel.TabIndex = 12;
-            // 
-            // timeoutButton
-            // 
-            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
-            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timeoutButton.FlatAppearance.BorderSize = 0;
-            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timeoutButton.Location = new System.Drawing.Point(338, 12);
-            this.timeoutButton.Name = "timeoutButton";
-            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
-            this.timeoutButton.TabIndex = 8;
-            this.timeoutButton.UseVisualStyleBackColor = true;
-            // 
-            // calendarButton
-            // 
-            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
-            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.calendarButton.FlatAppearance.BorderSize = 0;
-            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.calendarButton.Location = new System.Drawing.Point(189, 12);
-            this.calendarButton.Name = "calendarButton";
-            this.calendarButton.Size = new System.Drawing.Size(60, 60);
-            this.calendarButton.TabIndex = 7;
-            this.calendarButton.UseVisualStyleBackColor = true;
-            this.calendarButton.Click += new System.EventHandler(this.calendarButton_Click);
-            // 
-            // timerButton
-            // 
-            this.timerButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerButton.BackgroundImage")));
-            this.timerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.timerButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timerButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.timerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.timerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.timerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timerButton.Location = new System.Drawing.Point(37, 12);
-            this.timerButton.Name = "timerButton";
-            this.timerButton.Size = new System.Drawing.Size(60, 60);
-            this.timerButton.TabIndex = 0;
-            this.timerButton.UseVisualStyleBackColor = true;
-            this.timerButton.Click += new System.EventHandler(this.timerButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(211, 505);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "previousButton";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,6 +412,9 @@
         private System.Windows.Forms.Label sundayLabel;
         private System.Windows.Forms.Label saturdayLabel;
         private System.Windows.Forms.TableLayoutPanel calendarJuicePanel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button previousButton;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Label monthLabel;
+        private System.Windows.Forms.Label yearLabel;
     }
 }
