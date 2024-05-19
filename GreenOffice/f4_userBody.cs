@@ -19,7 +19,11 @@ namespace GreenOffice
         private int currentYear;
         private int currentMonth;
         private readonly CultureInfo polishCulture;
+
+
         // ============================ OVERALL BODY START ==================================
+
+
         public f4_userBody()
         {
             InitializeComponent();
@@ -247,6 +251,8 @@ namespace GreenOffice
 
 
         // ============================ TIMER PANEL START ===================================
+
+
         private void displayFinishTimeTextbox_TextChanged(object sender, EventArgs e)
         {
             string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -273,7 +279,10 @@ namespace GreenOffice
                 }
             }
         }
-
+        private void killTimerButton_Click(object sender, EventArgs e)
+        {
+            timerPanel.Visible = false;
+        }
         private void styczeńToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeMonthLabel.Text = "1";
@@ -333,7 +342,12 @@ namespace GreenOffice
         {
             codeMonthLabel.Text = "12";
         }
+
+
         // ============================ TIMER PANEL END =====================================
+
+
+        // ============================ CALENDAR PANEL START ================================
         private void DisplayCurrentMonth()
         {
             calendarJuicePanel.Controls.Clear();
@@ -355,13 +369,10 @@ namespace GreenOffice
             }
         }
 
-        
-
         private void killCalendarButton_Click(object sender, EventArgs e)
         {
             mainCalendarPanel.Visible = false;
         }
-
         private void previousButton_Click(object sender, EventArgs e)
         {
             if (currentMonth == 1)
@@ -375,7 +386,6 @@ namespace GreenOffice
             }
             DisplayCurrentMonth();
         }
-
         private void nextButton_Click(object sender, EventArgs e)
         {
             if (currentMonth == 12)
@@ -389,5 +399,8 @@ namespace GreenOffice
             }
             DisplayCurrentMonth();
         }
+
+
+        // ============================ CALENDAR PANEL END ================================
     }
 }
