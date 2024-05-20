@@ -758,10 +758,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 681);
-            this.Controls.Add(this.welcomeGroupbox);
             this.Controls.Add(this.headerGroupBox);
             this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.timerPanel);
+            this.Controls.Add(this.welcomeGroupbox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f4_userBody";
             this.Text = "GREEN Office: Panel użytkownika";

@@ -34,10 +34,32 @@ namespace GreenOffice
             currentYear = DateTime.Now.Year; //sets global int to currnt year
             currentMonth = DateTime.Now.Month; //sets global int to current month
             polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
+
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+
+                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email");
+                displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                displayName.CommandType = CommandType.Text;
+                displayName.Connection = databaseConnection;
+
+                databaseConnection.Open();
+                using (MySqlDataReader readerDisplayName = displayName.ExecuteReader())
+                {
+                    readerDisplayName.Read();
+                    nameWelcomeTextbox.Text = readerDisplayName["name"].ToString() + "!";
+                    databaseConnection.Close();
+                }
+            }
         }
         private void calendarButton_Click(object sender, EventArgs e) //makes scary Calendar appear
         {
             timerPanel.Visible = false; //also makes sure that timer is, you know, not in the way
+            welcomeGroupbox.Visible = false; //makes big bad welcome go away
             mainCalendarPanel.Visible = true; //calendar is so good it needs to appear three times
             subCalendarPanel.Visible = true; // it actually doesn't
             calendarJuicePanel.Visible = true; //just needed to be sure
@@ -46,6 +68,7 @@ namespace GreenOffice
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
             { 
             timerPanel.Visible = true; //I mean, it does what it says it does
+            welcomeGroupbox.Visible = false; //makes big bad welcome go away
             mainCalendarPanel.Visible = false;
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
@@ -164,6 +187,7 @@ namespace GreenOffice
         private void killTimerButton_Click(object sender, EventArgs e) //makes scary Timer go away
         {
             timerPanel.Visible = false;
+            welcomeGroupbox.Visible = true;
         }
         private void styczeńToolStripMenuItem_Click(object sender, EventArgs e) //next twelve actions are my proud baby of lazines
         { //all this thing do is sets invisible label depending on which month was chosen from a list
@@ -331,6 +355,7 @@ namespace GreenOffice
         private void killCalendarButton_Click(object sender, EventArgs e) //makes scary Calendar go away
         {
             mainCalendarPanel.Visible = false;
+            welcomeGroupbox.Visible = true;
         }
         private void previousButton_Click(object sender, EventArgs e) //changes month to previous one
         {
