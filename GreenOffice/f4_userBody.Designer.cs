@@ -592,6 +592,7 @@
             this.addEventButton.TabIndex = 16;
             this.addEventButton.Text = "Dodaj wydarzenie";
             this.addEventButton.UseVisualStyleBackColor = true;
+            this.addEventButton.Click += new System.EventHandler(this.addEventButton_Click);
             // 
             // subCalendarPanel
             // 

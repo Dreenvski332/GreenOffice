@@ -442,7 +442,12 @@ namespace GreenOffice
             finishEventDatePicker.Value = startEventDatePicker.Value; //sync the date of both DatePickers
         }
 
-        
+        private void addEventButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
 
