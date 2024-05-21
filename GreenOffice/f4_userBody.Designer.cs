@@ -69,6 +69,9 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
             this.mainCalendarPanel = new System.Windows.Forms.Panel();
+            this.categoryChecklist = new System.Windows.Forms.CheckedListBox();
+            this.descriptionTextbox = new System.Windows.Forms.TextBox();
+            this.addEventButton = new System.Windows.Forms.Button();
             this.subCalendarPanel = new System.Windows.Forms.Panel();
             this.yearLabel = new System.Windows.Forms.Label();
             this.monthLabel = new System.Windows.Forms.Label();
@@ -86,6 +89,11 @@
             this.welcomeGroupbox = new System.Windows.Forms.GroupBox();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
+            this.startEventDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.startEventTimeLabel = new System.Windows.Forms.Label();
+            this.finishEventTimeLabel = new System.Windows.Forms.Label();
+            this.finishEventDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.oneDayEventCheckbox = new System.Windows.Forms.CheckBox();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -525,6 +533,14 @@
             // mainCalendarPanel
             // 
             this.mainCalendarPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.mainCalendarPanel.Controls.Add(this.oneDayEventCheckbox);
+            this.mainCalendarPanel.Controls.Add(this.finishEventDatePicker);
+            this.mainCalendarPanel.Controls.Add(this.finishEventTimeLabel);
+            this.mainCalendarPanel.Controls.Add(this.startEventTimeLabel);
+            this.mainCalendarPanel.Controls.Add(this.startEventDatePicker);
+            this.mainCalendarPanel.Controls.Add(this.categoryChecklist);
+            this.mainCalendarPanel.Controls.Add(this.descriptionTextbox);
+            this.mainCalendarPanel.Controls.Add(this.addEventButton);
             this.mainCalendarPanel.Controls.Add(this.subCalendarPanel);
             this.mainCalendarPanel.Controls.Add(this.killCalendarButton);
             this.mainCalendarPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -533,6 +549,49 @@
             this.mainCalendarPanel.Size = new System.Drawing.Size(1160, 566);
             this.mainCalendarPanel.TabIndex = 3;
             this.mainCalendarPanel.Visible = false;
+            // 
+            // categoryChecklist
+            // 
+            this.categoryChecklist.AllowDrop = true;
+            this.categoryChecklist.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.categoryChecklist.CheckOnClick = true;
+            this.categoryChecklist.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.categoryChecklist.FormattingEnabled = true;
+            this.categoryChecklist.Items.AddRange(new object[] {
+            "Spotkanie z klientem",
+            "Spotkanie wewnątrzbiurowe",
+            "Wyjazd służbowy",
+            "Szkolenie",
+            "Pozostałe"});
+            this.categoryChecklist.Location = new System.Drawing.Point(890, 36);
+            this.categoryChecklist.Name = "categoryChecklist";
+            this.categoryChecklist.Size = new System.Drawing.Size(196, 80);
+            this.categoryChecklist.TabIndex = 18;
+            this.categoryChecklist.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.categoryChecklist_ItemCheck);
+            // 
+            // descriptionTextbox
+            // 
+            this.descriptionTextbox.Location = new System.Drawing.Point(890, 122);
+            this.descriptionTextbox.Multiline = true;
+            this.descriptionTextbox.Name = "descriptionTextbox";
+            this.descriptionTextbox.Size = new System.Drawing.Size(241, 226);
+            this.descriptionTextbox.TabIndex = 17;
+            this.descriptionTextbox.Enter += new System.EventHandler(this.descriptionTextbox_Enter);
+            this.descriptionTextbox.Leave += new System.EventHandler(this.descriptionTextbox_Leave);
+            // 
+            // addEventButton
+            // 
+            this.addEventButton.FlatAppearance.BorderSize = 0;
+            this.addEventButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.addEventButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.addEventButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addEventButton.Location = new System.Drawing.Point(937, 516);
+            this.addEventButton.Name = "addEventButton";
+            this.addEventButton.Size = new System.Drawing.Size(149, 38);
+            this.addEventButton.TabIndex = 16;
+            this.addEventButton.Text = "Dodaj wydarzenie";
+            this.addEventButton.UseVisualStyleBackColor = true;
             // 
             // subCalendarPanel
             // 
@@ -752,6 +811,53 @@
             this.nameWelcomeTextbox.Size = new System.Drawing.Size(294, 73);
             this.nameWelcomeTextbox.TabIndex = 4;
             // 
+            // startEventDatePicker
+            // 
+            this.startEventDatePicker.CalendarTitleBackColor = System.Drawing.Color.Honeydew;
+            this.startEventDatePicker.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.startEventDatePicker.Location = new System.Drawing.Point(890, 369);
+            this.startEventDatePicker.Name = "startEventDatePicker";
+            this.startEventDatePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.startEventDatePicker.Size = new System.Drawing.Size(200, 21);
+            this.startEventDatePicker.TabIndex = 17;
+            this.startEventDatePicker.ValueChanged += new System.EventHandler(this.startEventDatePicker_ValueChanged);
+            // 
+            // startEventTimeLabel
+            // 
+            this.startEventTimeLabel.AutoSize = true;
+            this.startEventTimeLabel.Location = new System.Drawing.Point(887, 351);
+            this.startEventTimeLabel.Name = "startEventTimeLabel";
+            this.startEventTimeLabel.Size = new System.Drawing.Size(170, 15);
+            this.startEventTimeLabel.TabIndex = 19;
+            this.startEventTimeLabel.Text = "Data rozpoczęcia wydarzenia:";
+            // 
+            // finishEventTimeLabel
+            // 
+            this.finishEventTimeLabel.AutoSize = true;
+            this.finishEventTimeLabel.Location = new System.Drawing.Point(887, 393);
+            this.finishEventTimeLabel.Name = "finishEventTimeLabel";
+            this.finishEventTimeLabel.Size = new System.Drawing.Size(173, 15);
+            this.finishEventTimeLabel.TabIndex = 20;
+            this.finishEventTimeLabel.Text = "Data zakończenia wydarzenia:";
+            // 
+            // finishEventDatePicker
+            // 
+            this.finishEventDatePicker.Location = new System.Drawing.Point(890, 411);
+            this.finishEventDatePicker.Name = "finishEventDatePicker";
+            this.finishEventDatePicker.Size = new System.Drawing.Size(200, 21);
+            this.finishEventDatePicker.TabIndex = 21;
+            // 
+            // oneDayEventCheckbox
+            // 
+            this.oneDayEventCheckbox.AutoSize = true;
+            this.oneDayEventCheckbox.Location = new System.Drawing.Point(890, 438);
+            this.oneDayEventCheckbox.Name = "oneDayEventCheckbox";
+            this.oneDayEventCheckbox.Size = new System.Drawing.Size(164, 19);
+            this.oneDayEventCheckbox.TabIndex = 22;
+            this.oneDayEventCheckbox.Text = "Wydarzenie jednodniowe";
+            this.oneDayEventCheckbox.UseVisualStyleBackColor = true;
+            this.oneDayEventCheckbox.CheckedChanged += new System.EventHandler(this.oneDayEventCheckbox_CheckedChanged);
+            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -765,6 +871,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f4_userBody";
             this.Text = "GREEN Office: Panel użytkownika";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.f4_userBody_FormClosing);
             this.headerGroupBox.ResumeLayout(false);
             this.headerGroupBox.PerformLayout();
             this.timerPanel.ResumeLayout(false);
@@ -774,6 +881,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.mainCalendarPanel.ResumeLayout(false);
+            this.mainCalendarPanel.PerformLayout();
             this.subCalendarPanel.ResumeLayout(false);
             this.subCalendarPanel.PerformLayout();
             this.welcomeGroupbox.ResumeLayout(false);
@@ -841,5 +949,13 @@
         private System.Windows.Forms.GroupBox welcomeGroupbox;
         private System.Windows.Forms.Label welcomeLabel;
         private System.Windows.Forms.TextBox nameWelcomeTextbox;
+        private System.Windows.Forms.TextBox descriptionTextbox;
+        private System.Windows.Forms.Button addEventButton;
+        private System.Windows.Forms.CheckedListBox categoryChecklist;
+        private System.Windows.Forms.DateTimePicker startEventDatePicker;
+        private System.Windows.Forms.CheckBox oneDayEventCheckbox;
+        private System.Windows.Forms.DateTimePicker finishEventDatePicker;
+        private System.Windows.Forms.Label finishEventTimeLabel;
+        private System.Windows.Forms.Label startEventTimeLabel;
     }
 }

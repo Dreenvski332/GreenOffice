@@ -20,6 +20,9 @@ namespace GreenOffice
         private int currentYear; //creates global year int
         private int currentMonth; //same thing but with month
         private readonly CultureInfo polishCulture; //POLSKA GUROM - POLISH MOUNTAIN
+        private const string PlaceholderText = "Opis wydarzenia";
+        private Color PlaceholderColor = Color.Gray;
+        private Color TextColor = Color.Black;
 
 
         // ============================ OVERALL BODY START ==================================
@@ -35,6 +38,11 @@ namespace GreenOffice
             currentMonth = DateTime.Now.Month; //sets global int to current month
             polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
 
+            descriptionTextbox.Text = PlaceholderText;
+            descriptionTextbox.ForeColor = PlaceholderColor;
+            descriptionTextbox.Enter += descriptionTextbox_Enter;
+            descriptionTextbox.Leave += descriptionTextbox_Leave;
+
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
             using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
             {
@@ -42,19 +50,23 @@ namespace GreenOffice
                 string connectionString = connection; //and makes a connection
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
 
-                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email");
-                displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text);
-                displayName.CommandType = CommandType.Text;
-                displayName.Connection = databaseConnection;
+                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email"); //query to find name based on email
+                displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text); //takes email from textbox
+                displayName.CommandType = CommandType.Text; //makes command readable for the app
+                displayName.Connection = databaseConnection; //does something?
 
-                databaseConnection.Open();
-                using (MySqlDataReader readerDisplayName = displayName.ExecuteReader())
+                databaseConnection.Open(); //opens connection
+                using (MySqlDataReader readerDisplayName = displayName.ExecuteReader()) //executes command
                 {
-                    readerDisplayName.Read();
-                    nameWelcomeTextbox.Text = readerDisplayName["name"].ToString() + "!";
-                    databaseConnection.Close();
+                    readerDisplayName.Read(); //reads data recieved from query
+                    nameWelcomeTextbox.Text = readerDisplayName["name"].ToString() + "!"; //shoots name into a textbox with "!" at the end
+                    databaseConnection.Close(); //stops the connection
                 }
             }
+        }
+        private void f4_userBody_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit(); //just makes sure, that entire app closes when the windows X button is pressed
         }
         private void calendarButton_Click(object sender, EventArgs e) //makes scary Calendar appear
         {
@@ -383,6 +395,55 @@ namespace GreenOffice
             }
             DisplayCurrentMonth(); //and still calls a function, that's like the main thing
         }
+
+        private void categoryChecklist_ItemCheck(object sender, ItemCheckEventArgs e) //makes sure only one category can be picked
+        {
+            if (e.NewValue == CheckState.Checked) //when new value is picked
+            {
+                for (int i = 0; i < categoryChecklist.Items.Count; i++) //checks how many boxes are checked
+                {
+                    if (i != e.Index) { categoryChecklist.SetItemChecked(i, false); } //literally just wipes the previous check
+                }
+            }
+        }
+        private void descriptionTextbox_Enter(object sender, EventArgs e)
+        {
+            if (descriptionTextbox.Text == PlaceholderText)
+            {
+                descriptionTextbox.Text = "";
+                descriptionTextbox.ForeColor = TextColor;
+            }
+        }
+        private void descriptionTextbox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(descriptionTextbox.Text))
+            {
+                descriptionTextbox.Text = PlaceholderText;
+                descriptionTextbox.ForeColor = PlaceholderColor;
+            }
+        }
+        private void oneDayEventCheckbox_CheckedChanged(object sender, EventArgs e) //handles sytuation when it's a one day only event
+        {
+            if (oneDayEventCheckbox.Checked) //if textbox is checked
+            {
+                finishEventDatePicker.Enabled = false; //makes finishEventDatePicker read-only
+                finishEventDatePicker.Value = startEventDatePicker.Value; //sets the same value in finishEventDatePicker as in startEventDatePicker
+                startEventDatePicker.ValueChanged += startEventDatePicker_ValueChanged; //handle the ValueChanged event of startEventDatePicker to keep finishEventDatePicker updated
+            }
+            else //when unchecked
+            {
+                finishEventDatePicker.Enabled = true; //enables finishEventDatePicker
+                startEventDatePicker.ValueChanged -= startEventDatePicker_ValueChanged; // stop handling the ValueChanged event of startEventDatePicker
+            }
+        }
+
+        private void startEventDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            finishEventDatePicker.Value = startEventDatePicker.Value; //sync the date of both DatePickers
+        }
+
+        
+
 
 
         // ============================ CALENDAR PANEL END ================================
