@@ -69,6 +69,11 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
             this.mainCalendarPanel = new System.Windows.Forms.Panel();
+            this.oneDayEventCheckbox = new System.Windows.Forms.CheckBox();
+            this.finishEventDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.finishEventTimeLabel = new System.Windows.Forms.Label();
+            this.startEventTimeLabel = new System.Windows.Forms.Label();
+            this.startEventDatePicker = new System.Windows.Forms.DateTimePicker();
             this.categoryChecklist = new System.Windows.Forms.CheckedListBox();
             this.descriptionTextbox = new System.Windows.Forms.TextBox();
             this.addEventButton = new System.Windows.Forms.Button();
@@ -89,11 +94,11 @@
             this.welcomeGroupbox = new System.Windows.Forms.GroupBox();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
-            this.startEventDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.startEventTimeLabel = new System.Windows.Forms.Label();
-            this.finishEventTimeLabel = new System.Windows.Forms.Label();
-            this.finishEventDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.oneDayEventCheckbox = new System.Windows.Forms.CheckBox();
+            this.startTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.finishTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.setTimeLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.allDayEventCheckbox = new System.Windows.Forms.CheckBox();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -533,6 +538,11 @@
             // mainCalendarPanel
             // 
             this.mainCalendarPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.mainCalendarPanel.Controls.Add(this.allDayEventCheckbox);
+            this.mainCalendarPanel.Controls.Add(this.label2);
+            this.mainCalendarPanel.Controls.Add(this.setTimeLabel);
+            this.mainCalendarPanel.Controls.Add(this.finishTimePicker);
+            this.mainCalendarPanel.Controls.Add(this.startTimePicker);
             this.mainCalendarPanel.Controls.Add(this.oneDayEventCheckbox);
             this.mainCalendarPanel.Controls.Add(this.finishEventDatePicker);
             this.mainCalendarPanel.Controls.Add(this.finishEventTimeLabel);
@@ -550,6 +560,53 @@
             this.mainCalendarPanel.TabIndex = 3;
             this.mainCalendarPanel.Visible = false;
             // 
+            // oneDayEventCheckbox
+            // 
+            this.oneDayEventCheckbox.AutoSize = true;
+            this.oneDayEventCheckbox.Location = new System.Drawing.Point(890, 421);
+            this.oneDayEventCheckbox.Name = "oneDayEventCheckbox";
+            this.oneDayEventCheckbox.Size = new System.Drawing.Size(164, 19);
+            this.oneDayEventCheckbox.TabIndex = 22;
+            this.oneDayEventCheckbox.Text = "Wydarzenie jednodniowe";
+            this.oneDayEventCheckbox.UseVisualStyleBackColor = true;
+            this.oneDayEventCheckbox.CheckedChanged += new System.EventHandler(this.oneDayEventCheckbox_CheckedChanged);
+            // 
+            // finishEventDatePicker
+            // 
+            this.finishEventDatePicker.Location = new System.Drawing.Point(890, 394);
+            this.finishEventDatePicker.Name = "finishEventDatePicker";
+            this.finishEventDatePicker.Size = new System.Drawing.Size(200, 21);
+            this.finishEventDatePicker.TabIndex = 21;
+            // 
+            // finishEventTimeLabel
+            // 
+            this.finishEventTimeLabel.AutoSize = true;
+            this.finishEventTimeLabel.Location = new System.Drawing.Point(890, 376);
+            this.finishEventTimeLabel.Name = "finishEventTimeLabel";
+            this.finishEventTimeLabel.Size = new System.Drawing.Size(173, 15);
+            this.finishEventTimeLabel.TabIndex = 20;
+            this.finishEventTimeLabel.Text = "Data zakończenia wydarzenia:";
+            // 
+            // startEventTimeLabel
+            // 
+            this.startEventTimeLabel.AutoSize = true;
+            this.startEventTimeLabel.Location = new System.Drawing.Point(890, 334);
+            this.startEventTimeLabel.Name = "startEventTimeLabel";
+            this.startEventTimeLabel.Size = new System.Drawing.Size(170, 15);
+            this.startEventTimeLabel.TabIndex = 19;
+            this.startEventTimeLabel.Text = "Data rozpoczęcia wydarzenia:";
+            // 
+            // startEventDatePicker
+            // 
+            this.startEventDatePicker.CalendarTitleBackColor = System.Drawing.Color.Honeydew;
+            this.startEventDatePicker.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.startEventDatePicker.Location = new System.Drawing.Point(890, 352);
+            this.startEventDatePicker.Name = "startEventDatePicker";
+            this.startEventDatePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.startEventDatePicker.Size = new System.Drawing.Size(200, 21);
+            this.startEventDatePicker.TabIndex = 17;
+            this.startEventDatePicker.ValueChanged += new System.EventHandler(this.startEventDatePicker_ValueChanged);
+            // 
             // categoryChecklist
             // 
             this.categoryChecklist.AllowDrop = true;
@@ -563,7 +620,7 @@
             "Wyjazd służbowy",
             "Szkolenie",
             "Pozostałe"});
-            this.categoryChecklist.Location = new System.Drawing.Point(890, 36);
+            this.categoryChecklist.Location = new System.Drawing.Point(890, 19);
             this.categoryChecklist.Name = "categoryChecklist";
             this.categoryChecklist.Size = new System.Drawing.Size(196, 80);
             this.categoryChecklist.TabIndex = 18;
@@ -571,7 +628,7 @@
             // 
             // descriptionTextbox
             // 
-            this.descriptionTextbox.Location = new System.Drawing.Point(890, 122);
+            this.descriptionTextbox.Location = new System.Drawing.Point(890, 105);
             this.descriptionTextbox.Multiline = true;
             this.descriptionTextbox.Name = "descriptionTextbox";
             this.descriptionTextbox.Size = new System.Drawing.Size(241, 226);
@@ -812,52 +869,53 @@
             this.nameWelcomeTextbox.Size = new System.Drawing.Size(294, 73);
             this.nameWelcomeTextbox.TabIndex = 4;
             // 
-            // startEventDatePicker
+            // startTimePicker
             // 
-            this.startEventDatePicker.CalendarTitleBackColor = System.Drawing.Color.Honeydew;
-            this.startEventDatePicker.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.startEventDatePicker.Location = new System.Drawing.Point(890, 369);
-            this.startEventDatePicker.Name = "startEventDatePicker";
-            this.startEventDatePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.startEventDatePicker.Size = new System.Drawing.Size(200, 21);
-            this.startEventDatePicker.TabIndex = 17;
-            this.startEventDatePicker.ValueChanged += new System.EventHandler(this.startEventDatePicker_ValueChanged);
+            this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.startTimePicker.Location = new System.Drawing.Point(890, 461);
+            this.startTimePicker.Name = "startTimePicker";
+            this.startTimePicker.ShowUpDown = true;
+            this.startTimePicker.Size = new System.Drawing.Size(103, 21);
+            this.startTimePicker.TabIndex = 23;
             // 
-            // startEventTimeLabel
+            // finishTimePicker
             // 
-            this.startEventTimeLabel.AutoSize = true;
-            this.startEventTimeLabel.Location = new System.Drawing.Point(887, 351);
-            this.startEventTimeLabel.Name = "startEventTimeLabel";
-            this.startEventTimeLabel.Size = new System.Drawing.Size(170, 15);
-            this.startEventTimeLabel.TabIndex = 19;
-            this.startEventTimeLabel.Text = "Data rozpoczęcia wydarzenia:";
+            this.finishTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.finishTimePicker.Location = new System.Drawing.Point(1016, 462);
+            this.finishTimePicker.Name = "finishTimePicker";
+            this.finishTimePicker.ShowUpDown = true;
+            this.finishTimePicker.Size = new System.Drawing.Size(103, 21);
+            this.finishTimePicker.TabIndex = 24;
             // 
-            // finishEventTimeLabel
+            // setTimeLabel
             // 
-            this.finishEventTimeLabel.AutoSize = true;
-            this.finishEventTimeLabel.Location = new System.Drawing.Point(887, 393);
-            this.finishEventTimeLabel.Name = "finishEventTimeLabel";
-            this.finishEventTimeLabel.Size = new System.Drawing.Size(173, 15);
-            this.finishEventTimeLabel.TabIndex = 20;
-            this.finishEventTimeLabel.Text = "Data zakończenia wydarzenia:";
+            this.setTimeLabel.AutoSize = true;
+            this.setTimeLabel.Location = new System.Drawing.Point(887, 443);
+            this.setTimeLabel.Name = "setTimeLabel";
+            this.setTimeLabel.Size = new System.Drawing.Size(203, 15);
+            this.setTimeLabel.TabIndex = 25;
+            this.setTimeLabel.Text = "Godzina rozpoczęcia i zakończenia:";
             // 
-            // finishEventDatePicker
+            // label2
             // 
-            this.finishEventDatePicker.Location = new System.Drawing.Point(890, 411);
-            this.finishEventDatePicker.Name = "finishEventDatePicker";
-            this.finishEventDatePicker.Size = new System.Drawing.Size(200, 21);
-            this.finishEventDatePicker.TabIndex = 21;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(999, 467);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(11, 15);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "-";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // oneDayEventCheckbox
+            // allDayEventCheckbox
             // 
-            this.oneDayEventCheckbox.AutoSize = true;
-            this.oneDayEventCheckbox.Location = new System.Drawing.Point(890, 438);
-            this.oneDayEventCheckbox.Name = "oneDayEventCheckbox";
-            this.oneDayEventCheckbox.Size = new System.Drawing.Size(164, 19);
-            this.oneDayEventCheckbox.TabIndex = 22;
-            this.oneDayEventCheckbox.Text = "Wydarzenie jednodniowe";
-            this.oneDayEventCheckbox.UseVisualStyleBackColor = true;
-            this.oneDayEventCheckbox.CheckedChanged += new System.EventHandler(this.oneDayEventCheckbox_CheckedChanged);
+            this.allDayEventCheckbox.AutoSize = true;
+            this.allDayEventCheckbox.Location = new System.Drawing.Point(890, 488);
+            this.allDayEventCheckbox.Name = "allDayEventCheckbox";
+            this.allDayEventCheckbox.Size = new System.Drawing.Size(156, 19);
+            this.allDayEventCheckbox.TabIndex = 27;
+            this.allDayEventCheckbox.Text = "Wydarzenie całodniowe";
+            this.allDayEventCheckbox.UseVisualStyleBackColor = true;
+            this.allDayEventCheckbox.CheckedChanged += new System.EventHandler(this.allDayEventCheckbox_CheckedChanged);
             // 
             // f4_userBody
             // 
@@ -958,5 +1016,10 @@
         private System.Windows.Forms.DateTimePicker finishEventDatePicker;
         private System.Windows.Forms.Label finishEventTimeLabel;
         private System.Windows.Forms.Label startEventTimeLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label setTimeLabel;
+        private System.Windows.Forms.DateTimePicker finishTimePicker;
+        private System.Windows.Forms.DateTimePicker startTimePicker;
+        private System.Windows.Forms.CheckBox allDayEventCheckbox;
     }
 }

@@ -18,9 +18,10 @@ namespace GreenOffice
     public partial class f4_userBody : Form
     {
         private int currentYear; //creates global year int
-        private int currentMonth; //same thing but with month
+        private int currentMonth;
+        private int currentDay;//same thing but with month
         private readonly CultureInfo polishCulture; //POLSKA GUROM - POLISH MOUNTAIN
-        private const string PlaceholderText = "Opis wydarzenia";
+        private const string PlaceholderText = "Opis wydarzenia (opcjonalne)";
         private Color PlaceholderColor = Color.Gray;
         private Color TextColor = Color.Black;
 
@@ -35,7 +36,8 @@ namespace GreenOffice
             timerPanel.Visible = false; //makes scary Timer not appear at first
             mainCalendarPanel.Visible = false; //makes scary Calendar not appear at first
             currentYear = DateTime.Now.Year; //sets global int to currnt year
-            currentMonth = DateTime.Now.Month; //sets global int to current month
+            currentMonth = DateTime.Now.Month;
+            currentDay = DateTime.Now.Day;//sets global int to current month
             polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
 
             descriptionTextbox.Text = PlaceholderText;
@@ -345,6 +347,8 @@ namespace GreenOffice
 
         private void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
         {
+            startTimePicker.CustomFormat = "hh:mm tt";
+            finishTimePicker.CustomFormat = "hh:mm tt";
             calendarJuicePanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); //sets the first time of the month
             int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); //then counts how many days are in said month
@@ -441,11 +445,78 @@ namespace GreenOffice
         {
             finishEventDatePicker.Value = startEventDatePicker.Value; //sync the date of both DatePickers
         }
+        private void allDayEventCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (allDayEventCheckbox.Checked)
+            {
+                startTimePicker.Enabled = false;
+                finishTimePicker.Enabled = false;
+                startTimePicker.Value = new DateTime(currentYear, currentMonth, currentDay, 00, 00, 00);
+                finishTimePicker.Value = new DateTime(currentYear, currentMonth, currentDay, 23, 59, 59);
+                startTimePicker.ValueChanged += StartTimePicker_ValueChanged;
+            }
+            else
+            {
+                startTimePicker.Enabled= true;
+                finishTimePicker.Enabled= true;
+                startTimePicker.ValueChanged += StartTimePicker_ValueChanged;
+            }
+        }
+
+        private void StartTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            finishTimePicker.Value= startTimePicker.Value;
+        }
 
         private void addEventButton_Click(object sender, EventArgs e)
         {
+            var checkedItems = categoryChecklist.CheckedItems;
+            string checkboxListValue = string.Empty;
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                String addUserQuery = "INSERT INTO `events`(`email`, `eventCategory`, `eventDescription`, `eventStartDate`, `eventFinishDate`, `eventStartTime`, `eventFinishTime`) VALUES (@email,@eventCategory,@eventDescription,@eventStartDate,@eventFinishDate,@eventStartTime,@eventFinishTime)";
 
+                try
+                {
+                    bool checkChecker = false;
+                    foreach(int index in categoryChecklist.CheckedIndices) { checkChecker = true; break; }
+                    if (checkChecker)
+                    {
+                        try
+                        {
+                            foreach(var categoryItem in checkedItems)
+                            {
+                                checkboxListValue += categoryItem.ToString();
+                            }
+                            using (MySqlCommand addUserCommand = new MySqlCommand(addUserQuery, databaseConnection))
+                            {
+                                addUserCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                                addUserCommand.Parameters.AddWithValue("@eventCategory", checkboxListValue);
+                                addUserCommand.Parameters.AddWithValue("@eventDescription", descriptionTextbox.Text);
+                                addUserCommand.Parameters.AddWithValue("@eventStartDate", startEventDatePicker.Value);
+                                addUserCommand.Parameters.AddWithValue("@eventFinishDate", finishEventDatePicker.Value);
+                                addUserCommand.Parameters.AddWithValue("@eventStartTime", startTimePicker.Value);
+                                addUserCommand.Parameters.AddWithValue("@eventFinishTime", finishTimePicker.Value);
+
+                                databaseConnection.Open();
+                                int queryFeedback = addUserCommand.ExecuteNonQuery();
+                                databaseConnection.Close();
+                            }
+                            MessageBox.Show("Wydarzenie dodane");
+                        }
+                        catch { MessageBox.Show("Błąd dodawania wydarzenia do bazy danych"); }
+                    }
+                    else { MessageBox.Show("Należy zaznaczyć kategorię wydarzenia!"); }
+                }
+                catch { MessageBox.Show("Nieoczekiwany błąd dodawania wydarzenia do bazy danych"); }
+            }
         }
+
+        
 
 
 
