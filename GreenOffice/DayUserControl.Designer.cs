@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.dayLabel = new System.Windows.Forms.Label();
             this.codeViewUserLabel = new System.Windows.Forms.Label();
-            this.eventTimer = new System.Windows.Forms.Timer(this.components);
             this.displayEventTextbox = new System.Windows.Forms.TextBox();
+            this.eventDescriptionTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // dayLabel
@@ -61,7 +61,7 @@
             this.displayEventTextbox.BackColor = System.Drawing.Color.Honeydew;
             this.displayEventTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayEventTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.displayEventTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displayEventTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.displayEventTextbox.Location = new System.Drawing.Point(26, 20);
             this.displayEventTextbox.Multiline = true;
             this.displayEventTextbox.Name = "displayEventTextbox";
@@ -69,6 +69,14 @@
             this.displayEventTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.displayEventTextbox.Size = new System.Drawing.Size(85, 47);
             this.displayEventTextbox.TabIndex = 3;
+            // 
+            // eventDescriptionTooltip
+            // 
+            this.eventDescriptionTooltip.AutomaticDelay = 250;
+            this.eventDescriptionTooltip.AutoPopDelay = 10000;
+            this.eventDescriptionTooltip.BackColor = System.Drawing.Color.MintCream;
+            this.eventDescriptionTooltip.InitialDelay = 250;
+            this.eventDescriptionTooltip.ReshowDelay = 50;
             // 
             // DayUserControl
             // 
@@ -89,7 +97,7 @@
 
         private System.Windows.Forms.Label dayLabel;
         private System.Windows.Forms.Label codeViewUserLabel;
-        private System.Windows.Forms.Timer eventTimer;
         private System.Windows.Forms.TextBox displayEventTextbox;
+        private System.Windows.Forms.ToolTip eventDescriptionTooltip;
     }
 }

@@ -30,7 +30,11 @@ namespace GreenOffice
             dayLabel.Text = day.ToString();
             displayEvent();
         }
-
+        private string FormatTime(TimeSpan timeSpan)
+        {
+            DateTime dateTime = DateTime.Today.Add(timeSpan);
+            return dateTime.ToString("HH:mm");
+        }
         private void displayEvent()
         {
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
@@ -39,7 +43,7 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd(); //reads "connString" file
                 string connectionString = connection; //and makes a connection
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
-                string displayEventQuery = "SELECT eventCategory, eventDescription, eventStartDate, eventFinishDate FROM events WHERE @currentDate BETWEEN eventStartDate AND eventFinishDate";
+                string displayEventQuery = "SELECT eventCategory, eventDescription, eventStartDate, eventFinishDate, eventStartTime, eventFinishTime FROM events WHERE @currentDate BETWEEN eventStartDate AND eventFinishDate";
                 databaseConnection.Open();
                 using (MySqlCommand displayEventCommand = new MySqlCommand(displayEventQuery, databaseConnection))
                 {
@@ -48,8 +52,14 @@ namespace GreenOffice
                     {
                         while (reader.Read())
                         {
-                            string eventDescription = reader["eventCategory"].ToString();
-                            displayEventTextbox.Text = eventDescription;
+                            string eventCategory = reader["eventCategory"].ToString();
+                            string eventDescription = reader["eventDescription"].ToString();
+                            TimeSpan eventStartTime = (TimeSpan)reader["eventStartTime"];
+                            TimeSpan eventFinishTime = (TimeSpan)reader["eventFinishTime"];
+                            string formatEventStartTime = FormatTime(eventStartTime);
+                            string formatEventFinishTime = FormatTime(eventFinishTime);
+                            eventDescriptionTooltip.SetToolTip(displayEventTextbox, "Opis: " + eventDescription + "\n" + "Godzina rozpoczęcia: " + formatEventStartTime + "\nGodzina zakończenia: " + formatEventFinishTime);
+                            displayEventTextbox.Text = eventCategory;
                         }
                     }
                 }
