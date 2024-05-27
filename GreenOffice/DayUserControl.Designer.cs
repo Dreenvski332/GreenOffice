@@ -33,6 +33,7 @@
             this.codeViewUserLabel = new System.Windows.Forms.Label();
             this.displayEventTextbox = new System.Windows.Forms.TextBox();
             this.eventDescriptionTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.idLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dayLabel
@@ -69,6 +70,9 @@
             this.displayEventTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.displayEventTextbox.Size = new System.Drawing.Size(85, 47);
             this.displayEventTextbox.TabIndex = 3;
+            this.displayEventTextbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.displayEventTextbox_MouseDown);
+            this.displayEventTextbox.MouseEnter += new System.EventHandler(this.displayEventTextbox_MouseEnter);
+            this.displayEventTextbox.MouseLeave += new System.EventHandler(this.displayEventTextbox_MouseLeave);
             // 
             // eventDescriptionTooltip
             // 
@@ -78,11 +82,24 @@
             this.eventDescriptionTooltip.InitialDelay = 250;
             this.eventDescriptionTooltip.ReshowDelay = 50;
             // 
+            // idLabel
+            // 
+            this.idLabel.AutoSize = true;
+            this.idLabel.BackColor = System.Drawing.Color.Transparent;
+            this.idLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idLabel.ForeColor = System.Drawing.Color.Honeydew;
+            this.idLabel.Location = new System.Drawing.Point(46, 3);
+            this.idLabel.Name = "idLabel";
+            this.idLabel.Size = new System.Drawing.Size(35, 13);
+            this.idLabel.TabIndex = 4;
+            this.idLabel.Text = "label1";
+            // 
             // DayUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
+            this.Controls.Add(this.idLabel);
             this.Controls.Add(this.displayEventTextbox);
             this.Controls.Add(this.codeViewUserLabel);
             this.Controls.Add(this.dayLabel);
@@ -99,5 +116,6 @@
         private System.Windows.Forms.Label codeViewUserLabel;
         private System.Windows.Forms.TextBox displayEventTextbox;
         private System.Windows.Forms.ToolTip eventDescriptionTooltip;
+        private System.Windows.Forms.Label idLabel;
     }
 }

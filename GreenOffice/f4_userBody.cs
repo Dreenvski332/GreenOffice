@@ -29,6 +29,7 @@ namespace GreenOffice
         private int columnCount = 7;
         private int cellWidth = 115;
         private int cellHeight = 71;
+        private f6_deleteEvent f6_delegateDeleteEvent;
 
         // ============================ OVERALL BODY START ==================================
 
@@ -79,6 +80,7 @@ namespace GreenOffice
                     databaseConnection.Close(); //stops the connection
                 }
             }
+
         }
         private void f4_userBody_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -359,7 +361,7 @@ namespace GreenOffice
         // ============================ CALENDAR PANEL START ================================
 
 
-        private void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
+        public void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
         {
             calendarJuicePanel.Controls.Clear();
             startTimePicker.CustomFormat = "hh:mm tt";
@@ -381,7 +383,6 @@ namespace GreenOffice
                 dayControl.SetDay(day, new DateTime(currentYear, currentMonth, day));
                 calendarJuicePanel.Controls.Add(dayControl);
             }
-
         }
         private void killCalendarButton_Click(object sender, EventArgs e) //makes scary Calendar go away
         {
@@ -529,6 +530,7 @@ namespace GreenOffice
                 }
                 catch { MessageBox.Show("Nieoczekiwany błąd dodawania wydarzenia do bazy danych"); }
             }
+            DisplayCurrentMonth();
         }
         // ============================ CALENDAR PANEL END ================================
     }
