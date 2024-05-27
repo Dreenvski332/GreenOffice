@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using K4os.Compression.LZ4.Streams.Abstractions;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,10 @@ namespace GreenOffice
         private const string PlaceholderText = "Opis wydarzenia (opcjonalne)";
         private Color PlaceholderColor = Color.Gray;
         private Color TextColor = Color.Black;
-
+        private int rowCount = 6;
+        private int columnCount = 7;
+        private int cellWidth = 115;
+        private int cellHeight = 71;
 
         // ============================ OVERALL BODY START ==================================
 
@@ -39,6 +43,16 @@ namespace GreenOffice
             currentMonth = DateTime.Now.Month;
             currentDay = DateTime.Now.Day;//sets global int to current month
             polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
+            calendarJuicePanel.RowCount = rowCount;
+            calendarJuicePanel.ColumnCount = columnCount;
+            for (int i = 0; i < rowCount; i++)
+            {
+                calendarJuicePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
+            }
+            for (int i = 0; i < columnCount; i++)
+            {
+                calendarJuicePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
+            }
 
             descriptionTextbox.Text = PlaceholderText;
             descriptionTextbox.ForeColor = PlaceholderColor;
@@ -347,6 +361,7 @@ namespace GreenOffice
 
         private void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
         {
+            calendarJuicePanel.Controls.Clear();
             startTimePicker.CustomFormat = "hh:mm tt";
             finishTimePicker.CustomFormat = "hh:mm tt";
             calendarJuicePanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
@@ -360,14 +375,14 @@ namespace GreenOffice
                 EmptyUserControl emptyUserControl = new EmptyUserControl(); //sets usercontrol as usercontrol
                 calendarJuicePanel.Controls.Add(emptyUserControl); //and populates one plot in tabelPanel
             } //repeat if necessary
-            for (int day = 1; day <= daysInMonth; day++) //this one does the same, but with days that happens in current month
-            { //if day is smaller or equal to int of how many days there are in a current month
-                DayUserControl dayUserControl = new DayUserControl(); //sets usercontrol to usercontrol
-                dayUserControl.DayNumber = day; //sets current day-numer to be parsed to DayUserControl
-                calendarJuicePanel.Controls.Add(dayUserControl); //populates plots in TablePanel
-            } //repeat if necessary and it is necessary
-        }
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                DayUserControl dayControl = new DayUserControl();
+                dayControl.SetDay(day, new DateTime(currentYear, currentMonth, day));
+                calendarJuicePanel.Controls.Add(dayControl);
+            }
 
+        }
         private void killCalendarButton_Click(object sender, EventArgs e) //makes scary Calendar go away
         {
             mainCalendarPanel.Visible = false;
@@ -515,13 +530,6 @@ namespace GreenOffice
                 catch { MessageBox.Show("Nieoczekiwany błąd dodawania wydarzenia do bazy danych"); }
             }
         }
-
-        
-
-
-
-
-
         // ============================ CALENDAR PANEL END ================================
     }
 }

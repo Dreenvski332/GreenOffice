@@ -69,6 +69,11 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.displayDateTextbox = new System.Windows.Forms.TextBox();
             this.mainCalendarPanel = new System.Windows.Forms.Panel();
+            this.allDayEventCheckbox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.setTimeLabel = new System.Windows.Forms.Label();
+            this.finishTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.startTimePicker = new System.Windows.Forms.DateTimePicker();
             this.oneDayEventCheckbox = new System.Windows.Forms.CheckBox();
             this.finishEventDatePicker = new System.Windows.Forms.DateTimePicker();
             this.finishEventTimeLabel = new System.Windows.Forms.Label();
@@ -94,11 +99,6 @@
             this.welcomeGroupbox = new System.Windows.Forms.GroupBox();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
-            this.startTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.finishTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.setTimeLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.allDayEventCheckbox = new System.Windows.Forms.CheckBox();
             this.headerGroupBox.SuspendLayout();
             this.timerPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -133,7 +133,7 @@
             this.timeoutLabel.Name = "timeoutLabel";
             this.timeoutLabel.Size = new System.Drawing.Size(121, 15);
             this.timeoutLabel.TabIndex = 2;
-            this.timeoutLabel.Text = "Zarejestrój dni wolne";
+            this.timeoutLabel.Text = "Zarejestruj dni wolne";
             // 
             // timeoutButton
             // 
@@ -560,6 +560,54 @@
             this.mainCalendarPanel.TabIndex = 3;
             this.mainCalendarPanel.Visible = false;
             // 
+            // allDayEventCheckbox
+            // 
+            this.allDayEventCheckbox.AutoSize = true;
+            this.allDayEventCheckbox.Location = new System.Drawing.Point(890, 488);
+            this.allDayEventCheckbox.Name = "allDayEventCheckbox";
+            this.allDayEventCheckbox.Size = new System.Drawing.Size(156, 19);
+            this.allDayEventCheckbox.TabIndex = 27;
+            this.allDayEventCheckbox.Text = "Wydarzenie całodniowe";
+            this.allDayEventCheckbox.UseVisualStyleBackColor = true;
+            this.allDayEventCheckbox.CheckedChanged += new System.EventHandler(this.allDayEventCheckbox_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(999, 467);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(11, 15);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "-";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // setTimeLabel
+            // 
+            this.setTimeLabel.AutoSize = true;
+            this.setTimeLabel.Location = new System.Drawing.Point(887, 443);
+            this.setTimeLabel.Name = "setTimeLabel";
+            this.setTimeLabel.Size = new System.Drawing.Size(203, 15);
+            this.setTimeLabel.TabIndex = 25;
+            this.setTimeLabel.Text = "Godzina rozpoczęcia i zakończenia:";
+            // 
+            // finishTimePicker
+            // 
+            this.finishTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.finishTimePicker.Location = new System.Drawing.Point(1016, 462);
+            this.finishTimePicker.Name = "finishTimePicker";
+            this.finishTimePicker.ShowUpDown = true;
+            this.finishTimePicker.Size = new System.Drawing.Size(103, 21);
+            this.finishTimePicker.TabIndex = 24;
+            // 
+            // startTimePicker
+            // 
+            this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.startTimePicker.Location = new System.Drawing.Point(890, 461);
+            this.startTimePicker.Name = "startTimePicker";
+            this.startTimePicker.ShowUpDown = true;
+            this.startTimePicker.Size = new System.Drawing.Size(103, 21);
+            this.startTimePicker.TabIndex = 23;
+            // 
             // oneDayEventCheckbox
             // 
             this.oneDayEventCheckbox.AutoSize = true;
@@ -729,13 +777,14 @@
             // 
             this.calendarJuicePanel.BackColor = System.Drawing.Color.White;
             this.calendarJuicePanel.ColumnCount = 7;
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
             this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
             this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            this.calendarJuicePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
+            this.calendarJuicePanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.calendarJuicePanel.Location = new System.Drawing.Point(3, 36);
             this.calendarJuicePanel.Name = "calendarJuicePanel";
             this.calendarJuicePanel.RowCount = 6;
@@ -745,7 +794,7 @@
             this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.calendarJuicePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.calendarJuicePanel.Size = new System.Drawing.Size(806, 432);
+            this.calendarJuicePanel.Size = new System.Drawing.Size(805, 426);
             this.calendarJuicePanel.TabIndex = 12;
             // 
             // sundayLabel
@@ -869,54 +918,6 @@
             this.nameWelcomeTextbox.Size = new System.Drawing.Size(294, 73);
             this.nameWelcomeTextbox.TabIndex = 4;
             // 
-            // startTimePicker
-            // 
-            this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.startTimePicker.Location = new System.Drawing.Point(890, 461);
-            this.startTimePicker.Name = "startTimePicker";
-            this.startTimePicker.ShowUpDown = true;
-            this.startTimePicker.Size = new System.Drawing.Size(103, 21);
-            this.startTimePicker.TabIndex = 23;
-            // 
-            // finishTimePicker
-            // 
-            this.finishTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.finishTimePicker.Location = new System.Drawing.Point(1016, 462);
-            this.finishTimePicker.Name = "finishTimePicker";
-            this.finishTimePicker.ShowUpDown = true;
-            this.finishTimePicker.Size = new System.Drawing.Size(103, 21);
-            this.finishTimePicker.TabIndex = 24;
-            // 
-            // setTimeLabel
-            // 
-            this.setTimeLabel.AutoSize = true;
-            this.setTimeLabel.Location = new System.Drawing.Point(887, 443);
-            this.setTimeLabel.Name = "setTimeLabel";
-            this.setTimeLabel.Size = new System.Drawing.Size(203, 15);
-            this.setTimeLabel.TabIndex = 25;
-            this.setTimeLabel.Text = "Godzina rozpoczęcia i zakończenia:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(999, 467);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(11, 15);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "-";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // allDayEventCheckbox
-            // 
-            this.allDayEventCheckbox.AutoSize = true;
-            this.allDayEventCheckbox.Location = new System.Drawing.Point(890, 488);
-            this.allDayEventCheckbox.Name = "allDayEventCheckbox";
-            this.allDayEventCheckbox.Size = new System.Drawing.Size(156, 19);
-            this.allDayEventCheckbox.TabIndex = 27;
-            this.allDayEventCheckbox.Text = "Wydarzenie całodniowe";
-            this.allDayEventCheckbox.UseVisualStyleBackColor = true;
-            this.allDayEventCheckbox.CheckedChanged += new System.EventHandler(this.allDayEventCheckbox_CheckedChanged);
-            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -956,7 +957,6 @@
         private System.Windows.Forms.Button timerPanelButton;
         private System.Windows.Forms.Button endTimerButton;
         private System.Windows.Forms.Button timerStartButton;
-        private System.Windows.Forms.TextBox viewUserTextbox;
         private System.Windows.Forms.Label calendarLabel;
         private System.Windows.Forms.Button calendarButton;
         private System.Windows.Forms.Button timeoutButton;
@@ -1021,5 +1021,6 @@
         private System.Windows.Forms.DateTimePicker finishTimePicker;
         private System.Windows.Forms.DateTimePicker startTimePicker;
         private System.Windows.Forms.CheckBox allDayEventCheckbox;
+        public System.Windows.Forms.TextBox viewUserTextbox;
     }
 }

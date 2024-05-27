@@ -28,28 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dayLabel = new System.Windows.Forms.Label();
+            this.codeViewUserLabel = new System.Windows.Forms.Label();
+            this.eventTimer = new System.Windows.Forms.Timer(this.components);
+            this.displayEventTextbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // dayLabel
             // 
             this.dayLabel.AutoSize = true;
             this.dayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dayLabel.Location = new System.Drawing.Point(12, 10);
+            this.dayLabel.Location = new System.Drawing.Point(3, 3);
             this.dayLabel.Name = "dayLabel";
             this.dayLabel.Size = new System.Drawing.Size(17, 18);
             this.dayLabel.TabIndex = 0;
             this.dayLabel.Text = "1";
             this.dayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // codeViewUserLabel
+            // 
+            this.codeViewUserLabel.AutoSize = true;
+            this.codeViewUserLabel.ForeColor = System.Drawing.Color.Honeydew;
+            this.codeViewUserLabel.Location = new System.Drawing.Point(35, 59);
+            this.codeViewUserLabel.Name = "codeViewUserLabel";
+            this.codeViewUserLabel.Size = new System.Drawing.Size(35, 13);
+            this.codeViewUserLabel.TabIndex = 2;
+            this.codeViewUserLabel.Text = "label1";
+            // 
+            // displayEventTextbox
+            // 
+            this.displayEventTextbox.BackColor = System.Drawing.Color.Honeydew;
+            this.displayEventTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.displayEventTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.displayEventTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displayEventTextbox.Location = new System.Drawing.Point(26, 20);
+            this.displayEventTextbox.Multiline = true;
+            this.displayEventTextbox.Name = "displayEventTextbox";
+            this.displayEventTextbox.ReadOnly = true;
+            this.displayEventTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.displayEventTextbox.Size = new System.Drawing.Size(85, 47);
+            this.displayEventTextbox.TabIndex = 3;
+            // 
             // DayUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
+            this.Controls.Add(this.displayEventTextbox);
+            this.Controls.Add(this.codeViewUserLabel);
             this.Controls.Add(this.dayLabel);
             this.Name = "DayUserControl";
-            this.Size = new System.Drawing.Size(114, 72);
+            this.Size = new System.Drawing.Size(114, 70);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -58,5 +88,8 @@
         #endregion
 
         private System.Windows.Forms.Label dayLabel;
+        private System.Windows.Forms.Label codeViewUserLabel;
+        private System.Windows.Forms.Timer eventTimer;
+        private System.Windows.Forms.TextBox displayEventTextbox;
     }
 }
