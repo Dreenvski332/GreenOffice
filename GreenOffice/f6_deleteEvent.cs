@@ -15,7 +15,6 @@ namespace GreenOffice
     public partial class f6_deleteEvent : Form
     {
         public string passedEventID;
-        private f4_userBody f4_UserBodyInstance;
 
         public f6_deleteEvent()
         {

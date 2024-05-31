@@ -29,7 +29,7 @@ namespace GreenOffice
         private int columnCount = 7;
         private int cellWidth = 115;
         private int cellHeight = 71;
-        private f6_deleteEvent f6_delegateDeleteEvent;
+        
 
         // ============================ OVERALL BODY START ==================================
 
@@ -46,6 +46,7 @@ namespace GreenOffice
             polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
             calendarJuicePanel.RowCount = rowCount;
             calendarJuicePanel.ColumnCount = columnCount;
+
             for (int i = 0; i < rowCount; i++)
             {
                 calendarJuicePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
@@ -93,6 +94,7 @@ namespace GreenOffice
             mainCalendarPanel.Visible = true; //calendar is so good it needs to appear three times
             subCalendarPanel.Visible = true; // it actually doesn't
             calendarJuicePanel.Visible = true; //just needed to be sure
+            leavePanel.Visible = false;
             DisplayCurrentMonth(); //starts DisplayCurrentMonth function, the code is way down
         }
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
@@ -102,7 +104,17 @@ namespace GreenOffice
             mainCalendarPanel.Visible = false;
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
+            leavePanel.Visible = false;
             timerStats(); //calls timerStats function, that's named in camelCase although it shouldn't
+        }
+        private void timeoutButton_Click(object sender, EventArgs e)
+        {
+            timerPanel.Visible = false;
+            mainCalendarPanel.Visible = false;
+            subCalendarPanel.Visible = false;
+            calendarJuicePanel.Visible = false;
+            welcomeGroupbox.Visible = false;
+            leavePanel.Visible = true;
         }
         private void timerStartButton_Click(object sender, EventArgs e) //starts workday timer
         {
@@ -205,6 +217,7 @@ namespace GreenOffice
                 catch { MessageBox.Show("Nieoczekiwany błąd weryfikacji rozpoczęcia pracy"); } //the ultimate error
             }
         }
+        
 
 
         // ============================ OVERALL BODY END ====================================
@@ -352,7 +365,7 @@ namespace GreenOffice
                 mainCalendarPanel.Visible = false;
             }
         }
-        
+
 
         // ============================ TIMER PANEL END =====================================
 
@@ -363,7 +376,6 @@ namespace GreenOffice
 
         public void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
         {
-            calendarJuicePanel.Controls.Clear();
             startTimePicker.CustomFormat = "hh:mm tt";
             finishTimePicker.CustomFormat = "hh:mm tt";
             calendarJuicePanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
@@ -532,6 +544,33 @@ namespace GreenOffice
             }
             DisplayCurrentMonth();
         }
+
+
+
         // ============================ CALENDAR PANEL END ================================
+
+
+        // ============================ LEAVE PANEL START =================================
+
+
+        private void killLeavePanel_Click(object sender, EventArgs e)
+        {
+            leavePanel.Visible = false;
+            welcomeGroupbox.Visible = true;
+        }
+
+        private void reasonChecklist_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked) //when new value is picked
+            {
+                for (int i = 0; i < categoryChecklist.Items.Count; i++) //checks how many boxes are checked
+                {
+                    if (i != e.Index) { categoryChecklist.SetItemChecked(i, false); } //literally just wipes the previous check
+                }
+            }
+        }
+
+
+        // ============================ LEAVE PANEL END ===================================
     }
 }
