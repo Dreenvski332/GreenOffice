@@ -62,7 +62,7 @@
             this.displayEventTextbox.BackColor = System.Drawing.Color.Honeydew;
             this.displayEventTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayEventTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.displayEventTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displayEventTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.displayEventTextbox.Location = new System.Drawing.Point(26, 20);
             this.displayEventTextbox.Multiline = true;
             this.displayEventTextbox.Name = "displayEventTextbox";

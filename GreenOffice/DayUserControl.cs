@@ -19,19 +19,23 @@ namespace GreenOffice
         public int DayNumber { get; set; }
         public DateTime CurrentDate { get; set; }
         public static string eventID = "";
+        public static string leaveID = "";
         public static string passEventID = "";
+        public int isApproved;
+        public static string ApprovedStatus = "";
         public DayUserControl()
         {
             InitializeComponent();
             codeViewUserLabel.Text = f1_login.email;
-
-        }
+            isApproved = 2;
+    }
         public void SetDay(int day, DateTime date)
         {
             DayNumber = day;
             CurrentDate = date;
             dayLabel.Text = day.ToString();
             displayEvent();
+            displayLeave();
         }
         private string FormatTime(TimeSpan timeSpan)
         {
@@ -46,10 +50,11 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd(); //reads "connString" file
                 string connectionString = connection; //and makes a connection
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
-                string displayEventQuery = "SELECT eventID, eventCategory, eventDescription, eventStartDate, eventFinishDate, eventStartTime, eventFinishTime FROM events WHERE @currentDate BETWEEN eventStartDate AND eventFinishDate";
+                string displayEventQuery = "SELECT eventID, eventCategory, eventDescription, eventStartDate, eventFinishDate, eventStartTime, eventFinishTime FROM events WHERE email=@email AND @currentDate BETWEEN eventStartDate AND eventFinishDate";
                 databaseConnection.Open();
                 using (MySqlCommand displayEventCommand = new MySqlCommand(displayEventQuery, databaseConnection))
                 {
+                    displayEventCommand.Parameters.AddWithValue("@email", codeViewUserLabel.Text);
                     displayEventCommand.Parameters.AddWithValue("@currentDate", CurrentDate);
                     using (MySqlDataReader reader = displayEventCommand.ExecuteReader())
                     {
@@ -71,6 +76,46 @@ namespace GreenOffice
                 databaseConnection.Close();
             }
         }
+        private void displayLeave()
+        {
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string displayLeaveQuery = "SELECT leaveID, leaveStartDate, leaveFinishDate, leaveStartTime, leaveFinishTime, leaveApproved, leaveReason FROM leavetable WHERE email=@email AND @currentDate BETWEEN leaveStartDate AND leaveFinishDate";
+                databaseConnection.Open();
+                using (MySqlCommand displayLeaveCommand = new MySqlCommand(displayLeaveQuery, databaseConnection))
+                {
+                    displayLeaveCommand.Parameters.AddWithValue("@email", codeViewUserLabel.Text);
+                    displayLeaveCommand.Parameters.AddWithValue("@currentDate", CurrentDate);
+                    using (MySqlDataReader reader = displayLeaveCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            TimeSpan leaveStartTime = (TimeSpan)reader["leaveStartTime"];
+                            TimeSpan leaveFinishTime = (TimeSpan)reader["leaveFinishTime"];
+                            string formatLeaveStartTime = FormatTime(leaveStartTime);
+                            string formatLeaveFinishTime = FormatTime(leaveFinishTime);
+                            string leaveReason = reader["leaveReason"].ToString();
+                            isApproved = reader.GetInt32("leaveApproved");
+                            leaveID = reader["leaveID"].ToString();
+                            if (isApproved == 0)
+                            { this.BackColor = Color.MintCream; displayEventTextbox.BackColor = Color.MintCream; ApprovedStatus = "Niezatwierdzone"; }
+                            else if (isApproved == 1)
+                            { this.BackColor = Color.LightYellow; displayEventTextbox.BackColor = Color.LightYellow; ApprovedStatus = "Zatwierdzone"; }
+                            eventDescriptionTooltip.SetToolTip(displayEventTextbox, ApprovedStatus + " \nOd: " + formatLeaveStartTime + "\nDo: " + formatLeaveFinishTime);
+                            displayEventTextbox.Text = leaveReason;
+                            idLabel.Text = leaveID;
+                        }
+                        
+                    }
+                }
+                databaseConnection.Close();
+            }
+        }
+
 
         private void displayEventTextbox_MouseEnter(object sender, EventArgs e)
         {

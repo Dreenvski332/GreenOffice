@@ -119,6 +119,7 @@
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
             this.deleteLabel = new System.Windows.Forms.Label();
+            this.generateTimerDataset = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
@@ -865,6 +866,7 @@
             // 
             this.timerPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
             this.timerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerPanel.Controls.Add(this.generateTimerDataset);
             this.timerPanel.Controls.Add(this.killTimerButton);
             this.timerPanel.Controls.Add(this.timeSpanLabel);
             this.timerPanel.Controls.Add(this.displayTimeSpanTextbox);
@@ -1195,6 +1197,23 @@
             this.deleteLabel.Text = "Naciśnij zdjęcie aby usunąć";
             this.deleteLabel.Visible = false;
             // 
+            // generateTimerDataset
+            // 
+            this.generateTimerDataset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.generateTimerDataset.FlatAppearance.BorderSize = 0;
+            this.generateTimerDataset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.generateTimerDataset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.generateTimerDataset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.generateTimerDataset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.generateTimerDataset.Location = new System.Drawing.Point(972, 484);
+            this.generateTimerDataset.Name = "generateTimerDataset";
+            this.generateTimerDataset.Size = new System.Drawing.Size(153, 42);
+            this.generateTimerDataset.TabIndex = 17;
+            this.generateTimerDataset.Text = "Wygeneruj raport na wybrany miesiąc";
+            this.generateTimerDataset.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.generateTimerDataset.UseVisualStyleBackColor = true;
+            this.generateTimerDataset.Click += new System.EventHandler(this.generateTimerDataset_Click);
+            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1202,10 +1221,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 681);
             this.Controls.Add(this.headerGroupBox);
-            this.Controls.Add(this.leavePanel);
-            this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.timerPanel);
             this.Controls.Add(this.welcomeGroupbox);
+            this.Controls.Add(this.leavePanel);
+            this.Controls.Add(this.mainCalendarPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f4_userBody";
             this.Text = "GREEN Office: Panel użytkownika";
@@ -1323,5 +1342,6 @@
         private System.Windows.Forms.CheckBox fullDayLeave;
         private System.Windows.Forms.Button killLeavePanel;
         private System.Windows.Forms.Label deleteLabel;
+        private System.Windows.Forms.Button generateTimerDataset;
     }
 }
