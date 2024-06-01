@@ -13,7 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser.clipper;
 
 namespace GreenOffice
 {
@@ -380,7 +382,41 @@ namespace GreenOffice
         }
         private void generateTimerDataset_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string startTime = displayStartTimeTextbox.Text;
+                string finishTime = displayFinishTimeTextbox.Text;
+                string date = displayDateTextbox.Text;
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string pdfFile = Path.Combine(desktopPath, "Godziny_pracy.pdf");
+                bool fileExists = File.Exists(pdfFile);
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFile, FileMode.Append));
+                document.Open();
+                if (!fileExists)
+                {
+                    // If file doesn't exist, add a header
+                    document.Add(new Paragraph("Godziny pracy"));
+                    document.Add(new Paragraph("-------------"));
+                }
+                PdfPTable table = new PdfPTable(3);
+                table.WidthPercentage = 100;
+                if (!fileExists)
+                {
+                    table.AddCell("Data");
+                    table.AddCell("Godzina rozpoczęcia:");
+                    table.AddCell("Godzina zakończenia:");
+                }
+                table.AddCell(date);
+                table.AddCell(startTime);
+                table.AddCell(finishTime);
+                document.Add(table);
 
+                // Close the document
+                document.Close();
+                MessageBox.Show("Raport wygenerowany");
+            }
+            catch { MessageBox.Show("Błąd generowania raportu"); }
         }
 
 
@@ -751,7 +787,7 @@ namespace GreenOffice
                 // Load the image into the PictureBox
                 using (MemoryStream memoryStream = new MemoryStream(imageBytes))
                 {
-                    doctorsNoticePictureBox.Image = Image.FromStream(memoryStream);
+                    doctorsNoticePictureBox.Load(openPictureDialog.FileName);
                     doctorsNoticePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     deleteLabel.Visible = true;
                 }
