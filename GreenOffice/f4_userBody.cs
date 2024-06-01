@@ -29,7 +29,7 @@ namespace GreenOffice
         private int columnCount = 7;
         private int cellWidth = 115;
         private int cellHeight = 71;
-        
+        private int isApproved;
 
         // ============================ OVERALL BODY START ==================================
 
@@ -46,6 +46,17 @@ namespace GreenOffice
             polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
             calendarJuicePanel.RowCount = rowCount;
             calendarJuicePanel.ColumnCount = columnCount;
+            startTimePicker.CustomFormat = "hh:mm tt";
+            finishTimePicker.CustomFormat = "hh:mm tt";
+            leaveStartTimePicker.CustomFormat = "hh:mm tt";
+            leaveFinishTimePicker.CustomFormat = "hh:mm tt";
+            isApproved = 0;
+
+            leaveStartTimePicker.Enabled = false;
+            leaveFinishTimePicker.Enabled = false;
+            leaveStartTimePicker.Value = new DateTime(currentYear, currentMonth, currentDay, 00, 00, 00);
+            leaveFinishTimePicker.Value = new DateTime(currentYear, currentMonth, currentDay, 23, 59, 59);
+            leaveStartTimePicker.ValueChanged += leaveStartTimePicker_ValueChanged;
 
             for (int i = 0; i < rowCount; i++)
             {
@@ -376,8 +387,6 @@ namespace GreenOffice
 
         public void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
         {
-            startTimePicker.CustomFormat = "hh:mm tt";
-            finishTimePicker.CustomFormat = "hh:mm tt";
             calendarJuicePanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); //sets the first time of the month
             int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); //then counts how many days are in said month
@@ -506,7 +515,7 @@ namespace GreenOffice
                 string connection = streamReader.ReadToEnd();
                 string connectionString = connection;
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                String addUserQuery = "INSERT INTO `events`(`email`, `eventCategory`, `eventDescription`, `eventStartDate`, `eventFinishDate`, `eventStartTime`, `eventFinishTime`) VALUES (@email,@eventCategory,@eventDescription,@eventStartDate,@eventFinishDate,@eventStartTime,@eventFinishTime)";
+                String addEventQuery = "INSERT INTO `events`(`email`, `eventCategory`, `eventDescription`, `eventStartDate`, `eventFinishDate`, `eventStartTime`, `eventFinishTime`) VALUES (@email,@eventCategory,@eventDescription,@eventStartDate,@eventFinishDate,@eventStartTime,@eventFinishTime)";
 
                 try
                 {
@@ -520,18 +529,18 @@ namespace GreenOffice
                             {
                                 checkboxListValue += categoryItem.ToString();
                             }
-                            using (MySqlCommand addUserCommand = new MySqlCommand(addUserQuery, databaseConnection))
+                            using (MySqlCommand addEventCommand = new MySqlCommand(addEventQuery, databaseConnection))
                             {
-                                addUserCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
-                                addUserCommand.Parameters.AddWithValue("@eventCategory", checkboxListValue);
-                                addUserCommand.Parameters.AddWithValue("@eventDescription", descriptionTextbox.Text);
-                                addUserCommand.Parameters.AddWithValue("@eventStartDate", startEventDatePicker.Value);
-                                addUserCommand.Parameters.AddWithValue("@eventFinishDate", finishEventDatePicker.Value);
-                                addUserCommand.Parameters.AddWithValue("@eventStartTime", startTimePicker.Value);
-                                addUserCommand.Parameters.AddWithValue("@eventFinishTime", finishTimePicker.Value);
+                                addEventCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                                addEventCommand.Parameters.AddWithValue("@eventCategory", checkboxListValue);
+                                addEventCommand.Parameters.AddWithValue("@eventDescription", descriptionTextbox.Text);
+                                addEventCommand.Parameters.AddWithValue("@eventStartDate", startEventDatePicker.Value);
+                                addEventCommand.Parameters.AddWithValue("@eventFinishDate", finishEventDatePicker.Value);
+                                addEventCommand.Parameters.AddWithValue("@eventStartTime", startTimePicker.Value);
+                                addEventCommand.Parameters.AddWithValue("@eventFinishTime", finishTimePicker.Value);
 
                                 databaseConnection.Open();
-                                int queryFeedback = addUserCommand.ExecuteNonQuery();
+                                int queryFeedback = addEventCommand.ExecuteNonQuery();
                                 databaseConnection.Close();
                             }
                             MessageBox.Show("Wydarzenie dodane");
@@ -561,13 +570,266 @@ namespace GreenOffice
 
         private void reasonChecklist_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Checked) //when new value is picked
+            CheckedListBox reasonChecklist = sender as CheckedListBox;
+            for (int i = 0; i < reasonChecklist.Items.Count; i++)
             {
-                for (int i = 0; i < categoryChecklist.Items.Count; i++) //checks how many boxes are checked
+                if (i != e.Index)
                 {
-                    if (i != e.Index) { categoryChecklist.SetItemChecked(i, false); } //literally just wipes the previous check
+                    reasonChecklist.SetItemChecked(i, false);
                 }
             }
+            switch (e.Index)
+            {
+                case 0: if(e.NewValue == CheckState.Checked) //Paid leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = false;
+                        addBLOB.Enabled = false;
+                        addBLOB.BackColor = Color.Gainsboro;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 0;
+                    } break;
+                case 1: if (e.NewValue == CheckState.Checked) //Unpaid leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = false;
+                        addBLOB.Enabled = false;
+                        addBLOB.BackColor = Color.Gainsboro;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 0;
+                    } break;
+                case 2:
+                    if (e.NewValue == CheckState.Checked) //sick leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = true;
+                        addBLOB.Enabled = true;
+                        addBLOB.BackColor = Color.Honeydew;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 1;
+                    }
+                    break;
+                case 3:
+                    if (e.NewValue == CheckState.Checked) //occasional leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = true;
+                        doctorsNoticePictureBox.Enabled = false;
+                        addBLOB.Enabled = false;
+                        addBLOB.BackColor = Color.Gainsboro;
+                        reasonDescriptionLabel.ForeColor = Color.Black;
+                        isApproved = 0;
+                    }
+                    break;
+                case 4:
+                    if (e.NewValue == CheckState.Checked) //maternity leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = false;
+                        addBLOB.Enabled = false;
+                        addBLOB.BackColor = Color.Gainsboro;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 0;
+                    }
+                    break;
+                case 5:
+                    if (e.NewValue == CheckState.Checked) //taternity leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = false;
+                        addBLOB.Enabled = false;
+                        addBLOB.BackColor = Color.Gainsboro;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 0;
+                    }
+                    break;
+                case 6:
+                    if (e.NewValue == CheckState.Checked) //blood donor leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = true;
+                        addBLOB.Enabled = true;
+                        addBLOB.BackColor = Color.Honeydew;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 1;
+                    }
+                    break;
+                case 7:
+                    if (e.NewValue == CheckState.Checked) //on demand leave
+                    {
+                        reasonDescriptionTextbox.Text = "";
+                        doctorsNoticePictureBox.Image = null;
+                        reasonDescriptionTextbox.Enabled = false;
+                        doctorsNoticePictureBox.Enabled = false;
+                        addBLOB.Enabled = false;
+                        addBLOB.BackColor = Color.Gainsboro;
+                        reasonDescriptionLabel.ForeColor = Color.Gray;
+                        isApproved = 1;
+                    }
+                    break;
+            }
+        }
+        private void oneDayLeave_CheckedChanged(object sender, EventArgs e)
+        {
+            if (oneDayLeave.Checked) //if textbox is checked
+            {
+                leaveFinishDatePicker.Enabled = false; //makes finishEventDatePicker read-only
+                leaveFinishDatePicker.Value = startEventDatePicker.Value; //sets the same value in finishEventDatePicker as in startEventDatePicker
+                leaveStartDatePicker.ValueChanged += leaveStartDatePicker_ValueChanged; //handle the ValueChanged event of startEventDatePicker to keep finishEventDatePicker updated
+            }
+            else //when unchecked
+            {
+                leaveFinishDatePicker.Enabled = true; //enables finishEventDatePicker
+                leaveStartDatePicker.ValueChanged -= leaveStartDatePicker_ValueChanged; // stop handling the ValueChanged event of startEventDatePicker
+            }
+        }
+
+        private void leaveStartDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            leaveFinishDatePicker.Value = leaveStartDatePicker.Value;
+        }
+
+        private void fullDayLeave_CheckedChanged(object sender, EventArgs e)
+        {
+            if (fullDayLeave.Checked)
+            {
+                leaveStartTimePicker.Enabled = false;
+                leaveFinishTimePicker.Enabled = false;
+                leaveStartTimePicker.Value = new DateTime(currentYear, currentMonth, currentDay, 00, 00, 00);
+                leaveFinishTimePicker.Value = new DateTime(currentYear, currentMonth, currentDay, 23, 59, 59);
+                leaveStartTimePicker.ValueChanged += leaveStartTimePicker_ValueChanged;
+            }
+            else
+            {
+                leaveStartTimePicker.Enabled = true;
+                leaveFinishTimePicker.Enabled = true;
+                leaveStartTimePicker.ValueChanged += leaveStartTimePicker_ValueChanged;
+            }
+        }
+
+        private void leaveStartTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            leaveFinishTimePicker.Value = leaveStartTimePicker.Value;
+        }
+
+        private void addBLOB_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openPictureDialog = new OpenFileDialog();
+
+            // image filters  
+            openPictureDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.jfif)|*.jpg; *.jpeg; *.gif; *.bmp; *.jfif";
+            if (openPictureDialog.ShowDialog() == DialogResult.OK)
+            {
+                doctorsNoticePictureBox.Load(openPictureDialog.FileName);
+                doctorsNoticePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                deleteLabel.Visible = true;
+            }
+        }
+        private void doctorsNoticePictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            doctorsNoticePictureBox.Image = null;
+            deleteLabel.Visible = false;
+        }
+
+        private void doctorsNoticePictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            if (doctorsNoticePictureBox.Image != null)
+            {
+                Cursor = Cursors.Hand;
+            }
+        }
+
+        private void doctorsNoticePictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            if (doctorsNoticePictureBox.Image != null)
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+        private void applyLeaveButton_Click(object sender, EventArgs e)
+        {
+            byte[] imageBytes = null;
+            if (doctorsNoticePictureBox.Image != null)
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    doctorsNoticePictureBox.Image.Save(memoryStream, doctorsNoticePictureBox.Image.RawFormat);
+                    imageBytes = memoryStream.ToArray();
+                }
+            }
+
+            var checkedItems = reasonChecklist.CheckedItems;
+            string checkboxListValue = string.Empty;
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                String addLeaveQuery = "INSERT INTO `leavetable`(`email`, `leaveStartDate`, `leaveFinishDate`, `leaveStartTime`, `leaveFinishTime`, `leaveApproved`, `leaveReason`, `leaveDescription`, `leaveBLOB`) "
+                                    + "VALUES (@email, @leaveStartDate, @leaveFinishDate, @leaveStartTime, @leaveFinishTime, @leaveApproved, @leaveReason, @leaveDescription, @leaveBLOB)";
+                bool checkChecker = false;
+                foreach (int index in reasonChecklist.CheckedIndices) { checkChecker = true; break; }
+                if (checkChecker)
+                {
+                    try
+                    {
+                        foreach (var reasonItem in checkedItems)
+                        {
+                            checkboxListValue += reasonItem.ToString();
+                        }
+                        using (MySqlCommand addLeaveCommand = new MySqlCommand(addLeaveQuery, databaseConnection))
+                        {
+                            databaseConnection.Open();
+                            addLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveStartDate", leaveStartDatePicker.Value);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveFinishDate", leaveFinishDatePicker.Value);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveStartTime", leaveStartTimePicker.Value);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveFinishTime", leaveFinishTimePicker.Value);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveApproved", isApproved);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveReason", checkboxListValue);
+                            addLeaveCommand.Parameters.AddWithValue("@leaveDescription", reasonDescriptionTextbox.Text);
+                            if (imageBytes != null)
+                            {
+                                addLeaveCommand.Parameters.AddWithValue("@leaveBLOB", imageBytes);
+                            }
+                            else
+                            {
+                                addLeaveCommand.Parameters.AddWithValue("@leaveBLOB", MySqlDbType.Blob).Value = DBNull.Value;
+                            }
+
+                            addLeaveCommand.ExecuteNonQuery();
+                            databaseConnection.Close();
+                            if (isApproved == 0)
+                            {
+                                MessageBox.Show("Nieobecność zgłoszona, oczekuje na potwierdzenie");
+                            }
+                            else if (isApproved == 1)
+                            {
+                                MessageBox.Show("Nieobecność potwierdzona");
+                            }
+                        }
+                    }
+                    catch { MessageBox.Show("Błąd dodawania nieobecności"); }
+                }
+            }
+        }
+        private void sendLeaveToDB()
+        {
+            
         }
 
 
