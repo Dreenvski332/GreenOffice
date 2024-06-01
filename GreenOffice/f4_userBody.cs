@@ -30,6 +30,7 @@ namespace GreenOffice
         private int cellWidth = 115;
         private int cellHeight = 71;
         private int isApproved;
+        private byte[] imageBytes = null;
 
         // ============================ OVERALL BODY START ==================================
 
@@ -724,18 +725,31 @@ namespace GreenOffice
         {
             leaveFinishTimePicker.Value = leaveStartTimePicker.Value;
         }
-
         private void addBLOB_Click(object sender, EventArgs e)
         {
             OpenFileDialog openPictureDialog = new OpenFileDialog();
 
             // image filters  
             openPictureDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.jfif)|*.jpg; *.jpeg; *.gif; *.bmp; *.jfif";
+            openPictureDialog.Title = "Wybierz zdjęcie adnotacji od lekarza";
             if (openPictureDialog.ShowDialog() == DialogResult.OK)
             {
-                doctorsNoticePictureBox.Load(openPictureDialog.FileName);
-                doctorsNoticePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                deleteLabel.Visible = true;
+                FileInfo fileInfo = new FileInfo(openPictureDialog.FileName);
+                if (fileInfo.Length > 1 * 1024 * 1024) // Check if file size exceeds 1MB
+                {
+                    MessageBox.Show("Plik przekracza maksymalną wielkość (1MB) proszę dodać mniejszy plik!");
+                    return;
+                }
+                // Read the entire file into a byte array
+                imageBytes = File.ReadAllBytes(openPictureDialog.FileName);
+
+                // Load the image into the PictureBox
+                using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                {
+                    doctorsNoticePictureBox.Image = Image.FromStream(memoryStream);
+                    doctorsNoticePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    deleteLabel.Visible = true;
+                }
             }
         }
         private void doctorsNoticePictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -743,7 +757,6 @@ namespace GreenOffice
             doctorsNoticePictureBox.Image = null;
             deleteLabel.Visible = false;
         }
-
         private void doctorsNoticePictureBox_MouseEnter(object sender, EventArgs e)
         {
             if (doctorsNoticePictureBox.Image != null)
@@ -751,7 +764,6 @@ namespace GreenOffice
                 Cursor = Cursors.Hand;
             }
         }
-
         private void doctorsNoticePictureBox_MouseLeave(object sender, EventArgs e)
         {
             if (doctorsNoticePictureBox.Image != null)
@@ -761,15 +773,6 @@ namespace GreenOffice
         }
         private void applyLeaveButton_Click(object sender, EventArgs e)
         {
-            byte[] imageBytes = null;
-            if (doctorsNoticePictureBox.Image != null)
-            {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    doctorsNoticePictureBox.Image.Save(memoryStream, doctorsNoticePictureBox.Image.RawFormat);
-                    imageBytes = memoryStream.ToArray();
-                }
-            }
 
             var checkedItems = reasonChecklist.CheckedItems;
             string checkboxListValue = string.Empty;
@@ -802,13 +805,13 @@ namespace GreenOffice
                             addLeaveCommand.Parameters.AddWithValue("@leaveApproved", isApproved);
                             addLeaveCommand.Parameters.AddWithValue("@leaveReason", checkboxListValue);
                             addLeaveCommand.Parameters.AddWithValue("@leaveDescription", reasonDescriptionTextbox.Text);
-                            if (imageBytes != null)
+                            if (doctorsNoticePictureBox != null)
                             {
-                                addLeaveCommand.Parameters.AddWithValue("@leaveBLOB", imageBytes);
+                                addLeaveCommand.Parameters.Add("@leaveBLOB", MySqlDbType.MediumBlob).Value = imageBytes;
                             }
                             else
                             {
-                                addLeaveCommand.Parameters.AddWithValue("@leaveBLOB", MySqlDbType.Blob).Value = DBNull.Value;
+                                addLeaveCommand.Parameters.AddWithValue("@leaveBLOB", MySqlDbType.MediumBlob).Value = DBNull.Value;
                             }
 
                             addLeaveCommand.ExecuteNonQuery();
@@ -826,10 +829,6 @@ namespace GreenOffice
                     catch { MessageBox.Show("Błąd dodawania nieobecności"); }
                 }
             }
-        }
-        private void sendLeaveToDB()
-        {
-            
         }
 
 
