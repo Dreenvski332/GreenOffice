@@ -52,41 +52,41 @@
             // emailTextbox
             // 
             this.emailTextbox.BackColor = System.Drawing.Color.White;
-            this.emailTextbox.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.emailTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.emailTextbox.Location = new System.Drawing.Point(405, 136);
             this.emailTextbox.Name = "emailTextbox";
-            this.emailTextbox.Size = new System.Drawing.Size(184, 27);
+            this.emailTextbox.Size = new System.Drawing.Size(184, 26);
             this.emailTextbox.TabIndex = 0;
-            this.emailTextbox.Text = "mstn@grof.com";
+            this.emailTextbox.Text = "dstn@grof.com";
             // 
             // passwordTextbox
             // 
             this.passwordTextbox.BackColor = System.Drawing.Color.White;
-            this.passwordTextbox.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.passwordTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.passwordTextbox.Location = new System.Drawing.Point(405, 208);
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.PasswordChar = '*';
-            this.passwordTextbox.Size = new System.Drawing.Size(184, 27);
+            this.passwordTextbox.Size = new System.Drawing.Size(184, 26);
             this.passwordTextbox.TabIndex = 1;
             this.passwordTextbox.Text = "1234";
             // 
             // emailLabel
             // 
             this.emailLabel.AutoSize = true;
-            this.emailLabel.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.emailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.emailLabel.Location = new System.Drawing.Point(401, 114);
             this.emailLabel.Name = "emailLabel";
-            this.emailLabel.Size = new System.Drawing.Size(56, 19);
+            this.emailLabel.Size = new System.Drawing.Size(55, 20);
             this.emailLabel.TabIndex = 3;
             this.emailLabel.Text = "e-mail:";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.passwordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.passwordLabel.Location = new System.Drawing.Point(401, 186);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(52, 19);
+            this.passwordLabel.Size = new System.Drawing.Size(52, 20);
             this.passwordLabel.TabIndex = 4;
             this.passwordLabel.Text = "hasło:";
             // 
@@ -98,7 +98,7 @@
             this.loginButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
             this.loginButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
             this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loginButton.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.loginButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.loginButton.Location = new System.Drawing.Point(442, 259);
             this.loginButton.Name = "loginButton";

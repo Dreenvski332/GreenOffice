@@ -132,7 +132,8 @@ https://www.flaticon.com/free-icon/next_318476?term=arrow&amp;page=1&amp;positio
 (ikona strzałki w prawo)
 https://www.flaticon.com/free-icon/back_2609370?term=arrow+left&amp;page=1&amp;position=9&amp;origin=search&amp;related_id=2609370
 (ikona strzałki w lewo)
-</value>
+https://www.flaticon.com/free-icon/setting_7542245?term=admin&amp;page=1&amp;position=6&amp;origin=tag&amp;related_id=7542245
+(ikona panelu administratora)</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

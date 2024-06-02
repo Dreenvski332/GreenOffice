@@ -1,21 +1,13 @@
-﻿using K4os.Compression.LZ4.Streams.Abstractions;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser.clipper;
 
 namespace GreenOffice
 {
@@ -120,6 +112,9 @@ namespace GreenOffice
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
             leavePanel.Visible = false;
+            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+            codeMonthLabel.Text = firstDayOfMonth.ToString("MM");
+            timerMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
             timerStats(); //calls timerStats function, that's named in camelCase although it shouldn't
         }
         private void timeoutButton_Click(object sender, EventArgs e)
@@ -249,18 +244,19 @@ namespace GreenOffice
         }
         private void styczeńToolStripMenuItem_Click(object sender, EventArgs e) //next twelve actions are my proud baby of lazines
         { //all this thing do is sets invisible label depending on which month was chosen from a list
-            codeMonthLabel.Text = "1"; }
-        private void lutyToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "2"; }
-        private void marzecToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "3"; }
-        private void kwiecieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "4"; }
-        private void majToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "5"; }
-        private void czerwiecToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "6"; }
-        private void lipiecToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "7"; }
-        private void sierpieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "8"; }
-        private void wrzesieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "9"; }
-        private void październikToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "10"; }
-        private void listopadToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "11"; }
-        private void grudzieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "12"; }
+            codeMonthLabel.Text = "1"; timerMonthLabel.Text = "styczeń"; timerStats();
+        }
+        private void lutyToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "2"; timerMonthLabel.Text = "luty"; timerStats(); }
+        private void marzecToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "3"; timerMonthLabel.Text = "marzec"; timerStats(); }
+        private void kwiecieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "4"; timerMonthLabel.Text = "kwiecień"; timerStats(); }
+        private void majToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "5"; timerMonthLabel.Text = "maj"; timerStats(); }
+        private void czerwiecToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "6"; timerMonthLabel.Text = "czerwiec"; timerStats(); }
+        private void lipiecToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "7"; timerMonthLabel.Text = "lipiec"; timerStats(); }
+        private void sierpieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "8"; timerMonthLabel.Text = "sierpień"; timerStats(); }
+        private void wrzesieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "9"; timerMonthLabel.Text = "wrzesień"; timerStats(); }
+        private void październikToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "10"; timerMonthLabel.Text = "październik"; timerStats(); }
+        private void listopadToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "11"; timerMonthLabel.Text = "listopad"; timerStats(); }
+        private void grudzieńToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "12"; timerMonthLabel.Text = "grudzień"; timerStats(); }
 
         private void timerStats()
         {

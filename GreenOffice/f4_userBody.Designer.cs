@@ -68,6 +68,7 @@
             this.mondayLabel = new System.Windows.Forms.Label();
             this.killCalendarButton = new System.Windows.Forms.Button();
             this.leavePanel = new System.Windows.Forms.Panel();
+            this.deleteLabel = new System.Windows.Forms.Label();
             this.killLeavePanel = new System.Windows.Forms.Button();
             this.fullDayLeave = new System.Windows.Forms.CheckBox();
             this.oneDayLeave = new System.Windows.Forms.CheckBox();
@@ -87,6 +88,7 @@
             this.reasonChecklist = new System.Windows.Forms.CheckedListBox();
             this.reasonLabel = new System.Windows.Forms.Label();
             this.timerPanel = new System.Windows.Forms.Panel();
+            this.generateTimerDataset = new System.Windows.Forms.Button();
             this.killTimerButton = new System.Windows.Forms.Button();
             this.timeSpanLabel = new System.Windows.Forms.Label();
             this.displayTimeSpanTextbox = new System.Windows.Forms.TextBox();
@@ -118,8 +120,7 @@
             this.welcomeGroupbox = new System.Windows.Forms.GroupBox();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
-            this.deleteLabel = new System.Windows.Forms.Label();
-            this.generateTimerDataset = new System.Windows.Forms.Button();
+            this.timerMonthLabel = new System.Windows.Forms.Label();
             this.headerGroupBox.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
@@ -290,7 +291,7 @@
             this.mainCalendarPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainCalendarPanel.Location = new System.Drawing.Point(12, 99);
             this.mainCalendarPanel.Name = "mainCalendarPanel";
-            this.mainCalendarPanel.Size = new System.Drawing.Size(1160, 566);
+            this.mainCalendarPanel.Size = new System.Drawing.Size(1160, 577);
             this.mainCalendarPanel.TabIndex = 3;
             this.mainCalendarPanel.Visible = false;
             // 
@@ -648,6 +649,16 @@
             this.leavePanel.TabIndex = 9;
             this.leavePanel.Visible = false;
             // 
+            // deleteLabel
+            // 
+            this.deleteLabel.AutoSize = true;
+            this.deleteLabel.Location = new System.Drawing.Point(921, 536);
+            this.deleteLabel.Name = "deleteLabel";
+            this.deleteLabel.Size = new System.Drawing.Size(158, 15);
+            this.deleteLabel.TabIndex = 19;
+            this.deleteLabel.Text = "Naciśnij zdjęcie aby usunąć";
+            this.deleteLabel.Visible = false;
+            // 
             // killLeavePanel
             // 
             this.killLeavePanel.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -866,6 +877,7 @@
             // 
             this.timerPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
             this.timerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerPanel.Controls.Add(this.timerMonthLabel);
             this.timerPanel.Controls.Add(this.generateTimerDataset);
             this.timerPanel.Controls.Add(this.killTimerButton);
             this.timerPanel.Controls.Add(this.timeSpanLabel);
@@ -879,11 +891,28 @@
             this.timerPanel.Controls.Add(this.dateLabel);
             this.timerPanel.Controls.Add(this.displayDateTextbox);
             this.timerPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timerPanel.Location = new System.Drawing.Point(18, 99);
+            this.timerPanel.Location = new System.Drawing.Point(0, 99);
             this.timerPanel.Name = "timerPanel";
-            this.timerPanel.Size = new System.Drawing.Size(1160, 566);
+            this.timerPanel.Size = new System.Drawing.Size(1178, 580);
             this.timerPanel.TabIndex = 2;
             this.timerPanel.Visible = false;
+            // 
+            // generateTimerDataset
+            // 
+            this.generateTimerDataset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.generateTimerDataset.FlatAppearance.BorderSize = 0;
+            this.generateTimerDataset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.generateTimerDataset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.generateTimerDataset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.generateTimerDataset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.generateTimerDataset.Location = new System.Drawing.Point(972, 484);
+            this.generateTimerDataset.Name = "generateTimerDataset";
+            this.generateTimerDataset.Size = new System.Drawing.Size(153, 42);
+            this.generateTimerDataset.TabIndex = 17;
+            this.generateTimerDataset.Text = "Wygeneruj raport na wybrany miesiąc";
+            this.generateTimerDataset.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.generateTimerDataset.UseVisualStyleBackColor = true;
+            this.generateTimerDataset.Click += new System.EventHandler(this.generateTimerDataset_Click);
             // 
             // killTimerButton
             // 
@@ -968,7 +997,7 @@
             // 
             this.styczeńToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.styczeńToolStripMenuItem.Name = "styczeńToolStripMenuItem";
-            this.styczeńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.styczeńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.styczeńToolStripMenuItem.Text = "Styczeń";
             this.styczeńToolStripMenuItem.Click += new System.EventHandler(this.styczeńToolStripMenuItem_Click);
             // 
@@ -976,7 +1005,7 @@
             // 
             this.lutyToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.lutyToolStripMenuItem.Name = "lutyToolStripMenuItem";
-            this.lutyToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.lutyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lutyToolStripMenuItem.Text = "Luty";
             this.lutyToolStripMenuItem.Click += new System.EventHandler(this.lutyToolStripMenuItem_Click);
             // 
@@ -984,7 +1013,7 @@
             // 
             this.marzecToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.marzecToolStripMenuItem.Name = "marzecToolStripMenuItem";
-            this.marzecToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.marzecToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.marzecToolStripMenuItem.Text = "Marzec";
             this.marzecToolStripMenuItem.Click += new System.EventHandler(this.marzecToolStripMenuItem_Click);
             // 
@@ -992,7 +1021,7 @@
             // 
             this.kwiecieńToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.kwiecieńToolStripMenuItem.Name = "kwiecieńToolStripMenuItem";
-            this.kwiecieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.kwiecieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.kwiecieńToolStripMenuItem.Text = "Kwiecień";
             this.kwiecieńToolStripMenuItem.Click += new System.EventHandler(this.kwiecieńToolStripMenuItem_Click);
             // 
@@ -1000,7 +1029,7 @@
             // 
             this.majToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.majToolStripMenuItem.Name = "majToolStripMenuItem";
-            this.majToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.majToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.majToolStripMenuItem.Text = "Maj";
             this.majToolStripMenuItem.Click += new System.EventHandler(this.majToolStripMenuItem_Click);
             // 
@@ -1008,7 +1037,7 @@
             // 
             this.czerwiecToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.czerwiecToolStripMenuItem.Name = "czerwiecToolStripMenuItem";
-            this.czerwiecToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.czerwiecToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.czerwiecToolStripMenuItem.Text = "Czerwiec";
             this.czerwiecToolStripMenuItem.Click += new System.EventHandler(this.czerwiecToolStripMenuItem_Click);
             // 
@@ -1016,7 +1045,7 @@
             // 
             this.lipiecToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.lipiecToolStripMenuItem.Name = "lipiecToolStripMenuItem";
-            this.lipiecToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.lipiecToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lipiecToolStripMenuItem.Text = "Lipiec";
             this.lipiecToolStripMenuItem.Click += new System.EventHandler(this.lipiecToolStripMenuItem_Click);
             // 
@@ -1024,7 +1053,7 @@
             // 
             this.sierpieńToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.sierpieńToolStripMenuItem.Name = "sierpieńToolStripMenuItem";
-            this.sierpieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.sierpieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sierpieńToolStripMenuItem.Text = "Sierpień";
             this.sierpieńToolStripMenuItem.Click += new System.EventHandler(this.sierpieńToolStripMenuItem_Click);
             // 
@@ -1032,7 +1061,7 @@
             // 
             this.wrzesieńToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.wrzesieńToolStripMenuItem.Name = "wrzesieńToolStripMenuItem";
-            this.wrzesieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.wrzesieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.wrzesieńToolStripMenuItem.Text = "Wrzesień";
             this.wrzesieńToolStripMenuItem.Click += new System.EventHandler(this.wrzesieńToolStripMenuItem_Click);
             // 
@@ -1040,7 +1069,7 @@
             // 
             this.październikToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.październikToolStripMenuItem.Name = "październikToolStripMenuItem";
-            this.październikToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.październikToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.październikToolStripMenuItem.Text = "Październik";
             this.październikToolStripMenuItem.Click += new System.EventHandler(this.październikToolStripMenuItem_Click);
             // 
@@ -1048,7 +1077,7 @@
             // 
             this.listopadToolStripMenuItem.BackColor = System.Drawing.Color.Honeydew;
             this.listopadToolStripMenuItem.Name = "listopadToolStripMenuItem";
-            this.listopadToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.listopadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.listopadToolStripMenuItem.Text = "Listopad";
             this.listopadToolStripMenuItem.Click += new System.EventHandler(this.listopadToolStripMenuItem_Click);
             // 
@@ -1056,7 +1085,7 @@
             // 
             this.grudzieńToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.grudzieńToolStripMenuItem.Name = "grudzieńToolStripMenuItem";
-            this.grudzieńToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.grudzieńToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.grudzieńToolStripMenuItem.Text = "Grudzień";
             this.grudzieńToolStripMenuItem.Click += new System.EventHandler(this.grudzieńToolStripMenuItem_Click);
             // 
@@ -1072,13 +1101,13 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "2024";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "2023";
             // 
             // codeMonthLabel
@@ -1160,9 +1189,9 @@
             this.welcomeGroupbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.welcomeGroupbox.Controls.Add(this.welcomeLabel);
             this.welcomeGroupbox.Controls.Add(this.nameWelcomeTextbox);
-            this.welcomeGroupbox.Location = new System.Drawing.Point(0, 108);
+            this.welcomeGroupbox.Location = new System.Drawing.Point(0, 99);
             this.welcomeGroupbox.Name = "welcomeGroupbox";
-            this.welcomeGroupbox.Size = new System.Drawing.Size(1184, 545);
+            this.welcomeGroupbox.Size = new System.Drawing.Size(1184, 580);
             this.welcomeGroupbox.TabIndex = 16;
             this.welcomeGroupbox.TabStop = false;
             // 
@@ -1187,32 +1216,15 @@
             this.nameWelcomeTextbox.Size = new System.Drawing.Size(294, 73);
             this.nameWelcomeTextbox.TabIndex = 4;
             // 
-            // deleteLabel
+            // timerMonthLabel
             // 
-            this.deleteLabel.AutoSize = true;
-            this.deleteLabel.Location = new System.Drawing.Point(921, 536);
-            this.deleteLabel.Name = "deleteLabel";
-            this.deleteLabel.Size = new System.Drawing.Size(158, 15);
-            this.deleteLabel.TabIndex = 19;
-            this.deleteLabel.Text = "Naciśnij zdjęcie aby usunąć";
-            this.deleteLabel.Visible = false;
-            // 
-            // generateTimerDataset
-            // 
-            this.generateTimerDataset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.generateTimerDataset.FlatAppearance.BorderSize = 0;
-            this.generateTimerDataset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.generateTimerDataset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.generateTimerDataset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.generateTimerDataset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.generateTimerDataset.Location = new System.Drawing.Point(972, 484);
-            this.generateTimerDataset.Name = "generateTimerDataset";
-            this.generateTimerDataset.Size = new System.Drawing.Size(153, 42);
-            this.generateTimerDataset.TabIndex = 17;
-            this.generateTimerDataset.Text = "Wygeneruj raport na wybrany miesiąc";
-            this.generateTimerDataset.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.generateTimerDataset.UseVisualStyleBackColor = true;
-            this.generateTimerDataset.Click += new System.EventHandler(this.generateTimerDataset_Click);
+            this.timerMonthLabel.AutoSize = true;
+            this.timerMonthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timerMonthLabel.Location = new System.Drawing.Point(234, 9);
+            this.timerMonthLabel.Name = "timerMonthLabel";
+            this.timerMonthLabel.Size = new System.Drawing.Size(59, 20);
+            this.timerMonthLabel.TabIndex = 18;
+            this.timerMonthLabel.Text = "month";
             // 
             // f4_userBody
             // 
@@ -1343,5 +1355,6 @@
         private System.Windows.Forms.Button killLeavePanel;
         private System.Windows.Forms.Label deleteLabel;
         private System.Windows.Forms.Button generateTimerDataset;
+        private System.Windows.Forms.Label timerMonthLabel;
     }
 }

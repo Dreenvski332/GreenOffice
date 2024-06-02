@@ -23,10 +23,12 @@ namespace GreenOffice
         public static string passEventID = "";
         public int isApproved;
         public static string ApprovedStatus = "";
+        private static string codeAdmin;
         public DayUserControl()
         {
             InitializeComponent();
             codeViewUserLabel.Text = f1_login.email;
+            codeAdmin = f3_adminBody.adminCode;
             isApproved = 2;
     }
         public void SetDay(int day, DateTime date)
@@ -54,7 +56,14 @@ namespace GreenOffice
                 databaseConnection.Open();
                 using (MySqlCommand displayEventCommand = new MySqlCommand(displayEventQuery, databaseConnection))
                 {
-                    displayEventCommand.Parameters.AddWithValue("@email", codeViewUserLabel.Text);
+                    if(codeAdmin != null)
+                    {
+                        displayEventCommand.Parameters.AddWithValue("@email", codeAdmin);
+                    }
+                    else
+                    {
+                        displayEventCommand.Parameters.AddWithValue("@email", codeViewUserLabel.Text);
+                    }
                     displayEventCommand.Parameters.AddWithValue("@currentDate", CurrentDate);
                     using (MySqlDataReader reader = displayEventCommand.ExecuteReader())
                     {
@@ -88,7 +97,14 @@ namespace GreenOffice
                 databaseConnection.Open();
                 using (MySqlCommand displayLeaveCommand = new MySqlCommand(displayLeaveQuery, databaseConnection))
                 {
-                    displayLeaveCommand.Parameters.AddWithValue("@email", codeViewUserLabel.Text);
+                    if (codeAdmin != null)
+                    {
+                        displayLeaveCommand.Parameters.AddWithValue("@email", codeAdmin);
+                    }
+                    else
+                    {
+                        displayLeaveCommand.Parameters.AddWithValue("@email", codeViewUserLabel.Text);
+                    }
                     displayLeaveCommand.Parameters.AddWithValue("@currentDate", CurrentDate);
                     using (MySqlDataReader reader = displayLeaveCommand.ExecuteReader())
                     {
