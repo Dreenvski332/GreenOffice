@@ -49,6 +49,7 @@
             this.endTimerButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.headerGroupBox = new System.Windows.Forms.GroupBox();
+            this.viewUserTextbox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.managedAccount = new System.Windows.Forms.ListBox();
             this.managedAccountLabel = new System.Windows.Forms.Label();
@@ -127,7 +128,11 @@
             this.welcomeGroupbox = new System.Windows.Forms.GroupBox();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
-            this.viewUserTextbox = new System.Windows.Forms.TextBox();
+            this.adminPanel = new System.Windows.Forms.Panel();
+            this.notificationTextbox = new System.Windows.Forms.TextBox();
+            this.notificationPanel = new System.Windows.Forms.Panel();
+            this.confirmNotificationButton = new System.Windows.Forms.Button();
+            this.moveToAdminPanelButton = new System.Windows.Forms.Button();
             this.headerGroupBox.SuspendLayout();
             this.panel1.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
@@ -138,6 +143,7 @@
             this.leavePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doctorsNoticePictureBox)).BeginInit();
             this.welcomeGroupbox.SuspendLayout();
+            this.notificationPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // allDayEventCheckbox
@@ -374,14 +380,27 @@
             this.headerGroupBox.TabIndex = 17;
             this.headerGroupBox.TabStop = false;
             // 
+            // viewUserTextbox
+            // 
+            this.viewUserTextbox.BackColor = System.Drawing.Color.White;
+            this.viewUserTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.viewUserTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.viewUserTextbox.ForeColor = System.Drawing.Color.White;
+            this.viewUserTextbox.Location = new System.Drawing.Point(1055, 14);
+            this.viewUserTextbox.Name = "viewUserTextbox";
+            this.viewUserTextbox.ReadOnly = true;
+            this.viewUserTextbox.Size = new System.Drawing.Size(100, 13);
+            this.viewUserTextbox.TabIndex = 13;
+            this.viewUserTextbox.Visible = false;
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.managedAccount);
             this.panel1.Controls.Add(this.managedAccountLabel);
-            this.panel1.Location = new System.Drawing.Point(788, 38);
+            this.panel1.Location = new System.Drawing.Point(788, 41);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(206, 55);
+            this.panel1.Size = new System.Drawing.Size(206, 52);
             this.panel1.TabIndex = 12;
             // 
             // managedAccount
@@ -390,7 +409,7 @@
             this.managedAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.managedAccount.FormattingEnabled = true;
             this.managedAccount.ItemHeight = 20;
-            this.managedAccount.Location = new System.Drawing.Point(3, 25);
+            this.managedAccount.Location = new System.Drawing.Point(3, 24);
             this.managedAccount.Name = "managedAccount";
             this.managedAccount.Size = new System.Drawing.Size(198, 24);
             this.managedAccount.TabIndex = 14;
@@ -441,6 +460,7 @@
             this.adminPanelButton.Size = new System.Drawing.Size(60, 60);
             this.adminPanelButton.TabIndex = 9;
             this.adminPanelButton.UseVisualStyleBackColor = true;
+            this.adminPanelButton.Click += new System.EventHandler(this.adminPanelButton_Click);
             // 
             // timeoutButton
             // 
@@ -1278,6 +1298,7 @@
             this.welcomeGroupbox.BackColor = System.Drawing.Color.Transparent;
             this.welcomeGroupbox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("welcomeGroupbox.BackgroundImage")));
             this.welcomeGroupbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.welcomeGroupbox.Controls.Add(this.notificationPanel);
             this.welcomeGroupbox.Controls.Add(this.welcomeLabel);
             this.welcomeGroupbox.Controls.Add(this.nameWelcomeTextbox);
             this.welcomeGroupbox.Location = new System.Drawing.Point(0, 100);
@@ -1304,21 +1325,79 @@
             this.nameWelcomeTextbox.Location = new System.Drawing.Point(19, 92);
             this.nameWelcomeTextbox.Name = "nameWelcomeTextbox";
             this.nameWelcomeTextbox.ReadOnly = true;
-            this.nameWelcomeTextbox.Size = new System.Drawing.Size(294, 73);
+            this.nameWelcomeTextbox.Size = new System.Drawing.Size(314, 73);
             this.nameWelcomeTextbox.TabIndex = 4;
             // 
-            // viewUserTextbox
+            // adminPanel
             // 
-            this.viewUserTextbox.BackColor = System.Drawing.Color.White;
-            this.viewUserTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.viewUserTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.viewUserTextbox.ForeColor = System.Drawing.Color.White;
-            this.viewUserTextbox.Location = new System.Drawing.Point(1055, 14);
-            this.viewUserTextbox.Name = "viewUserTextbox";
-            this.viewUserTextbox.ReadOnly = true;
-            this.viewUserTextbox.Size = new System.Drawing.Size(100, 13);
-            this.viewUserTextbox.TabIndex = 13;
-            this.viewUserTextbox.Visible = false;
+            this.adminPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminPanel.Location = new System.Drawing.Point(0, 99);
+            this.adminPanel.Name = "adminPanel";
+            this.adminPanel.Size = new System.Drawing.Size(1184, 581);
+            this.adminPanel.TabIndex = 14;
+            this.adminPanel.Visible = false;
+            // 
+            // notificationTextbox
+            // 
+            this.notificationTextbox.BackColor = System.Drawing.Color.White;
+            this.notificationTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.notificationTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.notificationTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notificationTextbox.Location = new System.Drawing.Point(2, 23);
+            this.notificationTextbox.Multiline = true;
+            this.notificationTextbox.Name = "notificationTextbox";
+            this.notificationTextbox.ReadOnly = true;
+            this.notificationTextbox.Size = new System.Drawing.Size(326, 68);
+            this.notificationTextbox.TabIndex = 14;
+            this.notificationTextbox.Text = "Nieobecności oczekują na potwierdzenie!";
+            this.notificationTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // notificationPanel
+            // 
+            this.notificationPanel.BackColor = System.Drawing.Color.White;
+            this.notificationPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.notificationPanel.Controls.Add(this.moveToAdminPanelButton);
+            this.notificationPanel.Controls.Add(this.confirmNotificationButton);
+            this.notificationPanel.Controls.Add(this.notificationTextbox);
+            this.notificationPanel.Location = new System.Drawing.Point(428, 151);
+            this.notificationPanel.Name = "notificationPanel";
+            this.notificationPanel.Size = new System.Drawing.Size(329, 198);
+            this.notificationPanel.TabIndex = 15;
+            this.notificationPanel.Visible = false;
+            // 
+            // confirmNotificationButton
+            // 
+            this.confirmNotificationButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.confirmNotificationButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.confirmNotificationButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.confirmNotificationButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.confirmNotificationButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.confirmNotificationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.confirmNotificationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.confirmNotificationButton.Location = new System.Drawing.Point(97, 105);
+            this.confirmNotificationButton.Name = "confirmNotificationButton";
+            this.confirmNotificationButton.Size = new System.Drawing.Size(130, 33);
+            this.confirmNotificationButton.TabIndex = 14;
+            this.confirmNotificationButton.Text = "Później";
+            this.confirmNotificationButton.UseVisualStyleBackColor = true;
+            this.confirmNotificationButton.Click += new System.EventHandler(this.confirmNotificationButton_Click);
+            // 
+            // moveToAdminPanelButton
+            // 
+            this.moveToAdminPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.moveToAdminPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.moveToAdminPanelButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.moveToAdminPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.moveToAdminPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.moveToAdminPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.moveToAdminPanelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveToAdminPanelButton.Location = new System.Drawing.Point(65, 146);
+            this.moveToAdminPanelButton.Name = "moveToAdminPanelButton";
+            this.moveToAdminPanelButton.Size = new System.Drawing.Size(198, 33);
+            this.moveToAdminPanelButton.TabIndex = 15;
+            this.moveToAdminPanelButton.Text = "Panel Administratora";
+            this.moveToAdminPanelButton.UseVisualStyleBackColor = true;
+            this.moveToAdminPanelButton.Click += new System.EventHandler(this.moveToAdminPanelButton_Click);
             // 
             // f3_adminBody
             // 
@@ -1328,6 +1407,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1184, 681);
             this.Controls.Add(this.headerGroupBox);
+            this.Controls.Add(this.adminPanel);
             this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.leavePanel);
             this.Controls.Add(this.welcomeGroupbox);
@@ -1356,6 +1436,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.doctorsNoticePictureBox)).EndInit();
             this.welcomeGroupbox.ResumeLayout(false);
             this.welcomeGroupbox.PerformLayout();
+            this.notificationPanel.ResumeLayout(false);
+            this.notificationPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1461,5 +1543,10 @@
         private System.Windows.Forms.Label managedAccountLabel;
         private System.Windows.Forms.ListBox managedAccount;
         private System.Windows.Forms.TextBox viewUserTextbox;
+        private System.Windows.Forms.Panel adminPanel;
+        private System.Windows.Forms.TextBox notificationTextbox;
+        private System.Windows.Forms.Panel notificationPanel;
+        private System.Windows.Forms.Button confirmNotificationButton;
+        private System.Windows.Forms.Button moveToAdminPanelButton;
     }
 }

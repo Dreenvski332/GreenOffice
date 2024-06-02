@@ -72,6 +72,7 @@ namespace GreenOffice
 
             displayLoggedUser();
             selectManagedUsers();
+            leaveNotification();
         }
         private void selectManagedUsers()
         {
@@ -116,6 +117,39 @@ namespace GreenOffice
                 }
             }
         }
+        private void leaveNotification()
+        {
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+
+                MySqlCommand displayName = new MySqlCommand($"SELECT leaveApproved FROM leaveTable WHERE leaveApproved = @leaveApproved"); //query to find name based on email
+                displayName.Parameters.AddWithValue("@leaveApproved", 0);
+                displayName.CommandType = CommandType.Text; //makes command readable for the app
+                displayName.Connection = databaseConnection; //does something?
+                databaseConnection.Open(); //opens connection
+                
+                using(MySqlDataReader reader = displayName.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        notificationPanel.Visible = true;
+                    }
+                }
+            }
+        }
+        private void confirmNotificationButton_Click(object sender, EventArgs e)
+        {
+            notificationPanel.Visible = false;
+        }
+        private void moveToAdminPanelButton_Click(object sender, EventArgs e)
+        {
+            adminPanel.Visible = true;
+            notificationPanel.Visible = false;
+        }
         private void f3_adminBody_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit(); //just makes sure, that entire app closes when the windows X button is pressed
@@ -128,6 +162,7 @@ namespace GreenOffice
             subCalendarPanel.Visible = true; // it actually doesn't
             calendarJuicePanel.Visible = true; //just needed to be sure
             leavePanel.Visible = false;
+            adminPanel.Visible = false;
             DisplayCurrentMonth(); //starts DisplayCurrentMonth function, the code is way down
         }
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
@@ -138,6 +173,7 @@ namespace GreenOffice
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
             leavePanel.Visible = false;
+            adminPanel.Visible = false;
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
             codeMonthLabel.Text = firstDayOfMonth.ToString("MM");
             timerMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
@@ -151,6 +187,17 @@ namespace GreenOffice
             calendarJuicePanel.Visible = false;
             welcomeGroupbox.Visible = false;
             leavePanel.Visible = true;
+            adminPanel.Visible = false;
+        }
+        private void adminPanelButton_Click(object sender, EventArgs e)
+        {
+            timerPanel.Visible = false;
+            mainCalendarPanel.Visible = false;
+            subCalendarPanel.Visible = false;
+            calendarJuicePanel.Visible = false;
+            welcomeGroupbox.Visible = false;
+            leavePanel.Visible = false;
+            adminPanel.Visible = true;
         }
         private void timerStartButton_Click(object sender, EventArgs e) //starts workday timer
         {
@@ -669,7 +716,6 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
                     }
                     break;
                 case 1:
@@ -682,7 +728,6 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
                     }
                     break;
                 case 2:
@@ -695,7 +740,6 @@ namespace GreenOffice
                         addBLOB.Enabled = true;
                         addBLOB.BackColor = Color.Honeydew;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 1;
                     }
                     break;
                 case 3:
@@ -708,7 +752,6 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Black;
-                        isApproved = 0;
                     }
                     break;
                 case 4:
@@ -721,7 +764,6 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
                     }
                     break;
                 case 5:
@@ -734,7 +776,6 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
                     }
                     break;
                 case 6:
@@ -747,7 +788,6 @@ namespace GreenOffice
                         addBLOB.Enabled = true;
                         addBLOB.BackColor = Color.Honeydew;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 1;
                     }
                     break;
                 case 7:
@@ -760,7 +800,6 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 1;
                     }
                     break;
             }
@@ -878,6 +917,7 @@ namespace GreenOffice
                         }
                         using (MySqlCommand addLeaveCommand = new MySqlCommand(addLeaveQuery, databaseConnection))
                         {
+                            isApproved =  1;
                             databaseConnection.Open();
                             addLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
                             addLeaveCommand.Parameters.AddWithValue("@leaveStartDate", leaveStartDatePicker.Value);
@@ -914,5 +954,15 @@ namespace GreenOffice
         }
 
 
+        // ============================ LEAVE PANEL FINISH ===============================
+
+
+        // ============================ ADMIN PANEL START ================================
+
+
+
+
+
+        // ============================ ADMIN PANEL FINISH ===============================
     }
 }
