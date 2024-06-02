@@ -29,6 +29,7 @@ namespace GreenOffice
         private int isApproved;
         private byte[] imageBytes = null;
         public static string adminCode =  "";
+        public static string adminUser = "";
         
         public f3_adminBody()
         {
@@ -49,6 +50,7 @@ namespace GreenOffice
             leaveFinishTimePicker.CustomFormat = "hh:mm tt";
             isApproved = 0;
             managedAccount.DrawMode = DrawMode.OwnerDrawFixed;
+            adminCode = displayedViewUserTextbox.Text;
 
             leaveStartTimePicker.Enabled = false;
             leaveFinishTimePicker.Enabled = false;
@@ -211,7 +213,7 @@ namespace GreenOffice
                 { //checks if there is a ROW in "timer" that contains current date and currently logged user
                     MySqlCommand workStartChecker = new MySqlCommand($"SELECT startDate, username FROM timer WHERE startDate=@startDate AND username=@username"); //a query
                     workStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets startTime to current time
-                    workStartChecker.Parameters.AddWithValue("@username", viewUserTextbox.Text); //takes username from textbox
+                    workStartChecker.Parameters.AddWithValue("@username", adminCode); //takes username from textbox
                     workStartChecker.CommandType = CommandType.Text; //makes it so the program knows what a command is
                     workStartChecker.Connection = databaseConnection; // ummmm
 
@@ -233,7 +235,7 @@ namespace GreenOffice
                             {
                                 addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("H:mm")); //sets startTime to current time
                                 addStartingTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets current date
-                                addStartingTimeCommand.Parameters.AddWithValue("@username", viewUserTextbox.Text); //takes username from textbox
+                                addStartingTimeCommand.Parameters.AddWithValue("@username", adminCode); //takes username from textbox
                                 databaseConnection.Open(); //opens the connection
                                 int queryFeedback = addStartingTimeCommand.ExecuteNonQuery(); //executes the command, again not in a kill way
                                 databaseConnection.Close(); //stops the connection
@@ -260,7 +262,7 @@ namespace GreenOffice
                 { //checks if there is a ROW in "timer" that contains current date and currently logged user
                     MySqlCommand rowExistenceChecker = new MySqlCommand($"SELECT * FROM timer WHERE startDate=@startDate AND username=@username");
                     rowExistenceChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //take startDate as a current date
-                    rowExistenceChecker.Parameters.AddWithValue("@username", viewUserTextbox.Text); //username from textbox, we've been over this
+                    rowExistenceChecker.Parameters.AddWithValue("@username", adminCode); //username from textbox, we've been over this
                     rowExistenceChecker.CommandType = CommandType.Text; //program stupid, needs to know what a command is
                     rowExistenceChecker.Connection = databaseConnection; //ugh
                     databaseConnection.Open(); //opens the connection
@@ -271,7 +273,7 @@ namespace GreenOffice
                         databaseConnection.Close(); //QUERY BELLOW is looking for a ROW where startTime is set, but the endTime isn't \/
                         MySqlCommand verifyWorkStartChecker = new MySqlCommand($"SELECT * FROM timer WHERE timer.startTime IS NOT NULL AND timer.finishTime IS NULL AND timer.startDate=@startDate AND timer.username=@username");
                         verifyWorkStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //take startDate as a current date
-                        verifyWorkStartChecker.Parameters.AddWithValue("@username", viewUserTextbox.Text); //username from textbox, we've really been over this
+                        verifyWorkStartChecker.Parameters.AddWithValue("@username", adminCode); //username from textbox, we've really been over this
                         verifyWorkStartChecker.CommandType = CommandType.Text; //program stupid, needs to know what a command is
                         verifyWorkStartChecker.Connection = databaseConnection; //hmpf
                         databaseConnection.Open(); //opens the connection
@@ -285,7 +287,7 @@ namespace GreenOffice
                             {
                                 addEndTimeCommand.Parameters.AddWithValue("@finishTime", DateTime.Now.ToString("H:mm")); //sets finishTime as a current time
                                 addEndTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets startDate as current date
-                                addEndTimeCommand.Parameters.AddWithValue("@username", viewUserTextbox.Text); //we all know what this does
+                                addEndTimeCommand.Parameters.AddWithValue("@username", adminCode); //we all know what this does
 
                                 databaseConnection.Open(); //opens the connection
                                 int queryFeedback = addEndTimeCommand.ExecuteNonQuery(); //makes connection work
@@ -305,7 +307,6 @@ namespace GreenOffice
             if(managedAccount.SelectedItem != null)
             {
                 string selectedItem = managedAccount.SelectedItem.ToString();
-                viewUserTextbox.Text = selectedItem;
                 adminCode = selectedItem;
             }
         }
@@ -365,7 +366,7 @@ namespace GreenOffice
                         MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
 
                         MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                        displayDateQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text); //takes login from viewUserTextbox
+                        displayDateQuery.Parameters.AddWithValue("@login", adminCode); //takes login from viewUserTextbox
                         displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
                         displayDateQuery.CommandType = CommandType.Text; //makes sure the program can read the query
                         displayDateQuery.Connection = databaseConnection; //idk connects with DB or something
@@ -390,7 +391,7 @@ namespace GreenOffice
                     MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
 
                     MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                    startingTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text); //takes login from viewUserTextbox
+                    startingTimeQuery.Parameters.AddWithValue("@login", adminCode); //takes login from viewUserTextbox
                     startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
                     startingTimeQuery.CommandType = CommandType.Text; //makes sure the program can read the query
                     startingTimeQuery.Connection = databaseConnection; //idk connects with DB or something
@@ -417,7 +418,7 @@ namespace GreenOffice
 
                     //does exactly same thing as the previous one, but with finish time, so imma just copy the comments, I like this green text :)
                     MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                    finishTimeQuery.Parameters.AddWithValue("@login", viewUserTextbox.Text); //takes login from viewUserTextbox
+                    finishTimeQuery.Parameters.AddWithValue("@login", adminCode); //takes login from viewUserTextbox
                     finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
                     finishTimeQuery.CommandType = CommandType.Text; //makes sure the program can read the query
                     finishTimeQuery.Connection = databaseConnection; //idk connects with DB or something
@@ -658,7 +659,7 @@ namespace GreenOffice
                             }
                             using (MySqlCommand addEventCommand = new MySqlCommand(addEventQuery, databaseConnection))
                             {
-                                addEventCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                                addEventCommand.Parameters.AddWithValue("@email", adminCode);
                                 addEventCommand.Parameters.AddWithValue("@eventCategory", checkboxListValue);
                                 addEventCommand.Parameters.AddWithValue("@eventDescription", descriptionTextbox.Text);
                                 addEventCommand.Parameters.AddWithValue("@eventStartDate", startEventDatePicker.Value);
@@ -919,7 +920,7 @@ namespace GreenOffice
                         {
                             isApproved =  1;
                             databaseConnection.Open();
-                            addLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                            addLeaveCommand.Parameters.AddWithValue("@email", adminCode);
                             addLeaveCommand.Parameters.AddWithValue("@leaveStartDate", leaveStartDatePicker.Value);
                             addLeaveCommand.Parameters.AddWithValue("@leaveFinishDate", leaveFinishDatePicker.Value);
                             addLeaveCommand.Parameters.AddWithValue("@leaveStartTime", leaveStartTimePicker.Value);
@@ -954,13 +955,149 @@ namespace GreenOffice
         }
 
 
+
+
         // ============================ LEAVE PANEL FINISH ===============================
 
 
         // ============================ ADMIN PANEL START ================================
 
+        private void loadManagedUser_Click(object sender, EventArgs e)
+        {
+            clearAdminTextboxes();
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
 
+                MySqlCommand displayManagedUser = new MySqlCommand($"SELECT * FROM user WHERE email=@email"); //query to find name based on email
+                displayManagedUser.Parameters.AddWithValue("@email", adminCode); //takes email from textbox
+                displayManagedUser.CommandType = CommandType.Text; //makes command readable for the app
+                displayManagedUser.Connection = databaseConnection; //does something?
 
+                databaseConnection.Open(); //opens connection
+                using (MySqlDataReader reader = displayManagedUser.ExecuteReader()) //executes command
+                {
+                    reader.Read(); //reads data recieved from query
+                    adminUser = reader["userID"].ToString();
+                    adminEmailTextbox.Text = reader["email"].ToString();
+                    adminPasswordTextbox.Text = reader["password"].ToString();
+                    int isAdminTMP = reader.GetInt32("isAdmin");
+                    if (isAdminTMP == 1)
+                    { isAdminCheckbox.Checked = true; }
+                    else { isAdminCheckbox.Checked = false; }
+                    adminNameTextbox.Text = reader["name"].ToString();
+                    adminSurnameTextbox.Text = reader["surname"].ToString();
+                    adminBirthdateTextbox.Text = reader["birthdate"].ToString();
+                    adminPeselTextbox.Text = reader["pesel"].ToString();
+                    adminContractTextbox.Text = reader["contract"].ToString();
+                    adminWageTextbox.Text = reader["wage"].ToString();
+                    adminLeaveDaysTextbox.Text = reader["leaveDays"].ToString();
+                    adminLeftLeaveDaysTextbox.Text = reader["leftLeaveDays"].ToString();
+                    adminLeaveOnDemandDaysTextbox.Text = reader["leaveOnDemandDays"].ToString();
+                    adminLeftOnDemandLeaveDaysTextbox.Text = reader["leftLeaveOnDemandDays"].ToString();
+                    
+                    databaseConnection.Close(); //stops the connection
+                }
+            }
+        }
+        private void clearAdminTextboxes()
+        {
+            adminNameTextbox.Text = "";
+            adminSurnameTextbox.Text = "";
+            adminBirthdateTextbox.Text = "";
+            adminPeselTextbox.Text = "";
+            adminContractTextbox.Text = "";
+            adminWageTextbox.Text = "";
+            adminLeaveDaysTextbox.Text = "";
+            adminLeftLeaveDaysTextbox.Text = "";
+            adminLeaveOnDemandDaysTextbox.Text = "";
+            adminLeftOnDemandLeaveDaysTextbox.Text = "";
+        }
+
+        private void adminPasswordTextbox_MouseEnter(object sender, EventArgs e)
+        {
+            adminPasswordTextbox.PasswordChar = '\0';
+        }
+
+        private void adminPasswordTextbox_MouseLeave(object sender, EventArgs e)
+        {
+            adminPasswordTextbox.PasswordChar = '*';
+        }
+
+        private void adminSaveUser_Click(object sender, EventArgs e)
+        {
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+
+                MySqlCommand saveUserQuery = new MySqlCommand($"SELECT email FROM user WHERE email=@email"); //query to find name based on email
+                saveUserQuery.Parameters.AddWithValue("@email", adminEmailTextbox.Text); //takes email from textbox
+                saveUserQuery.CommandType = CommandType.Text; //makes command readable for the app
+                saveUserQuery.Connection = databaseConnection;
+                databaseConnection.Open(); //opens connection
+                MySqlDataReader reader = saveUserQuery.ExecuteReader();//does something?
+                try
+                {
+                    bool saveUser = reader.HasRows;
+                    if (saveUser == true)
+                    {
+                        String updateUserQuery = "UPDATE `user` SET `email`='@email',`password`='@password',`isAdmin`='@isAdmin',`name`='@name',`surname`='@surname',`birthdate`='@birthdate',`pesel`='@pesel',`contract`='@contract',`wage`='@wage',`leaveDays`='@leaveDays',`leaveOnDemandDays`='@leaveOnDemandDays' WHERE userID=@userID";
+                        using (MySqlCommand updateUserCommand = new MySqlCommand(updateUserQuery, databaseConnection))
+                        {
+                            bool adminCheckbox = isAdminCheckbox.Checked;
+                            updateUserCommand.Parameters.AddWithValue("@userID", adminUser);
+                            updateUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@isAdmin", adminCheckbox);
+                            updateUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@leaveDays", adminLeaveDaysTextbox.Text);
+                            updateUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeaveOnDemandDaysTextbox.Text);
+
+                            int resault = updateUserCommand.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        String insertUserQuery = "INSERT INTO `user`(`email`, `password`, `isAdmin`, `name`, `surname`, `birthdate`, `pesel`, `contract`, `wage`, `leaveDays`, `leftLeaveDays`, `leaveOnDemandDays`, `leftLeaveOnDemandDays`) VALUES ('@email','@password','@isAdmin','@name','@surname','@birthdate','@pesel','@contract','@wage','@leaveDays','@leftLeaveDays','@leaveOnDemandDays','@leftLeaveOnDemandDays')";
+                        using (MySqlCommand insertUserCommand = new MySqlCommand(insertUserQuery, databaseConnection))
+                        {
+                            adminLeftLeaveDaysTextbox.Text = adminLeaveDaysTextbox.Text;
+                            adminLeftOnDemandLeaveDaysTextbox.Text = adminLeaveOnDemandDaysTextbox.Text;
+                            bool adminCheckbox = isAdminCheckbox.Checked;
+                            insertUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@isAdmin", adminCheckbox);
+                            insertUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@leaveDays", adminLeaveDaysTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@leaveDays", adminLeftLeaveDaysTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeaveOnDemandDaysTextbox.Text);
+                            insertUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeftOnDemandLeaveDaysTextbox.Text);
+
+                            int resault = insertUserCommand.ExecuteNonQuery();
+                        }
+                        databaseConnection.Close(); //stops the connection
+                    }
+                }
+                catch { MessageBox.Show("Błąd zapisu danych"); }
+                
+            }
+        }
 
 
         // ============================ ADMIN PANEL FINISH ===============================
