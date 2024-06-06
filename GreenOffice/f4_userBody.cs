@@ -26,6 +26,10 @@ namespace GreenOffice
         private int cellHeight = 71;
         private int isApproved;
         private byte[] imageBytes = null;
+        private int dayCount;
+        private int dayCountPaid;
+        private int dayCountOnDemand;
+        private int adminNum;
 
         // ============================ OVERALL BODY START ==================================
 
@@ -631,6 +635,7 @@ namespace GreenOffice
                         availableDaysLabel.Visible = true;
                         availableDaysTextBox.Visible = true;
                         collectavailableDaysPaid();
+                        adminNum = 1;
                     }
                     break;
                 case 1:
@@ -645,6 +650,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 2:
@@ -659,6 +665,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 3:
@@ -673,6 +680,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Black;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 4:
@@ -687,6 +695,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 5:
@@ -701,6 +710,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 6:
@@ -715,6 +725,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 7:
@@ -730,6 +741,7 @@ namespace GreenOffice
                         availableDaysLabel.Visible = true;
                         availableDaysTextBox.Visible = true;
                         collectavailableDaysOnDemand();
+                        adminNum = 2;
                     }
                     break;
             }
@@ -893,6 +905,7 @@ namespace GreenOffice
                         }
                         using (MySqlCommand addLeaveCommand = new MySqlCommand(addLeaveQuery, databaseConnection))
                         {
+                            isApproved = 1;
                             databaseConnection.Open();
                             addLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
                             addLeaveCommand.Parameters.AddWithValue("@leaveStartDate", leaveStartDatePicker.Value);
@@ -926,6 +939,60 @@ namespace GreenOffice
                     catch { MessageBox.Show("Błąd dodawania nieobecności"); }
                 }
             }
+        }
+        private void calculateLeaveDays()
+        {
+            DateTime leaveStart = leaveStartDatePicker.Value;
+            DateTime leaveFinish = leaveFinishDatePicker.Value;
+
+            if (oneDayLeave.Checked)
+            {
+                dayCount = 1;
+            }
+            else
+            {
+                dayCount = (leaveFinish - leaveStart).Days;
+            }
+            dayCountPaid = dayCountPaid - dayCount;
+            dayCountOnDemand = dayCountOnDemand - dayCount;
+
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            if (adminNum == 1)
+            {
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                    String updateLeaveQuery = "UPDATE `user` SET `leftLeaveDays`=@leftLeaveDays WHERE email=@email";
+                    using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                    {
+                        databaseConnection.Open();
+                        updateLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                        updateLeaveCommand.Parameters.AddWithValue("@leftLeaveDays", dayCountPaid);
+                        int result = updateLeaveCommand.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            else if (adminNum == 2)
+            {
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                    String updateLeaveQuery = "UPDATE `user` SET `leftLeaveOnDemandDays`=@leftLeaveOnDemandDays WHERE email=@email";
+                    using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                    {
+                        databaseConnection.Open();
+                        updateLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                        updateLeaveCommand.Parameters.AddWithValue("@leftLeaveOnDemandDays", dayCountOnDemand);
+                        int result = updateLeaveCommand.ExecuteNonQuery();
+                    }
+                }
+            }
+
         }
 
 
