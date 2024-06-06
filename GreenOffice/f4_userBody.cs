@@ -634,6 +634,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = true;
                         availableDaysTextBox.Visible = true;
+                        isApproved = 0;
                         collectavailableDaysPaid();
                         adminNum = 1;
                     }
@@ -650,6 +651,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        isApproved = 0;
                         adminNum = 0;
                     }
                     break;
@@ -665,6 +667,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        isApproved = 1;
                         adminNum = 0;
                     }
                     break;
@@ -680,6 +683,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Black;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        isApproved = 1;
                         adminNum = 0;
                     }
                     break;
@@ -695,6 +699,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        isApproved = 0;
                         adminNum = 0;
                     }
                     break;
@@ -710,6 +715,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        isApproved = 0;
                         adminNum = 0;
                     }
                     break;
@@ -725,6 +731,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        isApproved = 1;
                         adminNum = 0;
                     }
                     break;
@@ -741,6 +748,7 @@ namespace GreenOffice
                         availableDaysLabel.Visible = true;
                         availableDaysTextBox.Visible = true;
                         collectavailableDaysOnDemand();
+                        isApproved = 1;
                         adminNum = 2;
                     }
                     break;
@@ -905,7 +913,6 @@ namespace GreenOffice
                         }
                         using (MySqlCommand addLeaveCommand = new MySqlCommand(addLeaveQuery, databaseConnection))
                         {
-                            isApproved = 1;
                             databaseConnection.Open();
                             addLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
                             addLeaveCommand.Parameters.AddWithValue("@leaveStartDate", leaveStartDatePicker.Value);
