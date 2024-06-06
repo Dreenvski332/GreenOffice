@@ -39,6 +39,8 @@ namespace GreenOffice
             displayedViewUserTextbox.Text = f1_login.email;//sets user email, puts it into textbox - taken from login screen
             timerPanel.Visible = false; //makes scary Timer not appear at first
             mainCalendarPanel.Visible = false; //makes scary Calendar not appear at first
+            approveLeavePanel.Visible = false;
+            manageUsersPanel.Visible = false;
             currentYear = DateTime.Now.Year; //sets global int to currnt year
             currentMonth = DateTime.Now.Month;
             currentDay = DateTime.Now.Day;//sets global int to current month
@@ -1057,7 +1059,14 @@ namespace GreenOffice
 
 
         // ============================ ADMIN PANEL START ================================
-
+        private void manageUsers_Click(object sender, EventArgs e)
+        {
+            manageUsersPanel.Visible = true;
+        }
+        private void leaveApproval_Click(object sender, EventArgs e)
+        {
+            approveLeavePanel.Visible = true;  
+        }
         private void loadManagedUser_Click(object sender, EventArgs e)
         {
             clearAdminTextboxes();
@@ -1224,6 +1233,9 @@ namespace GreenOffice
                 selectManagedUsers();
             }
         }
+
+
+
 
         // ============================ ADMIN PANEL FINISH ===============================
     }

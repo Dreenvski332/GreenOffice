@@ -133,40 +133,41 @@
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
             this.adminPanel = new System.Windows.Forms.Panel();
-            this.manageUsersPanel = new System.Windows.Forms.Panel();
-            this.adminSaveUser = new System.Windows.Forms.Button();
-            this.isAdminCheckbox = new System.Windows.Forms.CheckBox();
-            this.adminAvailableOnDemandLeaveDaysLabel = new System.Windows.Forms.Label();
-            this.adminOnDemandLeaveDaysLabel = new System.Windows.Forms.Label();
-            this.adminAvailableLeaveDaysLabel = new System.Windows.Forms.Label();
-            this.adminLeaveDaysLabel = new System.Windows.Forms.Label();
-            this.adminWageLabel = new System.Windows.Forms.Label();
-            this.adminContractLabel = new System.Windows.Forms.Label();
-            this.adminBirthdateLabel = new System.Windows.Forms.Label();
-            this.adminPeselLabel = new System.Windows.Forms.Label();
-            this.adminSurnameLabel = new System.Windows.Forms.Label();
-            this.adminNameLabel = new System.Windows.Forms.Label();
-            this.adminPasswordLabel = new System.Windows.Forms.Label();
-            this.adminPeselTextbox = new System.Windows.Forms.TextBox();
-            this.adminLeftLeaveDaysTextbox = new System.Windows.Forms.TextBox();
-            this.adminLeaveOnDemandDaysTextbox = new System.Windows.Forms.TextBox();
-            this.adminLeftOnDemandLeaveDaysTextbox = new System.Windows.Forms.TextBox();
-            this.adminLeaveDaysTextbox = new System.Windows.Forms.TextBox();
-            this.adminWageTextbox = new System.Windows.Forms.TextBox();
-            this.adminContractTextbox = new System.Windows.Forms.TextBox();
-            this.adminBirthdateTextbox = new System.Windows.Forms.TextBox();
-            this.adminSurnameTextbox = new System.Windows.Forms.TextBox();
-            this.adminNameTextbox = new System.Windows.Forms.TextBox();
-            this.adminPasswordTextbox = new System.Windows.Forms.TextBox();
-            this.adminEmailLabel = new System.Windows.Forms.Label();
-            this.loadManagedUser = new System.Windows.Forms.Button();
-            this.adminEmailTextbox = new System.Windows.Forms.TextBox();
             this.leaveApproval = new System.Windows.Forms.Button();
             this.manageUsers = new System.Windows.Forms.Button();
             this.suggestedPayTextbox = new System.Windows.Forms.TextBox();
             this.suggestedPayLabel = new System.Windows.Forms.Label();
             this.availableDaysLabel = new System.Windows.Forms.Label();
             this.availableDaysTextBox = new System.Windows.Forms.TextBox();
+            this.manageUsersPanel = new System.Windows.Forms.Panel();
+            this.adminEmailTextbox = new System.Windows.Forms.TextBox();
+            this.loadManagedUser = new System.Windows.Forms.Button();
+            this.adminEmailLabel = new System.Windows.Forms.Label();
+            this.adminPasswordTextbox = new System.Windows.Forms.TextBox();
+            this.adminNameTextbox = new System.Windows.Forms.TextBox();
+            this.adminSurnameTextbox = new System.Windows.Forms.TextBox();
+            this.adminBirthdateTextbox = new System.Windows.Forms.TextBox();
+            this.adminContractTextbox = new System.Windows.Forms.TextBox();
+            this.adminWageTextbox = new System.Windows.Forms.TextBox();
+            this.adminLeaveDaysTextbox = new System.Windows.Forms.TextBox();
+            this.adminLeftOnDemandLeaveDaysTextbox = new System.Windows.Forms.TextBox();
+            this.adminLeaveOnDemandDaysTextbox = new System.Windows.Forms.TextBox();
+            this.adminLeftLeaveDaysTextbox = new System.Windows.Forms.TextBox();
+            this.adminPeselTextbox = new System.Windows.Forms.TextBox();
+            this.adminPasswordLabel = new System.Windows.Forms.Label();
+            this.adminNameLabel = new System.Windows.Forms.Label();
+            this.adminSurnameLabel = new System.Windows.Forms.Label();
+            this.adminPeselLabel = new System.Windows.Forms.Label();
+            this.adminBirthdateLabel = new System.Windows.Forms.Label();
+            this.adminContractLabel = new System.Windows.Forms.Label();
+            this.adminWageLabel = new System.Windows.Forms.Label();
+            this.adminLeaveDaysLabel = new System.Windows.Forms.Label();
+            this.adminAvailableLeaveDaysLabel = new System.Windows.Forms.Label();
+            this.adminOnDemandLeaveDaysLabel = new System.Windows.Forms.Label();
+            this.adminAvailableOnDemandLeaveDaysLabel = new System.Windows.Forms.Label();
+            this.isAdminCheckbox = new System.Windows.Forms.CheckBox();
+            this.adminSaveUser = new System.Windows.Forms.Button();
+            this.approveLeavePanel = new System.Windows.Forms.Panel();
             this.headerGroupBox.SuspendLayout();
             this.panel1.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
@@ -1432,6 +1433,7 @@
             // 
             // adminPanel
             // 
+            this.adminPanel.Controls.Add(this.approveLeavePanel);
             this.adminPanel.Controls.Add(this.leaveApproval);
             this.adminPanel.Controls.Add(this.manageUsers);
             this.adminPanel.Controls.Add(this.manageUsersPanel);
@@ -1441,280 +1443,6 @@
             this.adminPanel.Size = new System.Drawing.Size(1184, 581);
             this.adminPanel.TabIndex = 14;
             this.adminPanel.Visible = false;
-            // 
-            // manageUsersPanel
-            // 
-            this.manageUsersPanel.Controls.Add(this.adminSaveUser);
-            this.manageUsersPanel.Controls.Add(this.isAdminCheckbox);
-            this.manageUsersPanel.Controls.Add(this.adminAvailableOnDemandLeaveDaysLabel);
-            this.manageUsersPanel.Controls.Add(this.adminOnDemandLeaveDaysLabel);
-            this.manageUsersPanel.Controls.Add(this.adminAvailableLeaveDaysLabel);
-            this.manageUsersPanel.Controls.Add(this.adminLeaveDaysLabel);
-            this.manageUsersPanel.Controls.Add(this.adminWageLabel);
-            this.manageUsersPanel.Controls.Add(this.adminContractLabel);
-            this.manageUsersPanel.Controls.Add(this.adminBirthdateLabel);
-            this.manageUsersPanel.Controls.Add(this.adminPeselLabel);
-            this.manageUsersPanel.Controls.Add(this.adminSurnameLabel);
-            this.manageUsersPanel.Controls.Add(this.adminNameLabel);
-            this.manageUsersPanel.Controls.Add(this.adminPasswordLabel);
-            this.manageUsersPanel.Controls.Add(this.adminPeselTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminLeftLeaveDaysTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminLeaveOnDemandDaysTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminLeftOnDemandLeaveDaysTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminLeaveDaysTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminWageTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminContractTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminBirthdateTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminSurnameTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminNameTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminPasswordTextbox);
-            this.manageUsersPanel.Controls.Add(this.adminEmailLabel);
-            this.manageUsersPanel.Controls.Add(this.loadManagedUser);
-            this.manageUsersPanel.Controls.Add(this.adminEmailTextbox);
-            this.manageUsersPanel.Location = new System.Drawing.Point(136, 10);
-            this.manageUsersPanel.Name = "manageUsersPanel";
-            this.manageUsersPanel.Size = new System.Drawing.Size(1036, 560);
-            this.manageUsersPanel.TabIndex = 2;
-            // 
-            // adminSaveUser
-            // 
-            this.adminSaveUser.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminSaveUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminSaveUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminSaveUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminSaveUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminSaveUser.Location = new System.Drawing.Point(346, 465);
-            this.adminSaveUser.Name = "adminSaveUser";
-            this.adminSaveUser.Size = new System.Drawing.Size(105, 39);
-            this.adminSaveUser.TabIndex = 28;
-            this.adminSaveUser.Text = "Zapisz";
-            this.adminSaveUser.UseVisualStyleBackColor = true;
-            this.adminSaveUser.Click += new System.EventHandler(this.adminSaveUser_Click);
-            // 
-            // isAdminCheckbox
-            // 
-            this.isAdminCheckbox.AutoSize = true;
-            this.isAdminCheckbox.Location = new System.Drawing.Point(238, 430);
-            this.isAdminCheckbox.Name = "isAdminCheckbox";
-            this.isAdminCheckbox.Size = new System.Drawing.Size(98, 19);
-            this.isAdminCheckbox.TabIndex = 27;
-            this.isAdminCheckbox.Text = "Administrator";
-            this.isAdminCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // adminAvailableOnDemandLeaveDaysLabel
-            // 
-            this.adminAvailableOnDemandLeaveDaysLabel.AutoSize = true;
-            this.adminAvailableOnDemandLeaveDaysLabel.Location = new System.Drawing.Point(235, 367);
-            this.adminAvailableOnDemandLeaveDaysLabel.Name = "adminAvailableOnDemandLeaveDaysLabel";
-            this.adminAvailableOnDemandLeaveDaysLabel.Size = new System.Drawing.Size(183, 15);
-            this.adminAvailableOnDemandLeaveDaysLabel.TabIndex = 26;
-            this.adminAvailableOnDemandLeaveDaysLabel.Text = "Dostępne dni wolne na żadanie:";
-            // 
-            // adminOnDemandLeaveDaysLabel
-            // 
-            this.adminOnDemandLeaveDaysLabel.AutoSize = true;
-            this.adminOnDemandLeaveDaysLabel.Location = new System.Drawing.Point(234, 324);
-            this.adminOnDemandLeaveDaysLabel.Name = "adminOnDemandLeaveDaysLabel";
-            this.adminOnDemandLeaveDaysLabel.Size = new System.Drawing.Size(209, 15);
-            this.adminOnDemandLeaveDaysLabel.TabIndex = 25;
-            this.adminOnDemandLeaveDaysLabel.Text = "Przysługiwane dni wolne na żadanie:";
-            // 
-            // adminAvailableLeaveDaysLabel
-            // 
-            this.adminAvailableLeaveDaysLabel.AutoSize = true;
-            this.adminAvailableLeaveDaysLabel.Location = new System.Drawing.Point(379, 271);
-            this.adminAvailableLeaveDaysLabel.Name = "adminAvailableLeaveDaysLabel";
-            this.adminAvailableLeaveDaysLabel.Size = new System.Drawing.Size(119, 15);
-            this.adminAvailableLeaveDaysLabel.TabIndex = 24;
-            this.adminAvailableLeaveDaysLabel.Text = "Dostępne dni wolne:";
-            // 
-            // adminLeaveDaysLabel
-            // 
-            this.adminLeaveDaysLabel.AutoSize = true;
-            this.adminLeaveDaysLabel.Location = new System.Drawing.Point(234, 271);
-            this.adminLeaveDaysLabel.Name = "adminLeaveDaysLabel";
-            this.adminLeaveDaysLabel.Size = new System.Drawing.Size(145, 15);
-            this.adminLeaveDaysLabel.TabIndex = 23;
-            this.adminLeaveDaysLabel.Text = "Przysługiwane dni wolne:";
-            // 
-            // adminWageLabel
-            // 
-            this.adminWageLabel.AutoSize = true;
-            this.adminWageLabel.Location = new System.Drawing.Point(444, 222);
-            this.adminWageLabel.Name = "adminWageLabel";
-            this.adminWageLabel.Size = new System.Drawing.Size(48, 15);
-            this.adminWageLabel.TabIndex = 22;
-            this.adminWageLabel.Text = "Pensja:";
-            // 
-            // adminContractLabel
-            // 
-            this.adminContractLabel.AutoSize = true;
-            this.adminContractLabel.Location = new System.Drawing.Point(234, 224);
-            this.adminContractLabel.Name = "adminContractLabel";
-            this.adminContractLabel.Size = new System.Drawing.Size(120, 15);
-            this.adminContractLabel.TabIndex = 21;
-            this.adminContractLabel.Text = "Rodzaj zatrudnienia:";
-            // 
-            // adminBirthdateLabel
-            // 
-            this.adminBirthdateLabel.AutoSize = true;
-            this.adminBirthdateLabel.Location = new System.Drawing.Point(414, 178);
-            this.adminBirthdateLabel.Name = "adminBirthdateLabel";
-            this.adminBirthdateLabel.Size = new System.Drawing.Size(94, 15);
-            this.adminBirthdateLabel.TabIndex = 20;
-            this.adminBirthdateLabel.Text = "Data urodzenia:";
-            // 
-            // adminPeselLabel
-            // 
-            this.adminPeselLabel.AutoSize = true;
-            this.adminPeselLabel.Location = new System.Drawing.Point(234, 178);
-            this.adminPeselLabel.Name = "adminPeselLabel";
-            this.adminPeselLabel.Size = new System.Drawing.Size(49, 15);
-            this.adminPeselLabel.TabIndex = 19;
-            this.adminPeselLabel.Text = "PESEL:";
-            // 
-            // adminSurnameLabel
-            // 
-            this.adminSurnameLabel.AutoSize = true;
-            this.adminSurnameLabel.Location = new System.Drawing.Point(355, 129);
-            this.adminSurnameLabel.Name = "adminSurnameLabel";
-            this.adminSurnameLabel.Size = new System.Drawing.Size(63, 15);
-            this.adminSurnameLabel.TabIndex = 18;
-            this.adminSurnameLabel.Text = "Nazwisko:";
-            // 
-            // adminNameLabel
-            // 
-            this.adminNameLabel.AutoSize = true;
-            this.adminNameLabel.Location = new System.Drawing.Point(234, 132);
-            this.adminNameLabel.Name = "adminNameLabel";
-            this.adminNameLabel.Size = new System.Drawing.Size(34, 15);
-            this.adminNameLabel.TabIndex = 17;
-            this.adminNameLabel.Text = "Imię:";
-            // 
-            // adminPasswordLabel
-            // 
-            this.adminPasswordLabel.AutoSize = true;
-            this.adminPasswordLabel.Location = new System.Drawing.Point(234, 78);
-            this.adminPasswordLabel.Name = "adminPasswordLabel";
-            this.adminPasswordLabel.Size = new System.Drawing.Size(42, 15);
-            this.adminPasswordLabel.TabIndex = 16;
-            this.adminPasswordLabel.Text = "Hasło:";
-            // 
-            // adminPeselTextbox
-            // 
-            this.adminPeselTextbox.Location = new System.Drawing.Point(237, 196);
-            this.adminPeselTextbox.Name = "adminPeselTextbox";
-            this.adminPeselTextbox.Size = new System.Drawing.Size(174, 21);
-            this.adminPeselTextbox.TabIndex = 15;
-            // 
-            // adminLeftLeaveDaysTextbox
-            // 
-            this.adminLeftLeaveDaysTextbox.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.adminLeftLeaveDaysTextbox.Location = new System.Drawing.Point(382, 289);
-            this.adminLeftLeaveDaysTextbox.Name = "adminLeftLeaveDaysTextbox";
-            this.adminLeftLeaveDaysTextbox.ReadOnly = true;
-            this.adminLeftLeaveDaysTextbox.Size = new System.Drawing.Size(150, 21);
-            this.adminLeftLeaveDaysTextbox.TabIndex = 14;
-            // 
-            // adminLeaveOnDemandDaysTextbox
-            // 
-            this.adminLeaveOnDemandDaysTextbox.Location = new System.Drawing.Point(237, 342);
-            this.adminLeaveOnDemandDaysTextbox.Name = "adminLeaveOnDemandDaysTextbox";
-            this.adminLeaveOnDemandDaysTextbox.Size = new System.Drawing.Size(204, 21);
-            this.adminLeaveOnDemandDaysTextbox.TabIndex = 13;
-            // 
-            // adminLeftOnDemandLeaveDaysTextbox
-            // 
-            this.adminLeftOnDemandLeaveDaysTextbox.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.adminLeftOnDemandLeaveDaysTextbox.Location = new System.Drawing.Point(238, 387);
-            this.adminLeftOnDemandLeaveDaysTextbox.Name = "adminLeftOnDemandLeaveDaysTextbox";
-            this.adminLeftOnDemandLeaveDaysTextbox.ReadOnly = true;
-            this.adminLeftOnDemandLeaveDaysTextbox.Size = new System.Drawing.Size(205, 21);
-            this.adminLeftOnDemandLeaveDaysTextbox.TabIndex = 12;
-            // 
-            // adminLeaveDaysTextbox
-            // 
-            this.adminLeaveDaysTextbox.Location = new System.Drawing.Point(237, 289);
-            this.adminLeaveDaysTextbox.Name = "adminLeaveDaysTextbox";
-            this.adminLeaveDaysTextbox.Size = new System.Drawing.Size(139, 21);
-            this.adminLeaveDaysTextbox.TabIndex = 11;
-            // 
-            // adminWageTextbox
-            // 
-            this.adminWageTextbox.Location = new System.Drawing.Point(447, 240);
-            this.adminWageTextbox.Name = "adminWageTextbox";
-            this.adminWageTextbox.Size = new System.Drawing.Size(85, 21);
-            this.adminWageTextbox.TabIndex = 10;
-            // 
-            // adminContractTextbox
-            // 
-            this.adminContractTextbox.Location = new System.Drawing.Point(237, 240);
-            this.adminContractTextbox.Name = "adminContractTextbox";
-            this.adminContractTextbox.Size = new System.Drawing.Size(204, 21);
-            this.adminContractTextbox.TabIndex = 9;
-            // 
-            // adminBirthdateTextbox
-            // 
-            this.adminBirthdateTextbox.Location = new System.Drawing.Point(417, 196);
-            this.adminBirthdateTextbox.Name = "adminBirthdateTextbox";
-            this.adminBirthdateTextbox.Size = new System.Drawing.Size(115, 21);
-            this.adminBirthdateTextbox.TabIndex = 8;
-            // 
-            // adminSurnameTextbox
-            // 
-            this.adminSurnameTextbox.Location = new System.Drawing.Point(358, 150);
-            this.adminSurnameTextbox.Name = "adminSurnameTextbox";
-            this.adminSurnameTextbox.Size = new System.Drawing.Size(174, 21);
-            this.adminSurnameTextbox.TabIndex = 7;
-            // 
-            // adminNameTextbox
-            // 
-            this.adminNameTextbox.Location = new System.Drawing.Point(237, 150);
-            this.adminNameTextbox.Name = "adminNameTextbox";
-            this.adminNameTextbox.Size = new System.Drawing.Size(115, 21);
-            this.adminNameTextbox.TabIndex = 6;
-            // 
-            // adminPasswordTextbox
-            // 
-            this.adminPasswordTextbox.Location = new System.Drawing.Point(237, 96);
-            this.adminPasswordTextbox.Name = "adminPasswordTextbox";
-            this.adminPasswordTextbox.PasswordChar = '*';
-            this.adminPasswordTextbox.Size = new System.Drawing.Size(295, 21);
-            this.adminPasswordTextbox.TabIndex = 5;
-            this.adminPasswordTextbox.MouseEnter += new System.EventHandler(this.adminPasswordTextbox_MouseEnter);
-            this.adminPasswordTextbox.MouseLeave += new System.EventHandler(this.adminPasswordTextbox_MouseLeave);
-            // 
-            // adminEmailLabel
-            // 
-            this.adminEmailLabel.AutoSize = true;
-            this.adminEmailLabel.Location = new System.Drawing.Point(234, 23);
-            this.adminEmailLabel.Name = "adminEmailLabel";
-            this.adminEmailLabel.Size = new System.Drawing.Size(42, 15);
-            this.adminEmailLabel.TabIndex = 4;
-            this.adminEmailLabel.Text = "Email:";
-            // 
-            // loadManagedUser
-            // 
-            this.loadManagedUser.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.loadManagedUser.FlatAppearance.BorderSize = 0;
-            this.loadManagedUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.loadManagedUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.loadManagedUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loadManagedUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loadManagedUser.Location = new System.Drawing.Point(26, 15);
-            this.loadManagedUser.Name = "loadManagedUser";
-            this.loadManagedUser.Size = new System.Drawing.Size(129, 65);
-            this.loadManagedUser.TabIndex = 3;
-            this.loadManagedUser.Text = "Pobierz dane obsługiwanego konta";
-            this.loadManagedUser.UseVisualStyleBackColor = true;
-            this.loadManagedUser.Click += new System.EventHandler(this.loadManagedUser_Click);
-            // 
-            // adminEmailTextbox
-            // 
-            this.adminEmailTextbox.Location = new System.Drawing.Point(237, 45);
-            this.adminEmailTextbox.Name = "adminEmailTextbox";
-            this.adminEmailTextbox.Size = new System.Drawing.Size(295, 21);
-            this.adminEmailTextbox.TabIndex = 0;
             // 
             // leaveApproval
             // 
@@ -1730,6 +1458,7 @@
             this.leaveApproval.TabIndex = 1;
             this.leaveApproval.Text = "Zatwierdzenie nieobecności";
             this.leaveApproval.UseVisualStyleBackColor = true;
+            this.leaveApproval.Click += new System.EventHandler(this.leaveApproval_Click);
             // 
             // manageUsers
             // 
@@ -1745,6 +1474,7 @@
             this.manageUsers.TabIndex = 0;
             this.manageUsers.Text = "Zarządzanie użytkownikami";
             this.manageUsers.UseVisualStyleBackColor = true;
+            this.manageUsers.Click += new System.EventHandler(this.manageUsers_Click);
             // 
             // suggestedPayTextbox
             // 
@@ -1785,6 +1515,287 @@
             this.availableDaysTextBox.TabIndex = 21;
             this.availableDaysTextBox.Visible = false;
             // 
+            // manageUsersPanel
+            // 
+            this.manageUsersPanel.Controls.Add(this.adminSaveUser);
+            this.manageUsersPanel.Controls.Add(this.isAdminCheckbox);
+            this.manageUsersPanel.Controls.Add(this.adminAvailableOnDemandLeaveDaysLabel);
+            this.manageUsersPanel.Controls.Add(this.adminOnDemandLeaveDaysLabel);
+            this.manageUsersPanel.Controls.Add(this.adminAvailableLeaveDaysLabel);
+            this.manageUsersPanel.Controls.Add(this.adminLeaveDaysLabel);
+            this.manageUsersPanel.Controls.Add(this.adminWageLabel);
+            this.manageUsersPanel.Controls.Add(this.adminContractLabel);
+            this.manageUsersPanel.Controls.Add(this.adminBirthdateLabel);
+            this.manageUsersPanel.Controls.Add(this.adminPeselLabel);
+            this.manageUsersPanel.Controls.Add(this.adminSurnameLabel);
+            this.manageUsersPanel.Controls.Add(this.adminNameLabel);
+            this.manageUsersPanel.Controls.Add(this.adminPasswordLabel);
+            this.manageUsersPanel.Controls.Add(this.adminPeselTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminLeftLeaveDaysTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminLeaveOnDemandDaysTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminLeftOnDemandLeaveDaysTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminLeaveDaysTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminWageTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminContractTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminBirthdateTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminSurnameTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminNameTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminPasswordTextbox);
+            this.manageUsersPanel.Controls.Add(this.adminEmailLabel);
+            this.manageUsersPanel.Controls.Add(this.loadManagedUser);
+            this.manageUsersPanel.Controls.Add(this.adminEmailTextbox);
+            this.manageUsersPanel.Location = new System.Drawing.Point(136, 10);
+            this.manageUsersPanel.Name = "manageUsersPanel";
+            this.manageUsersPanel.Size = new System.Drawing.Size(1036, 560);
+            this.manageUsersPanel.TabIndex = 2;
+            // 
+            // adminEmailTextbox
+            // 
+            this.adminEmailTextbox.Location = new System.Drawing.Point(237, 45);
+            this.adminEmailTextbox.Name = "adminEmailTextbox";
+            this.adminEmailTextbox.Size = new System.Drawing.Size(295, 21);
+            this.adminEmailTextbox.TabIndex = 0;
+            // 
+            // loadManagedUser
+            // 
+            this.loadManagedUser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.loadManagedUser.FlatAppearance.BorderSize = 0;
+            this.loadManagedUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.loadManagedUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.loadManagedUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loadManagedUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loadManagedUser.Location = new System.Drawing.Point(26, 15);
+            this.loadManagedUser.Name = "loadManagedUser";
+            this.loadManagedUser.Size = new System.Drawing.Size(129, 65);
+            this.loadManagedUser.TabIndex = 3;
+            this.loadManagedUser.Text = "Pobierz dane obsługiwanego konta";
+            this.loadManagedUser.UseVisualStyleBackColor = true;
+            this.loadManagedUser.Click += new System.EventHandler(this.loadManagedUser_Click);
+            // 
+            // adminEmailLabel
+            // 
+            this.adminEmailLabel.AutoSize = true;
+            this.adminEmailLabel.Location = new System.Drawing.Point(234, 23);
+            this.adminEmailLabel.Name = "adminEmailLabel";
+            this.adminEmailLabel.Size = new System.Drawing.Size(42, 15);
+            this.adminEmailLabel.TabIndex = 4;
+            this.adminEmailLabel.Text = "Email:";
+            // 
+            // adminPasswordTextbox
+            // 
+            this.adminPasswordTextbox.Location = new System.Drawing.Point(237, 96);
+            this.adminPasswordTextbox.Name = "adminPasswordTextbox";
+            this.adminPasswordTextbox.PasswordChar = '*';
+            this.adminPasswordTextbox.Size = new System.Drawing.Size(295, 21);
+            this.adminPasswordTextbox.TabIndex = 5;
+            this.adminPasswordTextbox.MouseEnter += new System.EventHandler(this.adminPasswordTextbox_MouseEnter);
+            this.adminPasswordTextbox.MouseLeave += new System.EventHandler(this.adminPasswordTextbox_MouseLeave);
+            // 
+            // adminNameTextbox
+            // 
+            this.adminNameTextbox.Location = new System.Drawing.Point(237, 150);
+            this.adminNameTextbox.Name = "adminNameTextbox";
+            this.adminNameTextbox.Size = new System.Drawing.Size(115, 21);
+            this.adminNameTextbox.TabIndex = 6;
+            // 
+            // adminSurnameTextbox
+            // 
+            this.adminSurnameTextbox.Location = new System.Drawing.Point(358, 150);
+            this.adminSurnameTextbox.Name = "adminSurnameTextbox";
+            this.adminSurnameTextbox.Size = new System.Drawing.Size(174, 21);
+            this.adminSurnameTextbox.TabIndex = 7;
+            // 
+            // adminBirthdateTextbox
+            // 
+            this.adminBirthdateTextbox.Location = new System.Drawing.Point(417, 196);
+            this.adminBirthdateTextbox.Name = "adminBirthdateTextbox";
+            this.adminBirthdateTextbox.Size = new System.Drawing.Size(115, 21);
+            this.adminBirthdateTextbox.TabIndex = 8;
+            // 
+            // adminContractTextbox
+            // 
+            this.adminContractTextbox.Location = new System.Drawing.Point(237, 240);
+            this.adminContractTextbox.Name = "adminContractTextbox";
+            this.adminContractTextbox.Size = new System.Drawing.Size(204, 21);
+            this.adminContractTextbox.TabIndex = 9;
+            // 
+            // adminWageTextbox
+            // 
+            this.adminWageTextbox.Location = new System.Drawing.Point(447, 240);
+            this.adminWageTextbox.Name = "adminWageTextbox";
+            this.adminWageTextbox.Size = new System.Drawing.Size(85, 21);
+            this.adminWageTextbox.TabIndex = 10;
+            // 
+            // adminLeaveDaysTextbox
+            // 
+            this.adminLeaveDaysTextbox.Location = new System.Drawing.Point(237, 289);
+            this.adminLeaveDaysTextbox.Name = "adminLeaveDaysTextbox";
+            this.adminLeaveDaysTextbox.Size = new System.Drawing.Size(139, 21);
+            this.adminLeaveDaysTextbox.TabIndex = 11;
+            // 
+            // adminLeftOnDemandLeaveDaysTextbox
+            // 
+            this.adminLeftOnDemandLeaveDaysTextbox.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.adminLeftOnDemandLeaveDaysTextbox.Location = new System.Drawing.Point(238, 387);
+            this.adminLeftOnDemandLeaveDaysTextbox.Name = "adminLeftOnDemandLeaveDaysTextbox";
+            this.adminLeftOnDemandLeaveDaysTextbox.ReadOnly = true;
+            this.adminLeftOnDemandLeaveDaysTextbox.Size = new System.Drawing.Size(205, 21);
+            this.adminLeftOnDemandLeaveDaysTextbox.TabIndex = 12;
+            // 
+            // adminLeaveOnDemandDaysTextbox
+            // 
+            this.adminLeaveOnDemandDaysTextbox.Location = new System.Drawing.Point(237, 342);
+            this.adminLeaveOnDemandDaysTextbox.Name = "adminLeaveOnDemandDaysTextbox";
+            this.adminLeaveOnDemandDaysTextbox.Size = new System.Drawing.Size(204, 21);
+            this.adminLeaveOnDemandDaysTextbox.TabIndex = 13;
+            // 
+            // adminLeftLeaveDaysTextbox
+            // 
+            this.adminLeftLeaveDaysTextbox.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.adminLeftLeaveDaysTextbox.Location = new System.Drawing.Point(382, 289);
+            this.adminLeftLeaveDaysTextbox.Name = "adminLeftLeaveDaysTextbox";
+            this.adminLeftLeaveDaysTextbox.ReadOnly = true;
+            this.adminLeftLeaveDaysTextbox.Size = new System.Drawing.Size(150, 21);
+            this.adminLeftLeaveDaysTextbox.TabIndex = 14;
+            // 
+            // adminPeselTextbox
+            // 
+            this.adminPeselTextbox.Location = new System.Drawing.Point(237, 196);
+            this.adminPeselTextbox.Name = "adminPeselTextbox";
+            this.adminPeselTextbox.Size = new System.Drawing.Size(174, 21);
+            this.adminPeselTextbox.TabIndex = 15;
+            // 
+            // adminPasswordLabel
+            // 
+            this.adminPasswordLabel.AutoSize = true;
+            this.adminPasswordLabel.Location = new System.Drawing.Point(234, 78);
+            this.adminPasswordLabel.Name = "adminPasswordLabel";
+            this.adminPasswordLabel.Size = new System.Drawing.Size(42, 15);
+            this.adminPasswordLabel.TabIndex = 16;
+            this.adminPasswordLabel.Text = "Hasło:";
+            // 
+            // adminNameLabel
+            // 
+            this.adminNameLabel.AutoSize = true;
+            this.adminNameLabel.Location = new System.Drawing.Point(234, 132);
+            this.adminNameLabel.Name = "adminNameLabel";
+            this.adminNameLabel.Size = new System.Drawing.Size(34, 15);
+            this.adminNameLabel.TabIndex = 17;
+            this.adminNameLabel.Text = "Imię:";
+            // 
+            // adminSurnameLabel
+            // 
+            this.adminSurnameLabel.AutoSize = true;
+            this.adminSurnameLabel.Location = new System.Drawing.Point(355, 129);
+            this.adminSurnameLabel.Name = "adminSurnameLabel";
+            this.adminSurnameLabel.Size = new System.Drawing.Size(63, 15);
+            this.adminSurnameLabel.TabIndex = 18;
+            this.adminSurnameLabel.Text = "Nazwisko:";
+            // 
+            // adminPeselLabel
+            // 
+            this.adminPeselLabel.AutoSize = true;
+            this.adminPeselLabel.Location = new System.Drawing.Point(234, 178);
+            this.adminPeselLabel.Name = "adminPeselLabel";
+            this.adminPeselLabel.Size = new System.Drawing.Size(49, 15);
+            this.adminPeselLabel.TabIndex = 19;
+            this.adminPeselLabel.Text = "PESEL:";
+            // 
+            // adminBirthdateLabel
+            // 
+            this.adminBirthdateLabel.AutoSize = true;
+            this.adminBirthdateLabel.Location = new System.Drawing.Point(414, 178);
+            this.adminBirthdateLabel.Name = "adminBirthdateLabel";
+            this.adminBirthdateLabel.Size = new System.Drawing.Size(94, 15);
+            this.adminBirthdateLabel.TabIndex = 20;
+            this.adminBirthdateLabel.Text = "Data urodzenia:";
+            // 
+            // adminContractLabel
+            // 
+            this.adminContractLabel.AutoSize = true;
+            this.adminContractLabel.Location = new System.Drawing.Point(234, 224);
+            this.adminContractLabel.Name = "adminContractLabel";
+            this.adminContractLabel.Size = new System.Drawing.Size(120, 15);
+            this.adminContractLabel.TabIndex = 21;
+            this.adminContractLabel.Text = "Rodzaj zatrudnienia:";
+            // 
+            // adminWageLabel
+            // 
+            this.adminWageLabel.AutoSize = true;
+            this.adminWageLabel.Location = new System.Drawing.Point(444, 222);
+            this.adminWageLabel.Name = "adminWageLabel";
+            this.adminWageLabel.Size = new System.Drawing.Size(48, 15);
+            this.adminWageLabel.TabIndex = 22;
+            this.adminWageLabel.Text = "Pensja:";
+            // 
+            // adminLeaveDaysLabel
+            // 
+            this.adminLeaveDaysLabel.AutoSize = true;
+            this.adminLeaveDaysLabel.Location = new System.Drawing.Point(234, 271);
+            this.adminLeaveDaysLabel.Name = "adminLeaveDaysLabel";
+            this.adminLeaveDaysLabel.Size = new System.Drawing.Size(145, 15);
+            this.adminLeaveDaysLabel.TabIndex = 23;
+            this.adminLeaveDaysLabel.Text = "Przysługiwane dni wolne:";
+            // 
+            // adminAvailableLeaveDaysLabel
+            // 
+            this.adminAvailableLeaveDaysLabel.AutoSize = true;
+            this.adminAvailableLeaveDaysLabel.Location = new System.Drawing.Point(379, 271);
+            this.adminAvailableLeaveDaysLabel.Name = "adminAvailableLeaveDaysLabel";
+            this.adminAvailableLeaveDaysLabel.Size = new System.Drawing.Size(119, 15);
+            this.adminAvailableLeaveDaysLabel.TabIndex = 24;
+            this.adminAvailableLeaveDaysLabel.Text = "Dostępne dni wolne:";
+            // 
+            // adminOnDemandLeaveDaysLabel
+            // 
+            this.adminOnDemandLeaveDaysLabel.AutoSize = true;
+            this.adminOnDemandLeaveDaysLabel.Location = new System.Drawing.Point(234, 324);
+            this.adminOnDemandLeaveDaysLabel.Name = "adminOnDemandLeaveDaysLabel";
+            this.adminOnDemandLeaveDaysLabel.Size = new System.Drawing.Size(209, 15);
+            this.adminOnDemandLeaveDaysLabel.TabIndex = 25;
+            this.adminOnDemandLeaveDaysLabel.Text = "Przysługiwane dni wolne na żadanie:";
+            // 
+            // adminAvailableOnDemandLeaveDaysLabel
+            // 
+            this.adminAvailableOnDemandLeaveDaysLabel.AutoSize = true;
+            this.adminAvailableOnDemandLeaveDaysLabel.Location = new System.Drawing.Point(235, 367);
+            this.adminAvailableOnDemandLeaveDaysLabel.Name = "adminAvailableOnDemandLeaveDaysLabel";
+            this.adminAvailableOnDemandLeaveDaysLabel.Size = new System.Drawing.Size(183, 15);
+            this.adminAvailableOnDemandLeaveDaysLabel.TabIndex = 26;
+            this.adminAvailableOnDemandLeaveDaysLabel.Text = "Dostępne dni wolne na żadanie:";
+            // 
+            // isAdminCheckbox
+            // 
+            this.isAdminCheckbox.AutoSize = true;
+            this.isAdminCheckbox.Location = new System.Drawing.Point(238, 430);
+            this.isAdminCheckbox.Name = "isAdminCheckbox";
+            this.isAdminCheckbox.Size = new System.Drawing.Size(98, 19);
+            this.isAdminCheckbox.TabIndex = 27;
+            this.isAdminCheckbox.Text = "Administrator";
+            this.isAdminCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // adminSaveUser
+            // 
+            this.adminSaveUser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminSaveUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminSaveUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminSaveUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminSaveUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminSaveUser.Location = new System.Drawing.Point(346, 465);
+            this.adminSaveUser.Name = "adminSaveUser";
+            this.adminSaveUser.Size = new System.Drawing.Size(105, 39);
+            this.adminSaveUser.TabIndex = 28;
+            this.adminSaveUser.Text = "Zapisz";
+            this.adminSaveUser.UseVisualStyleBackColor = true;
+            this.adminSaveUser.Click += new System.EventHandler(this.adminSaveUser_Click);
+            // 
+            // approveLeavePanel
+            // 
+            this.approveLeavePanel.Location = new System.Drawing.Point(133, 10);
+            this.approveLeavePanel.Name = "approveLeavePanel";
+            this.approveLeavePanel.Size = new System.Drawing.Size(1045, 565);
+            this.approveLeavePanel.TabIndex = 3;
+            // 
             // f3_adminBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1793,11 +1804,11 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1184, 681);
             this.Controls.Add(this.headerGroupBox);
+            this.Controls.Add(this.adminPanel);
+            this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.leavePanel);
             this.Controls.Add(this.welcomeGroupbox);
             this.Controls.Add(this.timerPanel);
-            this.Controls.Add(this.adminPanel);
-            this.Controls.Add(this.mainCalendarPanel);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f3_adminBody";
@@ -1939,9 +1950,19 @@
         private System.Windows.Forms.Button moveToAdminPanelButton;
         private System.Windows.Forms.Button manageUsers;
         private System.Windows.Forms.Button leaveApproval;
+        private System.Windows.Forms.Label suggestedPayLabel;
+        private System.Windows.Forms.TextBox suggestedPayTextbox;
+        private System.Windows.Forms.TextBox availableDaysTextBox;
+        private System.Windows.Forms.Label availableDaysLabel;
+        private System.Windows.Forms.Panel approveLeavePanel;
         private System.Windows.Forms.Panel manageUsersPanel;
-        private System.Windows.Forms.Button loadManagedUser;
-        private System.Windows.Forms.TextBox adminEmailTextbox;
+        private System.Windows.Forms.Button adminSaveUser;
+        private System.Windows.Forms.CheckBox isAdminCheckbox;
+        private System.Windows.Forms.Label adminAvailableOnDemandLeaveDaysLabel;
+        private System.Windows.Forms.Label adminOnDemandLeaveDaysLabel;
+        private System.Windows.Forms.Label adminAvailableLeaveDaysLabel;
+        private System.Windows.Forms.Label adminLeaveDaysLabel;
+        private System.Windows.Forms.Label adminWageLabel;
         private System.Windows.Forms.Label adminContractLabel;
         private System.Windows.Forms.Label adminBirthdateLabel;
         private System.Windows.Forms.Label adminPeselLabel;
@@ -1960,16 +1981,7 @@
         private System.Windows.Forms.TextBox adminNameTextbox;
         private System.Windows.Forms.TextBox adminPasswordTextbox;
         private System.Windows.Forms.Label adminEmailLabel;
-        private System.Windows.Forms.Label adminAvailableOnDemandLeaveDaysLabel;
-        private System.Windows.Forms.Label adminOnDemandLeaveDaysLabel;
-        private System.Windows.Forms.Label adminAvailableLeaveDaysLabel;
-        private System.Windows.Forms.Label adminLeaveDaysLabel;
-        private System.Windows.Forms.Label adminWageLabel;
-        private System.Windows.Forms.CheckBox isAdminCheckbox;
-        private System.Windows.Forms.Button adminSaveUser;
-        private System.Windows.Forms.Label suggestedPayLabel;
-        private System.Windows.Forms.TextBox suggestedPayTextbox;
-        private System.Windows.Forms.TextBox availableDaysTextBox;
-        private System.Windows.Forms.Label availableDaysLabel;
+        private System.Windows.Forms.Button loadManagedUser;
+        private System.Windows.Forms.TextBox adminEmailTextbox;
     }
 }
