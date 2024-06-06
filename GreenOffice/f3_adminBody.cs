@@ -30,7 +30,8 @@ namespace GreenOffice
         private byte[] imageBytes = null;
         public static string adminCode =  "";
         public static string adminUser = "";
-        
+        TimeSpan totalDifference = TimeSpan.Zero;
+
         public f3_adminBody()
         {
             InitializeComponent(); //you know starts the whole ordeal
@@ -354,6 +355,7 @@ namespace GreenOffice
             displayFinishTimeTextbox.Text = "";
             displayStartTimeTextbox.Text = "";
             displayTimeSpanTextbox.Text = "";
+            suggestedPayTextbox.Text = "";
             try //debug try, kinda afraid to delete it :/
             {
                 PathFactory pathFactory = new PathFactory(); //path to use pathFactory
@@ -446,7 +448,6 @@ namespace GreenOffice
                     //this part right here counts how many hours an employee has on the clock
                     string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); //creates array for startTime
                     string[] finishTimes = displayFinishTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); //creates array for finishTime
-                    TimeSpan totalDifference = TimeSpan.Zero; //makes timeSpan == 0
                     for (int i = 0; i < startTimes.Length; i++) // iterate through each pair of start and finish times
                     {
                         if (DateTime.TryParse(startTimes[i], out DateTime startTime) && // parse the strings to DateTime
@@ -458,6 +459,37 @@ namespace GreenOffice
                         }
                         else { MessageBox.Show($"Błąd w przekazywaniu danych w rzędzie: {i + 1}"); return; } //just an error
                     }
+                }
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
+                    string connectionString = connection; //create connection string
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+
+                    MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT wage FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
+                    calculateWageQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
+                    calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
+                    calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
+                    databaseConnection.Open(); //starts the actual connection
+                    using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                    {
+                        reader.Read(); //reads data recieved from query
+                        int wage = reader.GetInt32("wage");
+                        databaseConnection.Close(); //stops the connection
+                    
+                        int calculatedWage = CalculateWage(totalDifference, wage);
+                        suggestedPayTextbox.Text = calculatedWage.ToString() + " PLN";
+                    }
+                }
+                int CalculateWage(TimeSpan timeWorked, int hourlyWage)
+                {
+                    // Convert TimeSpan to total hours
+                    double totalHours = timeWorked.TotalHours;
+
+                    // Calculate total wage
+                    int totalWage = (int)(totalHours * hourlyWage);
+
+                    return totalWage;
                 }
             }
             catch //like I said before, this is debug try-catch, I'm just afraid to delete it
@@ -717,6 +749,9 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = true;
+                        availableDaysTextBox.Visible = true;
+                        collectavailableDaysPaid();
                     }
                     break;
                 case 1:
@@ -729,6 +764,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 2:
@@ -741,6 +778,8 @@ namespace GreenOffice
                         addBLOB.Enabled = true;
                         addBLOB.BackColor = Color.Honeydew;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 3:
@@ -753,6 +792,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Black;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 4:
@@ -765,6 +806,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 5:
@@ -777,6 +820,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 6:
@@ -789,6 +834,8 @@ namespace GreenOffice
                         addBLOB.Enabled = true;
                         addBLOB.BackColor = Color.Honeydew;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 7:
@@ -801,8 +848,57 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
+                        availableDaysLabel.Visible = true;
+                        availableDaysTextBox.Visible = true;
+                        collectavailableDaysOnDemand();
                     }
                     break;
+            }
+        }
+        private void collectavailableDaysPaid()
+        {
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
+                string connectionString = connection; //create connection string
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+
+                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveDays FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
+                calculateWageQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
+                calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
+                calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
+                databaseConnection.Open(); //starts the actual connection
+                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                {
+                    reader.Read(); //reads data recieved from query
+                    int leftLeaveDays = reader.GetInt32("leftLeaveDays");
+                    databaseConnection.Close(); //stops the connection
+                    availableDaysTextBox.Text = leftLeaveDays.ToString();
+                }
+            }
+        }
+        private void collectavailableDaysOnDemand() 
+        {
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
+                string connectionString = connection; //create connection string
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+
+                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveOnDemandDays FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
+                calculateWageQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
+                calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
+                calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
+                databaseConnection.Open(); //starts the actual connection
+                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                {
+                    reader.Read(); //reads data recieved from query
+                    int leftLeaveDays = reader.GetInt32("leftLeaveOnDemandDays");
+                    databaseConnection.Close(); //stops the connection
+                    availableDaysTextBox.Text = leftLeaveDays.ToString();
+                }
             }
         }
         private void oneDayLeave_CheckedChanged(object sender, EventArgs e)
@@ -1044,61 +1140,90 @@ namespace GreenOffice
                 MySqlDataReader reader = saveUserQuery.ExecuteReader();//does something?
                 try
                 {
-                    bool saveUser = reader.HasRows;
-                    if (saveUser == true)
+                    if (reader.HasRows)
                     {
-                        String updateUserQuery = "UPDATE `user` SET `email`='@email',`password`='@password',`isAdmin`='@isAdmin',`name`='@name',`surname`='@surname',`birthdate`='@birthdate',`pesel`='@pesel',`contract`='@contract',`wage`='@wage',`leaveDays`='@leaveDays',`leaveOnDemandDays`='@leaveOnDemandDays' WHERE userID=@userID";
-                        using (MySqlCommand updateUserCommand = new MySqlCommand(updateUserQuery, databaseConnection))
-                        {
-                            bool adminCheckbox = isAdminCheckbox.Checked;
-                            updateUserCommand.Parameters.AddWithValue("@userID", adminUser);
-                            updateUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@isAdmin", adminCheckbox);
-                            updateUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@leaveDays", adminLeaveDaysTextbox.Text);
-                            updateUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeaveOnDemandDaysTextbox.Text);
-
-                            int resault = updateUserCommand.ExecuteNonQuery();
-                        }
+                        updateUserOnSave();
+                        MessageBox.Show("Dane użytkownika zmodyfikowane");
+                    }
+                    else if (adminEmailTextbox.Text == "")
+                    {
+                        MessageBox.Show("Wypełnij formularz");
+                        databaseConnection.Close();
                     }
                     else
                     {
-                        String insertUserQuery = "INSERT INTO `user`(`email`, `password`, `isAdmin`, `name`, `surname`, `birthdate`, `pesel`, `contract`, `wage`, `leaveDays`, `leftLeaveDays`, `leaveOnDemandDays`, `leftLeaveOnDemandDays`) VALUES ('@email','@password','@isAdmin','@name','@surname','@birthdate','@pesel','@contract','@wage','@leaveDays','@leftLeaveDays','@leaveOnDemandDays','@leftLeaveOnDemandDays')";
-                        using (MySqlCommand insertUserCommand = new MySqlCommand(insertUserQuery, databaseConnection))
-                        {
-                            adminLeftLeaveDaysTextbox.Text = adminLeaveDaysTextbox.Text;
-                            adminLeftOnDemandLeaveDaysTextbox.Text = adminLeaveOnDemandDaysTextbox.Text;
-                            bool adminCheckbox = isAdminCheckbox.Checked;
-                            insertUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@isAdmin", adminCheckbox);
-                            insertUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@leaveDays", adminLeaveDaysTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@leaveDays", adminLeftLeaveDaysTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeaveOnDemandDaysTextbox.Text);
-                            insertUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeftOnDemandLeaveDaysTextbox.Text);
-
-                            int resault = insertUserCommand.ExecuteNonQuery();
-                        }
-                        databaseConnection.Close(); //stops the connection
+                        addUserOnSave();
+                        MessageBox.Show("Nowy użytkownik dodany");
                     }
                 }
                 catch { MessageBox.Show("Błąd zapisu danych"); }
-                
             }
         }
+        
+        private void updateUserOnSave()
+        {
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                databaseConnection.Open();
+                String updateUserQuery = "UPDATE `user` SET `email`=@email,`password`=@password,`isAdmin`=@isAdmin,`name`=@name,`surname`=@surname,`birthdate`=@birthdate,`pesel`=@pesel,`contract`=@contract,`wage`=@wage,`leaveDays`=@leaveDays,`leaveOnDemandDays`=@leaveOnDemandDays WHERE userID=@userID";
+                using (MySqlCommand updateUserCommand = new MySqlCommand(updateUserQuery, databaseConnection))
+                {
+                    updateUserCommand.Parameters.AddWithValue("@userID", adminUser);
+                    updateUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@isAdmin", isAdminCheckbox.Checked);
+                    updateUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@leaveDays", adminLeaveDaysTextbox.Text);
+                    updateUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeaveOnDemandDaysTextbox.Text);
 
+                    int result = updateUserCommand.ExecuteNonQuery();
+                }
+                databaseConnection.Close();
+            }
+        }
+        private void addUserOnSave()
+        {
+            adminLeftLeaveDaysTextbox.Text = adminLeaveDaysTextbox.Text;
+            adminLeftOnDemandLeaveDaysTextbox.Text = adminLeaveOnDemandDaysTextbox.Text;
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                databaseConnection.Open();
+                string insertUserQuery = "INSERT INTO `user`(`email`, `password`, `isAdmin`, `name`, `surname`, `birthdate`, `pesel`, `contract`, `wage`, `leaveDays`, `leftLeaveDays`, `leaveOnDemandDays`, `leftLeaveOnDemandDays`) VALUES (@email, @password, @isAdmin, @name, @surname, @birthdate, @pesel, @contract, @wage, @leaveDays, @leftLeaveDays, @leaveOnDemandDays, @leftLeaveOnDemandDays)";
+                using (MySqlCommand insertUserCommand = new MySqlCommand(insertUserQuery, databaseConnection))
+                {
+                    insertUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@isAdmin", isAdminCheckbox.Checked);
+                    insertUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@leaveDays", adminLeaveDaysTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@leftleaveDays", adminLeftLeaveDaysTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@leaveOnDemandDays", adminLeaveOnDemandDaysTextbox.Text);
+                    insertUserCommand.Parameters.AddWithValue("@leftleaveOnDemandDays", adminLeftOnDemandLeaveDaysTextbox.Text);
+
+                    int result = insertUserCommand.ExecuteNonQuery();
+                }
+                databaseConnection.Close();
+                selectManagedUsers();
+            }
+        }
 
         // ============================ ADMIN PANEL FINISH ===============================
     }

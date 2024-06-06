@@ -618,7 +618,8 @@ namespace GreenOffice
             }
             switch (e.Index)
             {
-                case 0: if(e.NewValue == CheckState.Checked) //Paid leave
+                case 0:
+                    if (e.NewValue == CheckState.Checked) //Paid leave
                     {
                         reasonDescriptionTextbox.Text = "";
                         doctorsNoticePictureBox.Image = null;
@@ -627,9 +628,13 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
-                    } break;
-                case 1: if (e.NewValue == CheckState.Checked) //Unpaid leave
+                        availableDaysLabel.Visible = true;
+                        availableDaysTextBox.Visible = true;
+                        collectavailableDaysPaid();
+                    }
+                    break;
+                case 1:
+                    if (e.NewValue == CheckState.Checked) //Unpaid leave
                     {
                         reasonDescriptionTextbox.Text = "";
                         doctorsNoticePictureBox.Image = null;
@@ -638,8 +643,10 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
-                    } break;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
+                    }
+                    break;
                 case 2:
                     if (e.NewValue == CheckState.Checked) //sick leave
                     {
@@ -650,7 +657,8 @@ namespace GreenOffice
                         addBLOB.Enabled = true;
                         addBLOB.BackColor = Color.Honeydew;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 1;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 3:
@@ -663,7 +671,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Black;
-                        isApproved = 0;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 4:
@@ -676,7 +685,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 5:
@@ -689,7 +699,8 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 0;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 6:
@@ -702,7 +713,8 @@ namespace GreenOffice
                         addBLOB.Enabled = true;
                         addBLOB.BackColor = Color.Honeydew;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 1;
+                        availableDaysLabel.Visible = false;
+                        availableDaysTextBox.Visible = false;
                     }
                     break;
                 case 7:
@@ -715,9 +727,57 @@ namespace GreenOffice
                         addBLOB.Enabled = false;
                         addBLOB.BackColor = Color.Gainsboro;
                         reasonDescriptionLabel.ForeColor = Color.Gray;
-                        isApproved = 1;
+                        availableDaysLabel.Visible = true;
+                        availableDaysTextBox.Visible = true;
+                        collectavailableDaysOnDemand();
                     }
                     break;
+            }
+        }
+        private void collectavailableDaysPaid()
+        {
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
+                string connectionString = connection; //create connection string
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+
+                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveDays FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
+                calculateWageQuery.Parameters.AddWithValue("@email", viewUserTextbox.Text); //takes login from viewUserTextbox
+                calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
+                calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
+                databaseConnection.Open(); //starts the actual connection
+                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                {
+                    reader.Read(); //reads data recieved from query
+                    int leftLeaveDays = reader.GetInt32("leftLeaveDays");
+                    databaseConnection.Close(); //stops the connection
+                    availableDaysTextBox.Text = leftLeaveDays.ToString();
+                }
+            }
+        }
+        private void collectavailableDaysOnDemand()
+        {
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
+                string connectionString = connection; //create connection string
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+
+                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveOnDemandDays FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
+                calculateWageQuery.Parameters.AddWithValue("@email", viewUserTextbox.Text); //takes login from viewUserTextbox
+                calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
+                calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
+                databaseConnection.Open(); //starts the actual connection
+                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                {
+                    reader.Read(); //reads data recieved from query
+                    int leftLeaveDays = reader.GetInt32("leftLeaveOnDemandDays");
+                    databaseConnection.Close(); //stops the connection
+                    availableDaysTextBox.Text = leftLeaveDays.ToString();
+                }
             }
         }
         private void oneDayLeave_CheckedChanged(object sender, EventArgs e)
