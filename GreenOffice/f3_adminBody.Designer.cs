@@ -1142,7 +1142,7 @@
             this.fullDayLeave.AutoSize = true;
             this.fullDayLeave.Checked = true;
             this.fullDayLeave.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.fullDayLeave.Location = new System.Drawing.Point(396, 443);
+            this.fullDayLeave.Location = new System.Drawing.Point(401, 443);
             this.fullDayLeave.Name = "fullDayLeave";
             this.fullDayLeave.Size = new System.Drawing.Size(164, 19);
             this.fullDayLeave.TabIndex = 17;
@@ -1167,7 +1167,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(364, 375);
+            this.label6.Location = new System.Drawing.Point(369, 375);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(196, 16);
             this.label6.TabIndex = 15;
@@ -1178,7 +1178,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(364, 333);
+            this.label3.Location = new System.Drawing.Point(369, 333);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(172, 16);
             this.label3.TabIndex = 14;
@@ -1210,7 +1210,7 @@
             // 
             this.leaveFinishTimePicker.AllowDrop = true;
             this.leaveFinishTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.leaveFinishTimePicker.Location = new System.Drawing.Point(380, 394);
+            this.leaveFinishTimePicker.Location = new System.Drawing.Point(382, 394);
             this.leaveFinishTimePicker.Name = "leaveFinishTimePicker";
             this.leaveFinishTimePicker.Size = new System.Drawing.Size(102, 21);
             this.leaveFinishTimePicker.TabIndex = 11;
@@ -1219,7 +1219,7 @@
             // 
             this.leaveStartTimePicker.AllowDrop = true;
             this.leaveStartTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.leaveStartTimePicker.Location = new System.Drawing.Point(380, 352);
+            this.leaveStartTimePicker.Location = new System.Drawing.Point(382, 351);
             this.leaveStartTimePicker.Name = "leaveStartTimePicker";
             this.leaveStartTimePicker.Size = new System.Drawing.Size(102, 21);
             this.leaveStartTimePicker.TabIndex = 10;

@@ -31,6 +31,10 @@ namespace GreenOffice
         public static string adminCode =  "";
         public static string adminUser = "";
         TimeSpan totalDifference = TimeSpan.Zero;
+        private int dayCount;
+        private int dayCountPaid;
+        private int dayCountOnDemand;
+        private int adminNum;
 
         public f3_adminBody()
         {
@@ -54,6 +58,7 @@ namespace GreenOffice
             isApproved = 0;
             managedAccount.DrawMode = DrawMode.OwnerDrawFixed;
             adminCode = displayedViewUserTextbox.Text;
+            adminNum = 0;
 
             leaveStartTimePicker.Enabled = false;
             leaveFinishTimePicker.Enabled = false;
@@ -753,7 +758,8 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = true;
                         availableDaysTextBox.Visible = true;
-                        collectavailableDaysPaid();
+                        collectAvailableDaysPaid();
+                        adminNum = 1;
                     }
                     break;
                 case 1:
@@ -768,6 +774,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 2:
@@ -782,6 +789,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 3:
@@ -796,6 +804,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Black;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 4:
@@ -810,6 +819,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 5:
@@ -824,6 +834,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 6:
@@ -838,6 +849,7 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = false;
                         availableDaysTextBox.Visible = false;
+                        adminNum = 0;
                     }
                     break;
                 case 7:
@@ -852,12 +864,13 @@ namespace GreenOffice
                         reasonDescriptionLabel.ForeColor = Color.Gray;
                         availableDaysLabel.Visible = true;
                         availableDaysTextBox.Visible = true;
-                        collectavailableDaysOnDemand();
+                        collectAvailableDaysOnDemand();
+                        adminNum = 2;
                     }
                     break;
             }
         }
-        private void collectavailableDaysPaid()
+        private void collectAvailableDaysPaid()
         {
             PathFactory pathFactory = new PathFactory();
             using (StreamReader streamReader = new StreamReader(pathFactory.connString))
@@ -877,10 +890,11 @@ namespace GreenOffice
                     int leftLeaveDays = reader.GetInt32("leftLeaveDays");
                     databaseConnection.Close(); //stops the connection
                     availableDaysTextBox.Text = leftLeaveDays.ToString();
+                    dayCountPaid = leftLeaveDays;
                 }
             }
         }
-        private void collectavailableDaysOnDemand() 
+        private void collectAvailableDaysOnDemand() 
         {
             PathFactory pathFactory = new PathFactory();
             using (StreamReader streamReader = new StreamReader(pathFactory.connString))
@@ -900,6 +914,7 @@ namespace GreenOffice
                     int leftLeaveDays = reader.GetInt32("leftLeaveOnDemandDays");
                     databaseConnection.Close(); //stops the connection
                     availableDaysTextBox.Text = leftLeaveDays.ToString();
+                    dayCountOnDemand = leftLeaveDays;
                 }
             }
         }
@@ -1044,12 +1059,67 @@ namespace GreenOffice
                             else if (isApproved == 1)
                             {
                                 MessageBox.Show("Nieobecność potwierdzona");
+                                calculateLeaveDays();
                             }
                         }
                     }
                     catch { MessageBox.Show("Błąd dodawania nieobecności"); }
                 }
             }
+        }
+        private void calculateLeaveDays()
+        {
+            DateTime leaveStart = leaveStartDatePicker.Value;
+            DateTime leaveFinish = leaveFinishDatePicker.Value;
+
+            if(oneDayLeave.Checked)
+            {
+                dayCount = 1;
+            }
+            else
+            {
+                dayCount = (leaveFinish - leaveStart).Days;
+            }
+            dayCountPaid = dayCountPaid - dayCount;
+            dayCountOnDemand = dayCountOnDemand - dayCount;
+
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            if (adminNum == 1)
+            {
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                    String updateLeaveQuery = "UPDATE `user` SET `leftLeaveDays`=@leftLeaveDays WHERE email=@email";
+                    using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                    { 
+                        databaseConnection.Open();
+                        updateLeaveCommand.Parameters.AddWithValue("@email", adminCode);
+                        updateLeaveCommand.Parameters.AddWithValue("@leftLeaveDays", dayCountPaid);
+                        int result = updateLeaveCommand.ExecuteNonQuery();
+                    }
+                }
+                
+            }
+            else if(adminNum == 2)
+            {
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                    String updateLeaveQuery = "UPDATE `user` SET `leftLeaveOnDemandDays`=@leftLeaveOnDemandDays WHERE email=@email";
+                    using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                    {
+                        databaseConnection.Open();
+                        updateLeaveCommand.Parameters.AddWithValue("@email", adminCode);
+                        updateLeaveCommand.Parameters.AddWithValue("@leftLeaveOnDemandDays", dayCountOnDemand);
+                        int result = updateLeaveCommand.ExecuteNonQuery();
+                    }
+                }
+            }
+            
         }
 
 
