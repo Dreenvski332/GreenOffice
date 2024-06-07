@@ -59,7 +59,7 @@ namespace GreenOffice
             leaveFinishTimePicker.CustomFormat = "hh:mm tt";
             isApproved = 0;
             managedAccount.DrawMode = DrawMode.OwnerDrawFixed;
-            adminCode = displayedViewUserTextbox.Text;
+            adminCode = f1_login.email;
             adminNum = 0;
 
             leaveStartTimePicker.Enabled = false;
@@ -1187,7 +1187,8 @@ namespace GreenOffice
                     else { isAdminCheckbox.Checked = false; }
                     adminNameTextbox.Text = reader["name"].ToString();
                     adminSurnameTextbox.Text = reader["surname"].ToString();
-                    adminBirthdateTextbox.Text = reader["birthdate"].ToString();
+                    DateTime birthdate = reader.GetDateTime("birthdate");
+                    adminBirthdateTextbox.Text = birthdate.ToString();
                     adminPeselTextbox.Text = reader["pesel"].ToString();
                     adminContractTextbox.Text = reader["contract"].ToString();
                     adminWageTextbox.Text = reader["wage"].ToString();
@@ -1279,7 +1280,9 @@ namespace GreenOffice
                     updateUserCommand.Parameters.AddWithValue("@isAdmin", isAdminCheckbox.Checked);
                     updateUserCommand.Parameters.AddWithValue("@name", adminNameTextbox.Text);
                     updateUserCommand.Parameters.AddWithValue("@surname", adminSurnameTextbox.Text);
-                    updateUserCommand.Parameters.AddWithValue("@birthdate", adminBirthdateTextbox.Text);
+                    string birthdateString = adminBirthdateTextbox.Text;
+                    DateTime.TryParse(birthdateString, out DateTime birthdate);
+                    updateUserCommand.Parameters.AddWithValue("@birthdate", birthdate);
                     updateUserCommand.Parameters.AddWithValue("@pesel", adminPeselTextbox.Text);
                     updateUserCommand.Parameters.AddWithValue("@contract", adminContractTextbox.Text);
                     updateUserCommand.Parameters.AddWithValue("@wage", adminWageTextbox.Text);

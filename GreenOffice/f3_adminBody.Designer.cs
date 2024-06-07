@@ -55,10 +55,16 @@
             this.managedAccountLabel = new System.Windows.Forms.Label();
             this.loggedAsLabel = new System.Windows.Forms.Label();
             this.adminPanelButtonLabel = new System.Windows.Forms.Label();
+            this.adminPanelButton = new System.Windows.Forms.Button();
+            this.timeoutButton = new System.Windows.Forms.Button();
+            this.calendarButton = new System.Windows.Forms.Button();
+            this.timerPanelButton = new System.Windows.Forms.Button();
             this.mainCalendarPanel = new System.Windows.Forms.Panel();
             this.subCalendarPanel = new System.Windows.Forms.Panel();
             this.yearLabel = new System.Windows.Forms.Label();
             this.monthLabel = new System.Windows.Forms.Label();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.previousButton = new System.Windows.Forms.Button();
             this.calendarJuicePanel = new System.Windows.Forms.TableLayoutPanel();
             this.sundayLabel = new System.Windows.Forms.Label();
             this.saturdayLabel = new System.Windows.Forms.Label();
@@ -69,10 +75,11 @@
             this.mondayLabel = new System.Windows.Forms.Label();
             this.killCalendarButton = new System.Windows.Forms.Button();
             this.adminPanel = new System.Windows.Forms.Panel();
+            this.adminPanelBG = new System.Windows.Forms.Panel();
             this.leaveApproval = new System.Windows.Forms.Button();
             this.manageUsers = new System.Windows.Forms.Button();
-            this.approveLeavePanel = new System.Windows.Forms.Panel();
             this.manageUsersPanel = new System.Windows.Forms.Panel();
+            this.manageUsersIconPanel = new System.Windows.Forms.Panel();
             this.manageUsersLabel = new System.Windows.Forms.Label();
             this.adminSaveUser = new System.Windows.Forms.Button();
             this.isAdminCheckbox = new System.Windows.Forms.CheckBox();
@@ -101,9 +108,14 @@
             this.adminEmailLabel = new System.Windows.Forms.Label();
             this.loadManagedUser = new System.Windows.Forms.Button();
             this.adminEmailTextbox = new System.Windows.Forms.TextBox();
+            this.approveLeavePanel = new System.Windows.Forms.Panel();
             this.adminApproveLeaveCalendarPanel = new System.Windows.Forms.Panel();
+            this.notApprovedEmailsTextbox = new System.Windows.Forms.TextBox();
             this.adminApproveYearLabel = new System.Windows.Forms.Label();
+            this.adminEmailListbox = new System.Windows.Forms.ListBox();
             this.adminApproveMonthLabel = new System.Windows.Forms.Label();
+            this.adminNextMonthButton = new System.Windows.Forms.Button();
+            this.adminPreviousMonthButton = new System.Windows.Forms.Button();
             this.adminCalendarLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.adminSundayLabel = new System.Windows.Forms.Label();
             this.adminSaturdayLabel = new System.Windows.Forms.Label();
@@ -112,18 +124,6 @@
             this.adminWednesdayLabel = new System.Windows.Forms.Label();
             this.adminTuesdayLabel = new System.Windows.Forms.Label();
             this.adminMondayLabel = new System.Windows.Forms.Label();
-            this.adminEmailListbox = new System.Windows.Forms.ListBox();
-            this.notApprovedEmailsTextbox = new System.Windows.Forms.TextBox();
-            this.adminPanelBG = new System.Windows.Forms.Panel();
-            this.manageUsersIconPanel = new System.Windows.Forms.Panel();
-            this.adminNextMonthButton = new System.Windows.Forms.Button();
-            this.adminPreviousMonthButton = new System.Windows.Forms.Button();
-            this.adminPanelButton = new System.Windows.Forms.Button();
-            this.timeoutButton = new System.Windows.Forms.Button();
-            this.calendarButton = new System.Windows.Forms.Button();
-            this.timerPanelButton = new System.Windows.Forms.Button();
-            this.nextButton = new System.Windows.Forms.Button();
-            this.previousButton = new System.Windows.Forms.Button();
             this.leavePanel = new System.Windows.Forms.Panel();
             this.availableDaysTextBox = new System.Windows.Forms.TextBox();
             this.availableDaysLabel = new System.Windows.Forms.Label();
@@ -191,8 +191,8 @@
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
             this.adminPanel.SuspendLayout();
-            this.approveLeavePanel.SuspendLayout();
             this.manageUsersPanel.SuspendLayout();
+            this.approveLeavePanel.SuspendLayout();
             this.adminApproveLeaveCalendarPanel.SuspendLayout();
             this.leavePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doctorsNoticePictureBox)).BeginInit();
@@ -503,6 +503,70 @@
             this.adminPanelButtonLabel.TabIndex = 10;
             this.adminPanelButtonLabel.Text = "Panel Administratora";
             // 
+            // adminPanelButton
+            // 
+            this.adminPanelButton.BackgroundImage = global::GreenOffice.Properties.Resources.admin;
+            this.adminPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminPanelButton.FlatAppearance.BorderSize = 0;
+            this.adminPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminPanelButton.Location = new System.Drawing.Point(482, 12);
+            this.adminPanelButton.Name = "adminPanelButton";
+            this.adminPanelButton.Size = new System.Drawing.Size(60, 60);
+            this.adminPanelButton.TabIndex = 9;
+            this.adminPanelButton.UseVisualStyleBackColor = true;
+            this.adminPanelButton.Click += new System.EventHandler(this.adminPanelButton_Click);
+            // 
+            // timeoutButton
+            // 
+            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
+            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timeoutButton.FlatAppearance.BorderSize = 0;
+            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timeoutButton.Location = new System.Drawing.Point(346, 12);
+            this.timeoutButton.Name = "timeoutButton";
+            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
+            this.timeoutButton.TabIndex = 8;
+            this.timeoutButton.UseVisualStyleBackColor = true;
+            this.timeoutButton.Click += new System.EventHandler(this.timeoutButton_Click);
+            // 
+            // calendarButton
+            // 
+            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
+            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.calendarButton.FlatAppearance.BorderSize = 0;
+            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.calendarButton.Location = new System.Drawing.Point(198, 12);
+            this.calendarButton.Name = "calendarButton";
+            this.calendarButton.Size = new System.Drawing.Size(60, 60);
+            this.calendarButton.TabIndex = 7;
+            this.calendarButton.UseVisualStyleBackColor = true;
+            this.calendarButton.Click += new System.EventHandler(this.calendarButton_Click);
+            // 
+            // timerPanelButton
+            // 
+            this.timerPanelButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerPanelButton.BackgroundImage")));
+            this.timerPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.timerPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.timerPanelButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.timerPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.timerPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.timerPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.timerPanelButton.Location = new System.Drawing.Point(45, 12);
+            this.timerPanelButton.Name = "timerPanelButton";
+            this.timerPanelButton.Size = new System.Drawing.Size(60, 60);
+            this.timerPanelButton.TabIndex = 0;
+            this.timerPanelButton.UseVisualStyleBackColor = true;
+            this.timerPanelButton.Click += new System.EventHandler(this.timerPanelButton_Click);
+            // 
             // mainCalendarPanel
             // 
             this.mainCalendarPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -569,6 +633,38 @@
             this.monthLabel.TabIndex = 14;
             this.monthLabel.Text = "month";
             this.monthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nextButton
+            // 
+            this.nextButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
+            this.nextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nextButton.FlatAppearance.BorderSize = 0;
+            this.nextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.nextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextButton.Location = new System.Drawing.Point(756, 488);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(53, 53);
+            this.nextButton.TabIndex = 13;
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // previousButton
+            // 
+            this.previousButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
+            this.previousButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.previousButton.FlatAppearance.BorderSize = 0;
+            this.previousButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.previousButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.previousButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previousButton.Location = new System.Drawing.Point(20, 488);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(53, 53);
+            this.previousButton.TabIndex = 9;
+            this.previousButton.UseVisualStyleBackColor = true;
+            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
             // 
             // calendarJuicePanel
             // 
@@ -683,17 +779,26 @@
             // 
             // adminPanel
             // 
-            this.adminPanel.Controls.Add(this.adminPanelBG);
             this.adminPanel.Controls.Add(this.leaveApproval);
             this.adminPanel.Controls.Add(this.manageUsers);
             this.adminPanel.Controls.Add(this.manageUsersPanel);
             this.adminPanel.Controls.Add(this.approveLeavePanel);
+            this.adminPanel.Controls.Add(this.adminPanelBG);
             this.adminPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminPanel.Location = new System.Drawing.Point(0, 99);
             this.adminPanel.Name = "adminPanel";
             this.adminPanel.Size = new System.Drawing.Size(1184, 581);
             this.adminPanel.TabIndex = 14;
             this.adminPanel.Visible = false;
+            // 
+            // adminPanelBG
+            // 
+            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
+            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
+            this.adminPanelBG.Name = "adminPanelBG";
+            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
+            this.adminPanelBG.TabIndex = 4;
             // 
             // leaveApproval
             // 
@@ -726,14 +831,6 @@
             this.manageUsers.Text = "Zarządzanie użytkownikami";
             this.manageUsers.UseVisualStyleBackColor = true;
             this.manageUsers.Click += new System.EventHandler(this.manageUsers_Click);
-            // 
-            // approveLeavePanel
-            // 
-            this.approveLeavePanel.Controls.Add(this.adminApproveLeaveCalendarPanel);
-            this.approveLeavePanel.Location = new System.Drawing.Point(133, 10);
-            this.approveLeavePanel.Name = "approveLeavePanel";
-            this.approveLeavePanel.Size = new System.Drawing.Size(1045, 565);
-            this.approveLeavePanel.TabIndex = 3;
             // 
             // manageUsersPanel
             // 
@@ -770,6 +867,15 @@
             this.manageUsersPanel.Name = "manageUsersPanel";
             this.manageUsersPanel.Size = new System.Drawing.Size(1036, 560);
             this.manageUsersPanel.TabIndex = 2;
+            // 
+            // manageUsersIconPanel
+            // 
+            this.manageUsersIconPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
+            this.manageUsersIconPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.manageUsersIconPanel.Location = new System.Drawing.Point(559, 11);
+            this.manageUsersIconPanel.Name = "manageUsersIconPanel";
+            this.manageUsersIconPanel.Size = new System.Drawing.Size(465, 542);
+            this.manageUsersIconPanel.TabIndex = 30;
             // 
             // manageUsersLabel
             // 
@@ -1020,6 +1126,14 @@
             this.adminEmailTextbox.Size = new System.Drawing.Size(295, 21);
             this.adminEmailTextbox.TabIndex = 0;
             // 
+            // approveLeavePanel
+            // 
+            this.approveLeavePanel.Controls.Add(this.adminApproveLeaveCalendarPanel);
+            this.approveLeavePanel.Location = new System.Drawing.Point(133, 10);
+            this.approveLeavePanel.Name = "approveLeavePanel";
+            this.approveLeavePanel.Size = new System.Drawing.Size(1045, 565);
+            this.approveLeavePanel.TabIndex = 3;
+            // 
             // adminApproveLeaveCalendarPanel
             // 
             this.adminApproveLeaveCalendarPanel.BackColor = System.Drawing.Color.White;
@@ -1042,6 +1156,19 @@
             this.adminApproveLeaveCalendarPanel.Size = new System.Drawing.Size(1022, 560);
             this.adminApproveLeaveCalendarPanel.TabIndex = 9;
             // 
+            // notApprovedEmailsTextbox
+            // 
+            this.notApprovedEmailsTextbox.BackColor = System.Drawing.Color.White;
+            this.notApprovedEmailsTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.notApprovedEmailsTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.notApprovedEmailsTextbox.Location = new System.Drawing.Point(823, 65);
+            this.notApprovedEmailsTextbox.Multiline = true;
+            this.notApprovedEmailsTextbox.Name = "notApprovedEmailsTextbox";
+            this.notApprovedEmailsTextbox.ReadOnly = true;
+            this.notApprovedEmailsTextbox.Size = new System.Drawing.Size(193, 39);
+            this.notApprovedEmailsTextbox.TabIndex = 11;
+            this.notApprovedEmailsTextbox.Text = "Poniższe konta mają niezatwierdzone nieobecności:";
+            // 
             // adminApproveYearLabel
             // 
             this.adminApproveYearLabel.AutoSize = true;
@@ -1053,6 +1180,19 @@
             this.adminApproveYearLabel.Text = "year";
             this.adminApproveYearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // adminEmailListbox
+            // 
+            this.adminEmailListbox.AllowDrop = true;
+            this.adminEmailListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.adminEmailListbox.FormattingEnabled = true;
+            this.adminEmailListbox.ItemHeight = 16;
+            this.adminEmailListbox.Location = new System.Drawing.Point(823, 111);
+            this.adminEmailListbox.Name = "adminEmailListbox";
+            this.adminEmailListbox.Size = new System.Drawing.Size(193, 308);
+            this.adminEmailListbox.TabIndex = 10;
+            this.adminEmailListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.adminEmailListbox_DrawItem);
+            this.adminEmailListbox.SelectedIndexChanged += new System.EventHandler(this.adminEmailListbox_SelectedIndexChanged);
+            // 
             // adminApproveMonthLabel
             // 
             this.adminApproveMonthLabel.AutoSize = true;
@@ -1063,6 +1203,38 @@
             this.adminApproveMonthLabel.TabIndex = 14;
             this.adminApproveMonthLabel.Text = "month";
             this.adminApproveMonthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // adminNextMonthButton
+            // 
+            this.adminNextMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
+            this.adminNextMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminNextMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminNextMonthButton.FlatAppearance.BorderSize = 0;
+            this.adminNextMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminNextMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminNextMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminNextMonthButton.Location = new System.Drawing.Point(756, 488);
+            this.adminNextMonthButton.Name = "adminNextMonthButton";
+            this.adminNextMonthButton.Size = new System.Drawing.Size(53, 53);
+            this.adminNextMonthButton.TabIndex = 13;
+            this.adminNextMonthButton.UseVisualStyleBackColor = true;
+            this.adminNextMonthButton.Click += new System.EventHandler(this.adminNextMonthButton_Click);
+            // 
+            // adminPreviousMonthButton
+            // 
+            this.adminPreviousMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
+            this.adminPreviousMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPreviousMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminPreviousMonthButton.FlatAppearance.BorderSize = 0;
+            this.adminPreviousMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminPreviousMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminPreviousMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminPreviousMonthButton.Location = new System.Drawing.Point(20, 488);
+            this.adminPreviousMonthButton.Name = "adminPreviousMonthButton";
+            this.adminPreviousMonthButton.Size = new System.Drawing.Size(53, 53);
+            this.adminPreviousMonthButton.TabIndex = 9;
+            this.adminPreviousMonthButton.UseVisualStyleBackColor = true;
+            this.adminPreviousMonthButton.Click += new System.EventHandler(this.adminPreviousMonthButton_Click);
             // 
             // adminCalendarLayoutPanel
             // 
@@ -1157,178 +1329,6 @@
             this.adminMondayLabel.Size = new System.Drawing.Size(99, 20);
             this.adminMondayLabel.TabIndex = 3;
             this.adminMondayLabel.Text = "Poniedziałek";
-            // 
-            // adminEmailListbox
-            // 
-            this.adminEmailListbox.AllowDrop = true;
-            this.adminEmailListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.adminEmailListbox.FormattingEnabled = true;
-            this.adminEmailListbox.ItemHeight = 16;
-            this.adminEmailListbox.Location = new System.Drawing.Point(823, 111);
-            this.adminEmailListbox.Name = "adminEmailListbox";
-            this.adminEmailListbox.Size = new System.Drawing.Size(193, 308);
-            this.adminEmailListbox.TabIndex = 10;
-            this.adminEmailListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.adminEmailListbox_DrawItem);
-            this.adminEmailListbox.SelectedIndexChanged += new System.EventHandler(this.adminEmailListbox_SelectedIndexChanged);
-            // 
-            // notApprovedEmailsTextbox
-            // 
-            this.notApprovedEmailsTextbox.BackColor = System.Drawing.Color.White;
-            this.notApprovedEmailsTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.notApprovedEmailsTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.notApprovedEmailsTextbox.Location = new System.Drawing.Point(823, 65);
-            this.notApprovedEmailsTextbox.Multiline = true;
-            this.notApprovedEmailsTextbox.Name = "notApprovedEmailsTextbox";
-            this.notApprovedEmailsTextbox.ReadOnly = true;
-            this.notApprovedEmailsTextbox.Size = new System.Drawing.Size(193, 39);
-            this.notApprovedEmailsTextbox.TabIndex = 11;
-            this.notApprovedEmailsTextbox.Text = "Poniższe konta mają niezatwierdzone nieobecności:";
-            // 
-            // adminPanelBG
-            // 
-            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
-            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
-            this.adminPanelBG.Name = "adminPanelBG";
-            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
-            this.adminPanelBG.TabIndex = 4;
-            // 
-            // manageUsersIconPanel
-            // 
-            this.manageUsersIconPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
-            this.manageUsersIconPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.manageUsersIconPanel.Location = new System.Drawing.Point(559, 11);
-            this.manageUsersIconPanel.Name = "manageUsersIconPanel";
-            this.manageUsersIconPanel.Size = new System.Drawing.Size(465, 542);
-            this.manageUsersIconPanel.TabIndex = 30;
-            // 
-            // adminNextMonthButton
-            // 
-            this.adminNextMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
-            this.adminNextMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminNextMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminNextMonthButton.FlatAppearance.BorderSize = 0;
-            this.adminNextMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminNextMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminNextMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminNextMonthButton.Location = new System.Drawing.Point(756, 488);
-            this.adminNextMonthButton.Name = "adminNextMonthButton";
-            this.adminNextMonthButton.Size = new System.Drawing.Size(53, 53);
-            this.adminNextMonthButton.TabIndex = 13;
-            this.adminNextMonthButton.UseVisualStyleBackColor = true;
-            this.adminNextMonthButton.Click += new System.EventHandler(this.adminNextMonthButton_Click);
-            // 
-            // adminPreviousMonthButton
-            // 
-            this.adminPreviousMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
-            this.adminPreviousMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPreviousMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminPreviousMonthButton.FlatAppearance.BorderSize = 0;
-            this.adminPreviousMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminPreviousMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminPreviousMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminPreviousMonthButton.Location = new System.Drawing.Point(20, 488);
-            this.adminPreviousMonthButton.Name = "adminPreviousMonthButton";
-            this.adminPreviousMonthButton.Size = new System.Drawing.Size(53, 53);
-            this.adminPreviousMonthButton.TabIndex = 9;
-            this.adminPreviousMonthButton.UseVisualStyleBackColor = true;
-            this.adminPreviousMonthButton.Click += new System.EventHandler(this.adminPreviousMonthButton_Click);
-            // 
-            // adminPanelButton
-            // 
-            this.adminPanelButton.BackgroundImage = global::GreenOffice.Properties.Resources.admin;
-            this.adminPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminPanelButton.FlatAppearance.BorderSize = 0;
-            this.adminPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminPanelButton.Location = new System.Drawing.Point(482, 12);
-            this.adminPanelButton.Name = "adminPanelButton";
-            this.adminPanelButton.Size = new System.Drawing.Size(60, 60);
-            this.adminPanelButton.TabIndex = 9;
-            this.adminPanelButton.UseVisualStyleBackColor = true;
-            this.adminPanelButton.Click += new System.EventHandler(this.adminPanelButton_Click);
-            // 
-            // timeoutButton
-            // 
-            this.timeoutButton.BackgroundImage = global::GreenOffice.Properties.Resources.google_docs;
-            this.timeoutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.timeoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timeoutButton.FlatAppearance.BorderSize = 0;
-            this.timeoutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.timeoutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.timeoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timeoutButton.Location = new System.Drawing.Point(346, 12);
-            this.timeoutButton.Name = "timeoutButton";
-            this.timeoutButton.Size = new System.Drawing.Size(60, 60);
-            this.timeoutButton.TabIndex = 8;
-            this.timeoutButton.UseVisualStyleBackColor = true;
-            this.timeoutButton.Click += new System.EventHandler(this.timeoutButton_Click);
-            // 
-            // calendarButton
-            // 
-            this.calendarButton.BackgroundImage = global::GreenOffice.Properties.Resources.calendar;
-            this.calendarButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.calendarButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.calendarButton.FlatAppearance.BorderSize = 0;
-            this.calendarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.calendarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.calendarButton.Location = new System.Drawing.Point(198, 12);
-            this.calendarButton.Name = "calendarButton";
-            this.calendarButton.Size = new System.Drawing.Size(60, 60);
-            this.calendarButton.TabIndex = 7;
-            this.calendarButton.UseVisualStyleBackColor = true;
-            this.calendarButton.Click += new System.EventHandler(this.calendarButton_Click);
-            // 
-            // timerPanelButton
-            // 
-            this.timerPanelButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("timerPanelButton.BackgroundImage")));
-            this.timerPanelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.timerPanelButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.timerPanelButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.timerPanelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.timerPanelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.timerPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.timerPanelButton.Location = new System.Drawing.Point(45, 12);
-            this.timerPanelButton.Name = "timerPanelButton";
-            this.timerPanelButton.Size = new System.Drawing.Size(60, 60);
-            this.timerPanelButton.TabIndex = 0;
-            this.timerPanelButton.UseVisualStyleBackColor = true;
-            this.timerPanelButton.Click += new System.EventHandler(this.timerPanelButton_Click);
-            // 
-            // nextButton
-            // 
-            this.nextButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
-            this.nextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nextButton.FlatAppearance.BorderSize = 0;
-            this.nextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.nextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nextButton.Location = new System.Drawing.Point(756, 488);
-            this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(53, 53);
-            this.nextButton.TabIndex = 13;
-            this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
-            // 
-            // previousButton
-            // 
-            this.previousButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
-            this.previousButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.previousButton.FlatAppearance.BorderSize = 0;
-            this.previousButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.previousButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.previousButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.previousButton.Location = new System.Drawing.Point(20, 488);
-            this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(53, 53);
-            this.previousButton.TabIndex = 9;
-            this.previousButton.UseVisualStyleBackColor = true;
-            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
             // 
             // leavePanel
             // 
@@ -2070,9 +2070,9 @@
             this.subCalendarPanel.ResumeLayout(false);
             this.subCalendarPanel.PerformLayout();
             this.adminPanel.ResumeLayout(false);
-            this.approveLeavePanel.ResumeLayout(false);
             this.manageUsersPanel.ResumeLayout(false);
             this.manageUsersPanel.PerformLayout();
+            this.approveLeavePanel.ResumeLayout(false);
             this.adminApproveLeaveCalendarPanel.ResumeLayout(false);
             this.adminApproveLeaveCalendarPanel.PerformLayout();
             this.leavePanel.ResumeLayout(false);
