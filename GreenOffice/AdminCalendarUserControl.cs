@@ -16,9 +16,8 @@ namespace GreenOffice
     {
         public int DayNumber { get; set; }
         public DateTime CurrentDate { get; set; }
-        public static string eventID = "";
         public static string leaveID = "";
-        public static string passEventID = "";
+        public static string passLeaveID = "";
         public int isApproved;
         public static string ApprovedStatus = "";
         private static string codeAdmin;
@@ -109,9 +108,9 @@ namespace GreenOffice
         {
             if (!string.IsNullOrEmpty(displayLeaveTextbox.Text))
             {
-                passEventID = idLabel.Text;
-                f6_deleteEvent Open_f6_deleteEvent = new f6_deleteEvent(); //opens up user form instead
-                Open_f6_deleteEvent.ShowDialog();
+                passLeaveID = idLabel.Text;
+                f7_approveLeave Open_f7_approveLeave = new f7_approveLeave(); //opens up user form instead
+                Open_f7_approveLeave.ShowDialog();
             }
         }
     }

@@ -31,10 +31,12 @@ namespace GreenOffice
         public static string adminCode =  "";
         public static string adminUser = "";
         TimeSpan totalDifference = TimeSpan.Zero;
-        private int dayCount;
-        private int dayCountPaid;
-        private int dayCountOnDemand;
+        public static int dayCount;
+        public static int dayCountPaid;
+        public static int dayCountOnDemand;
         private int adminNum;
+        private string workerName;
+        private string workerSurname;
 
         public f3_adminBody()
         {
@@ -93,13 +95,15 @@ namespace GreenOffice
                 string connectionString = connection; //and makes a connection
                 using(MySqlConnection databaseConnection = new MySqlConnection(connectionString))
                 {
-                    string displayManagedAccountsQuery = $"SELECT email, name FROM user"; //query to find name based on email
+                    string displayManagedAccountsQuery = $"SELECT email, name, surname FROM user"; //query to find name based on email
                     databaseConnection.Open(); //opens connection
                     MySqlCommand displayManagedAccountsCommand = new MySqlCommand(displayManagedAccountsQuery, databaseConnection);
                     MySqlDataReader reader = displayManagedAccountsCommand.ExecuteReader();
                     while (reader.Read())
                     {
                         managedAccount.Items.Add(reader["email"].ToString());
+                        workerName = reader["name"].ToString();
+                        workerSurname = reader["surname"].ToString();
                     }
                 }
             }
@@ -158,6 +162,7 @@ namespace GreenOffice
         private void moveToAdminPanelButton_Click(object sender, EventArgs e)
         {
             adminPanel.Visible = true;
+            leaveApproval_Click(sender, e);
             notificationPanel.Visible = false;
         }
         private void f3_adminBody_FormClosing(object sender, FormClosingEventArgs e)
@@ -208,6 +213,7 @@ namespace GreenOffice
             welcomeGroupbox.Visible = false;
             leavePanel.Visible = false;
             adminPanel.Visible = true;
+            adminPanelBG.Visible = true;
         }
         private void timerStartButton_Click(object sender, EventArgs e) //starts workday timer
         {
@@ -316,6 +322,18 @@ namespace GreenOffice
             {
                 string selectedItem = managedAccount.SelectedItem.ToString();
                 adminCode = selectedItem;
+                if (timerPanel.Visible)
+                {
+                    timerStats();
+                }
+                if (calendarJuicePanel.Visible)
+                {
+                    DisplayCurrentMonth();
+                }
+                if (adminApproveLeaveCalendarPanel.Visible)
+                {
+                    displayAdminCalendar();
+                }
             }
         }
         private void managedAccount_DrawItem(object sender, DrawItemEventArgs e)
@@ -518,20 +536,17 @@ namespace GreenOffice
                 Document document = new Document();
                 PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFile, FileMode.Append));
                 document.Open();
-                if (!fileExists)
-                {
-                    // If file doesn't exist, add a header
-                    document.Add(new Paragraph("Godziny pracy"));
-                    document.Add(new Paragraph("-------------"));
-                }
+
+                document.Add(new Paragraph("Godziny pracy dla pracownika: " + workerName + " " + workerSurname));
+                document.Add(new Paragraph("   "));
+                
                 PdfPTable table = new PdfPTable(3);
                 table.WidthPercentage = 100;
-                if (!fileExists)
-                {
-                    table.AddCell("Data");
-                    table.AddCell("Godzina rozpoczęcia:");
-                    table.AddCell("Godzina zakończenia:");
-                }
+
+                table.AddCell("Data");
+                table.AddCell("Godzina rozpoczęcia:");
+                table.AddCell("Godzina zakończenia:");
+
                 table.AddCell(date);
                 table.AddCell(startTime);
                 table.AddCell(finishTime);
@@ -1055,6 +1070,7 @@ namespace GreenOffice
                             if (isApproved == 0)
                             {
                                 MessageBox.Show("Nieobecność zgłoszona, oczekuje na potwierdzenie");
+                                calculateLeaveDays();
                             }
                             else if (isApproved == 1)
                             {
@@ -1132,11 +1148,16 @@ namespace GreenOffice
         private void manageUsers_Click(object sender, EventArgs e)
         {
             manageUsersPanel.Visible = true;
+            approveLeavePanel.Visible = false;
+            adminPanelBG.Visible = false;
         }
         private void leaveApproval_Click(object sender, EventArgs e)
         {
             approveLeavePanel.Visible = true;
+            manageUsersPanel.Visible = false;
+            adminPanelBG.Visible = false;
             displayAdminCalendar();
+            displayNotApprovedEmails();
         }
         private void loadManagedUser_Click(object sender, EventArgs e)
         {
@@ -1304,14 +1325,15 @@ namespace GreenOffice
                 selectManagedUsers();
             }
         }
-        private void displayNotApprovedLeaves()
+        private void displayNotApprovedEmails()
         {
+            adminEmailListbox.Items.Clear();
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
             using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
             {
                 string connection = streamReader.ReadToEnd(); //reads "connString" file
                 string connectionString = connection; //renames connection :)
-                string selectNotApprovedLeavesQuery = "SELECT email, leaveStartDate, leaveFinishDate, leaveStartTime, leaveFinishTime, leaveReason, leaveDescription, leaveBLOB FROM leavetable WHERE leaveApproved=0";
+                string selectNotApprovedLeavesQuery = "SELECT DISTINCT user.email FROM user LEFT JOIN leavetable ON user.email = leavetable.email WHERE leavetable.leaveApproved = 0";
                 using (MySqlConnection databaseConnection = new MySqlConnection(connection))
                 {
                     MySqlCommand selectNotApprovedLeavesCommand = new MySqlCommand(selectNotApprovedLeavesQuery, databaseConnection);
@@ -1320,22 +1342,8 @@ namespace GreenOffice
                     while (reader.Read())
                     {
                         string email = reader["email"].ToString();
-                        DateTime leaveStartDate = Convert.ToDateTime(reader["leaveStartDate"]);
-                        DateTime leaveFinishDate = Convert.ToDateTime(reader["leaveFinishDate"]);
-                        TimeSpan leaveStartTime = TimeSpan.Parse(reader["leaveStartTime"].ToString());
-                        TimeSpan leaveFinishTime = TimeSpan.Parse(reader["leaveFinishTime"].ToString());
-                        string leaveReason = reader["leaveReason"].ToString();
-                        TimeSpan specificStart = new TimeSpan(0, 0, 0);
-                        TimeSpan specificFinish = new TimeSpan(23, 59, 59);
-                        if (leaveStartTime == specificStart && leaveFinishTime == specificFinish)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                        
+                        string displayText = email;
+                        adminEmailListbox.Items.Add(displayText);
                     }
 
                     reader.Close();
@@ -1348,8 +1356,8 @@ namespace GreenOffice
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); //sets the first time of the month
             int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); //then counts how many days are in said month
             int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7; //sets the first day of the month and makes sure the week start with monday
-            monthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture); // changes monthLabel to correct month in polish
-            yearLabel.Text = firstDayOfMonth.ToString("yyyy" + ","); //sets yearLabel to correct year
+            adminApproveMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture); // changes monthLabel to correct month in polish
+            adminApproveYearLabel.Text = firstDayOfMonth.ToString("yyyy" + ","); //sets yearLabel to correct year
             for (int i = 0; i < dayOfWeek; i++) //this is where magic begins
             { //first, it finds how many days, from monday happend in previous month, if i is smaller then int of firstDayOfMonth
                 EmptyUserControl emptyUserControl = new EmptyUserControl(); //sets usercontrol as usercontrol
@@ -1361,6 +1369,53 @@ namespace GreenOffice
                 dayControl.SetDay(day, new DateTime(currentYear, currentMonth, day));
                 adminCalendarLayoutPanel.Controls.Add(dayControl);
             }
+        }
+
+        private void adminEmailListbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (adminEmailListbox.SelectedItem != null)
+            {
+                string selectedItem = adminEmailListbox.SelectedItem.ToString();
+                adminCode = selectedItem;
+                displayAdminCalendar();
+            }
+        }
+
+        private void adminEmailListbox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            { e.Graphics.FillRectangle(Brushes.LightGreen, e.Bounds); }
+            else { e.Graphics.FillRectangle(Brushes.White, e.Bounds); }
+            e.Graphics.DrawString(adminEmailListbox.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
+        }
+
+        private void adminPreviousMonthButton_Click(object sender, EventArgs e)
+        {
+            if (currentMonth == 1) //simple maths really, if currentMonth is equal to one(january)
+            {
+                currentMonth = 12; //then sets currentMonth to twelve(december)
+                currentYear--; //and decreses year
+            }
+            else
+            {
+                currentMonth--; //else just decreses month by one
+            }
+            displayAdminCalendar();
+        }
+
+        private void adminNextMonthButton_Click(object sender, EventArgs e)
+        {
+            if (currentMonth == 12) //same thing here, but in reverse, if month is 12(december)
+            {
+                currentMonth = 1; //then sets currenMonth to one(January)
+                currentYear++; //and increses year by one
+            }
+            else
+            {
+                currentMonth++; //else just increses month by one
+            }
+            displayAdminCalendar();
         }
 
 

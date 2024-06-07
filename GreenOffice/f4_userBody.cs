@@ -30,6 +30,8 @@ namespace GreenOffice
         private int dayCountPaid;
         private int dayCountOnDemand;
         private int adminNum;
+        private string workerName;
+        private string workerSurname;
 
         // ============================ OVERALL BODY START ==================================
 
@@ -79,7 +81,7 @@ namespace GreenOffice
                 string connectionString = connection; //and makes a connection
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
 
-                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email"); //query to find name based on email
+                MySqlCommand displayName = new MySqlCommand($"SELECT email, name, surname FROM user WHERE email=@email"); //query to find name based on email
                 displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text); //takes email from textbox
                 displayName.CommandType = CommandType.Text; //makes command readable for the app
                 displayName.Connection = databaseConnection; //does something?
@@ -89,6 +91,8 @@ namespace GreenOffice
                 {
                     readerDisplayName.Read(); //reads data recieved from query
                     nameWelcomeTextbox.Text = readerDisplayName["name"].ToString() + "!"; //shoots name into a textbox with "!" at the end
+                    workerName = readerDisplayName["name"].ToString();
+                    workerSurname = readerDisplayName["surname"].ToString();
                     databaseConnection.Close(); //stops the connection
                 }
             }
@@ -393,20 +397,17 @@ namespace GreenOffice
                 Document document = new Document();
                 PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFile, FileMode.Append));
                 document.Open();
-                if (!fileExists)
-                {
-                    // If file doesn't exist, add a header
-                    document.Add(new Paragraph("Godziny pracy"));
-                    document.Add(new Paragraph("-------------"));
-                }
+
+                document.Add(new Paragraph("Godziny pracy dla pracownika: " + workerName + " " + workerSurname));
+                document.Add(new Paragraph("   "));
+
                 PdfPTable table = new PdfPTable(3);
                 table.WidthPercentage = 100;
-                if (!fileExists)
-                {
-                    table.AddCell("Data");
-                    table.AddCell("Godzina rozpoczęcia:");
-                    table.AddCell("Godzina zakończenia:");
-                }
+
+                table.AddCell("Data");
+                table.AddCell("Godzina rozpoczęcia:");
+                table.AddCell("Godzina zakończenia:");
+
                 table.AddCell(date);
                 table.AddCell(startTime);
                 table.AddCell(finishTime);

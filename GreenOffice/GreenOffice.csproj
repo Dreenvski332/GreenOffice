@@ -131,6 +131,12 @@
     <Compile Include="f6_deleteEvent.Designer.cs">
       <DependentUpon>f6_deleteEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="f7_approveLeave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="f7_approveLeave.Designer.cs">
+      <DependentUpon>f7_approveLeave.cs</DependentUpon>
+    </Compile>
     <Compile Include="PathFactory.cs" />
     <Compile Include="f1_login.cs">
       <SubType>Form</SubType>
@@ -185,6 +191,9 @@
     <EmbeddedResource Include="f6_deleteEvent.resx">
       <DependentUpon>f6_deleteEvent.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="f7_approveLeave.resx">
+      <DependentUpon>f7_approveLeave.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -226,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\admin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logoAdminPanelWhiteBG.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -112,13 +112,16 @@
             this.adminWednesdayLabel = new System.Windows.Forms.Label();
             this.adminTuesdayLabel = new System.Windows.Forms.Label();
             this.adminMondayLabel = new System.Windows.Forms.Label();
+            this.adminEmailListbox = new System.Windows.Forms.ListBox();
+            this.notApprovedEmailsTextbox = new System.Windows.Forms.TextBox();
+            this.adminPanelBG = new System.Windows.Forms.Panel();
+            this.manageUsersIconPanel = new System.Windows.Forms.Panel();
+            this.adminNextMonthButton = new System.Windows.Forms.Button();
+            this.adminPreviousMonthButton = new System.Windows.Forms.Button();
             this.adminPanelButton = new System.Windows.Forms.Button();
             this.timeoutButton = new System.Windows.Forms.Button();
             this.calendarButton = new System.Windows.Forms.Button();
             this.timerPanelButton = new System.Windows.Forms.Button();
-            this.adminNextMonthButton = new System.Windows.Forms.Button();
-            this.adminPreviousMonthButton = new System.Windows.Forms.Button();
-            this.manageUsersIconPanel = new System.Windows.Forms.Panel();
             this.nextButton = new System.Windows.Forms.Button();
             this.previousButton = new System.Windows.Forms.Button();
             this.leavePanel = new System.Windows.Forms.Panel();
@@ -680,10 +683,11 @@
             // 
             // adminPanel
             // 
+            this.adminPanel.Controls.Add(this.adminPanelBG);
             this.adminPanel.Controls.Add(this.leaveApproval);
             this.adminPanel.Controls.Add(this.manageUsers);
-            this.adminPanel.Controls.Add(this.approveLeavePanel);
             this.adminPanel.Controls.Add(this.manageUsersPanel);
+            this.adminPanel.Controls.Add(this.approveLeavePanel);
             this.adminPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminPanel.Location = new System.Drawing.Point(0, 99);
             this.adminPanel.Name = "adminPanel";
@@ -1019,7 +1023,9 @@
             // adminApproveLeaveCalendarPanel
             // 
             this.adminApproveLeaveCalendarPanel.BackColor = System.Drawing.Color.White;
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.notApprovedEmailsTextbox);
             this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminApproveYearLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminEmailListbox);
             this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminApproveMonthLabel);
             this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminNextMonthButton);
             this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminPreviousMonthButton);
@@ -1033,7 +1039,7 @@
             this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminMondayLabel);
             this.adminApproveLeaveCalendarPanel.Location = new System.Drawing.Point(6, 2);
             this.adminApproveLeaveCalendarPanel.Name = "adminApproveLeaveCalendarPanel";
-            this.adminApproveLeaveCalendarPanel.Size = new System.Drawing.Size(859, 560);
+            this.adminApproveLeaveCalendarPanel.Size = new System.Drawing.Size(1022, 560);
             this.adminApproveLeaveCalendarPanel.TabIndex = 9;
             // 
             // adminApproveYearLabel
@@ -1152,6 +1158,82 @@
             this.adminMondayLabel.TabIndex = 3;
             this.adminMondayLabel.Text = "Poniedziałek";
             // 
+            // adminEmailListbox
+            // 
+            this.adminEmailListbox.AllowDrop = true;
+            this.adminEmailListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.adminEmailListbox.FormattingEnabled = true;
+            this.adminEmailListbox.ItemHeight = 16;
+            this.adminEmailListbox.Location = new System.Drawing.Point(823, 111);
+            this.adminEmailListbox.Name = "adminEmailListbox";
+            this.adminEmailListbox.Size = new System.Drawing.Size(193, 308);
+            this.adminEmailListbox.TabIndex = 10;
+            this.adminEmailListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.adminEmailListbox_DrawItem);
+            this.adminEmailListbox.SelectedIndexChanged += new System.EventHandler(this.adminEmailListbox_SelectedIndexChanged);
+            // 
+            // notApprovedEmailsTextbox
+            // 
+            this.notApprovedEmailsTextbox.BackColor = System.Drawing.Color.White;
+            this.notApprovedEmailsTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.notApprovedEmailsTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.notApprovedEmailsTextbox.Location = new System.Drawing.Point(823, 65);
+            this.notApprovedEmailsTextbox.Multiline = true;
+            this.notApprovedEmailsTextbox.Name = "notApprovedEmailsTextbox";
+            this.notApprovedEmailsTextbox.ReadOnly = true;
+            this.notApprovedEmailsTextbox.Size = new System.Drawing.Size(193, 39);
+            this.notApprovedEmailsTextbox.TabIndex = 11;
+            this.notApprovedEmailsTextbox.Text = "Poniższe konta mają niezatwierdzone nieobecności:";
+            // 
+            // adminPanelBG
+            // 
+            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
+            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
+            this.adminPanelBG.Name = "adminPanelBG";
+            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
+            this.adminPanelBG.TabIndex = 4;
+            // 
+            // manageUsersIconPanel
+            // 
+            this.manageUsersIconPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
+            this.manageUsersIconPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.manageUsersIconPanel.Location = new System.Drawing.Point(559, 11);
+            this.manageUsersIconPanel.Name = "manageUsersIconPanel";
+            this.manageUsersIconPanel.Size = new System.Drawing.Size(465, 542);
+            this.manageUsersIconPanel.TabIndex = 30;
+            // 
+            // adminNextMonthButton
+            // 
+            this.adminNextMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
+            this.adminNextMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminNextMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminNextMonthButton.FlatAppearance.BorderSize = 0;
+            this.adminNextMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminNextMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminNextMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminNextMonthButton.Location = new System.Drawing.Point(756, 488);
+            this.adminNextMonthButton.Name = "adminNextMonthButton";
+            this.adminNextMonthButton.Size = new System.Drawing.Size(53, 53);
+            this.adminNextMonthButton.TabIndex = 13;
+            this.adminNextMonthButton.UseVisualStyleBackColor = true;
+            this.adminNextMonthButton.Click += new System.EventHandler(this.adminNextMonthButton_Click);
+            // 
+            // adminPreviousMonthButton
+            // 
+            this.adminPreviousMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
+            this.adminPreviousMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPreviousMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminPreviousMonthButton.FlatAppearance.BorderSize = 0;
+            this.adminPreviousMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminPreviousMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminPreviousMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminPreviousMonthButton.Location = new System.Drawing.Point(20, 488);
+            this.adminPreviousMonthButton.Name = "adminPreviousMonthButton";
+            this.adminPreviousMonthButton.Size = new System.Drawing.Size(53, 53);
+            this.adminPreviousMonthButton.TabIndex = 9;
+            this.adminPreviousMonthButton.UseVisualStyleBackColor = true;
+            this.adminPreviousMonthButton.Click += new System.EventHandler(this.adminPreviousMonthButton_Click);
+            // 
             // adminPanelButton
             // 
             this.adminPanelButton.BackgroundImage = global::GreenOffice.Properties.Resources.admin;
@@ -1215,45 +1297,6 @@
             this.timerPanelButton.TabIndex = 0;
             this.timerPanelButton.UseVisualStyleBackColor = true;
             this.timerPanelButton.Click += new System.EventHandler(this.timerPanelButton_Click);
-            // 
-            // adminNextMonthButton
-            // 
-            this.adminNextMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
-            this.adminNextMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminNextMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminNextMonthButton.FlatAppearance.BorderSize = 0;
-            this.adminNextMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminNextMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminNextMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminNextMonthButton.Location = new System.Drawing.Point(756, 488);
-            this.adminNextMonthButton.Name = "adminNextMonthButton";
-            this.adminNextMonthButton.Size = new System.Drawing.Size(53, 53);
-            this.adminNextMonthButton.TabIndex = 13;
-            this.adminNextMonthButton.UseVisualStyleBackColor = true;
-            // 
-            // adminPreviousMonthButton
-            // 
-            this.adminPreviousMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
-            this.adminPreviousMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPreviousMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminPreviousMonthButton.FlatAppearance.BorderSize = 0;
-            this.adminPreviousMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminPreviousMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminPreviousMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminPreviousMonthButton.Location = new System.Drawing.Point(20, 488);
-            this.adminPreviousMonthButton.Name = "adminPreviousMonthButton";
-            this.adminPreviousMonthButton.Size = new System.Drawing.Size(53, 53);
-            this.adminPreviousMonthButton.TabIndex = 9;
-            this.adminPreviousMonthButton.UseVisualStyleBackColor = true;
-            // 
-            // manageUsersIconPanel
-            // 
-            this.manageUsersIconPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
-            this.manageUsersIconPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.manageUsersIconPanel.Location = new System.Drawing.Point(559, 11);
-            this.manageUsersIconPanel.Name = "manageUsersIconPanel";
-            this.manageUsersIconPanel.Size = new System.Drawing.Size(465, 542);
-            this.manageUsersIconPanel.TabIndex = 30;
             // 
             // nextButton
             // 
@@ -2007,8 +2050,8 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1184, 681);
-            this.Controls.Add(this.headerGroupBox);
             this.Controls.Add(this.adminPanel);
+            this.Controls.Add(this.headerGroupBox);
             this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.leavePanel);
             this.Controls.Add(this.welcomeGroupbox);
@@ -2205,5 +2248,8 @@
         private System.Windows.Forms.Label adminWednesdayLabel;
         private System.Windows.Forms.Label adminTuesdayLabel;
         private System.Windows.Forms.Label adminMondayLabel;
+        private System.Windows.Forms.ListBox adminEmailListbox;
+        private System.Windows.Forms.TextBox notApprovedEmailsTextbox;
+        private System.Windows.Forms.Panel adminPanelBG;
     }
 }
