@@ -1135,7 +1135,8 @@ namespace GreenOffice
         }
         private void leaveApproval_Click(object sender, EventArgs e)
         {
-            approveLeavePanel.Visible = true;  
+            approveLeavePanel.Visible = true;
+            displayAdminCalendar();
         }
         private void loadManagedUser_Click(object sender, EventArgs e)
         {
@@ -1303,8 +1304,64 @@ namespace GreenOffice
                 selectManagedUsers();
             }
         }
+        private void displayNotApprovedLeaves()
+        {
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //renames connection :)
+                string selectNotApprovedLeavesQuery = "SELECT email, leaveStartDate, leaveFinishDate, leaveStartTime, leaveFinishTime, leaveReason, leaveDescription, leaveBLOB FROM leavetable WHERE leaveApproved=0";
+                using (MySqlConnection databaseConnection = new MySqlConnection(connection))
+                {
+                    MySqlCommand selectNotApprovedLeavesCommand = new MySqlCommand(selectNotApprovedLeavesQuery, databaseConnection);
+                    databaseConnection.Open();
+                    MySqlDataReader reader = selectNotApprovedLeavesCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string email = reader["email"].ToString();
+                        DateTime leaveStartDate = Convert.ToDateTime(reader["leaveStartDate"]);
+                        DateTime leaveFinishDate = Convert.ToDateTime(reader["leaveFinishDate"]);
+                        TimeSpan leaveStartTime = TimeSpan.Parse(reader["leaveStartTime"].ToString());
+                        TimeSpan leaveFinishTime = TimeSpan.Parse(reader["leaveFinishTime"].ToString());
+                        string leaveReason = reader["leaveReason"].ToString();
+                        TimeSpan specificStart = new TimeSpan(0, 0, 0);
+                        TimeSpan specificFinish = new TimeSpan(23, 59, 59);
+                        if (leaveStartTime == specificStart && leaveFinishTime == specificFinish)
+                        {
 
+                        }
+                        else
+                        {
 
+                        }
+                        
+                    }
+
+                    reader.Close();
+                }
+            }
+        }
+        private void displayAdminCalendar()
+        {
+            adminCalendarLayoutPanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
+            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); //sets the first time of the month
+            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); //then counts how many days are in said month
+            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7; //sets the first day of the month and makes sure the week start with monday
+            monthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture); // changes monthLabel to correct month in polish
+            yearLabel.Text = firstDayOfMonth.ToString("yyyy" + ","); //sets yearLabel to correct year
+            for (int i = 0; i < dayOfWeek; i++) //this is where magic begins
+            { //first, it finds how many days, from monday happend in previous month, if i is smaller then int of firstDayOfMonth
+                EmptyUserControl emptyUserControl = new EmptyUserControl(); //sets usercontrol as usercontrol
+                adminCalendarLayoutPanel.Controls.Add(emptyUserControl); //and populates one plot in tabelPanel
+            } //repeat if necessary
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                AdminCalendarUserControl dayControl = new AdminCalendarUserControl();
+                dayControl.SetDay(day, new DateTime(currentYear, currentMonth, day));
+                adminCalendarLayoutPanel.Controls.Add(dayControl);
+            }
+        }
 
 
         // ============================ ADMIN PANEL FINISH ===============================

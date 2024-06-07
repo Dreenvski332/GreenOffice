@@ -89,6 +89,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminCalendarUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminCalendarUserControl.Designer.cs">
+      <DependentUpon>AdminCalendarUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DayUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AdminCalendarUserControl.resx">
+      <DependentUpon>AdminCalendarUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DayUserControl.resx">
       <DependentUpon>DayUserControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -940,6 +940,7 @@ namespace GreenOffice
                             else if (isApproved == 1)
                             {
                                 MessageBox.Show("Nieobecność potwierdzona");
+                                calculateLeaveDays();
                             }
                         }
                     }
@@ -962,44 +963,49 @@ namespace GreenOffice
             }
             dayCountPaid = dayCountPaid - dayCount;
             dayCountOnDemand = dayCountOnDemand - dayCount;
-
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            if (adminNum == 1)
+            if(dayCount > dayCountPaid || dayCount >  dayCountOnDemand)
             {
-                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                MessageBox.Show("Wybrana nieobecność przekracza ilość dostępnych dni wolnych");
+            }
+            else
+            {
+                PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+                if (adminNum == 1)
                 {
-                    string connection = streamReader.ReadToEnd();
-                    string connectionString = connection;
-                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                    String updateLeaveQuery = "UPDATE `user` SET `leftLeaveDays`=@leftLeaveDays WHERE email=@email";
-                    using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                    using (StreamReader streamReader = new StreamReader(pathFactory.connString))
                     {
-                        databaseConnection.Open();
-                        updateLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
-                        updateLeaveCommand.Parameters.AddWithValue("@leftLeaveDays", dayCountPaid);
-                        int result = updateLeaveCommand.ExecuteNonQuery();
+                        string connection = streamReader.ReadToEnd();
+                        string connectionString = connection;
+                        MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                        String updateLeaveQuery = "UPDATE `user` SET `leftLeaveDays`=@leftLeaveDays WHERE email=@email";
+                        using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                        {
+                            databaseConnection.Open();
+                            updateLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                            updateLeaveCommand.Parameters.AddWithValue("@leftLeaveDays", dayCountPaid);
+                            int result = updateLeaveCommand.ExecuteNonQuery();
+                        }
+                    }
+
+                }
+                else if (adminNum == 2)
+                {
+                    using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                    {
+                        string connection = streamReader.ReadToEnd();
+                        string connectionString = connection;
+                        MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                        String updateLeaveQuery = "UPDATE `user` SET `leftLeaveOnDemandDays`=@leftLeaveOnDemandDays WHERE email=@email";
+                        using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
+                        {
+                            databaseConnection.Open();
+                            updateLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                            updateLeaveCommand.Parameters.AddWithValue("@leftLeaveOnDemandDays", dayCountOnDemand);
+                            int result = updateLeaveCommand.ExecuteNonQuery();
+                        }
                     }
                 }
-
             }
-            else if (adminNum == 2)
-            {
-                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
-                {
-                    string connection = streamReader.ReadToEnd();
-                    string connectionString = connection;
-                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                    String updateLeaveQuery = "UPDATE `user` SET `leftLeaveOnDemandDays`=@leftLeaveOnDemandDays WHERE email=@email";
-                    using (MySqlCommand updateLeaveCommand = new MySqlCommand(updateLeaveQuery, databaseConnection))
-                    {
-                        databaseConnection.Open();
-                        updateLeaveCommand.Parameters.AddWithValue("@email", viewUserTextbox.Text);
-                        updateLeaveCommand.Parameters.AddWithValue("@leftLeaveOnDemandDays", dayCountOnDemand);
-                        int result = updateLeaveCommand.ExecuteNonQuery();
-                    }
-                }
-            }
-
         }
 
 

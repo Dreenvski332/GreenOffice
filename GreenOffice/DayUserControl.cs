@@ -76,7 +76,16 @@ namespace GreenOffice
                             string formatEventStartTime = FormatTime(eventStartTime);
                             string formatEventFinishTime = FormatTime(eventFinishTime);
                             eventID = reader["eventID"].ToString();
-                            eventDescriptionTooltip.SetToolTip(displayEventTextbox, "Opis: " + eventDescription + "\n" + "Godzina rozpoczęcia: " + formatEventStartTime + "\nGodzina zakończenia: " + formatEventFinishTime);
+                            TimeSpan specificStart = new TimeSpan(0, 0, 0);
+                            TimeSpan specificFinish = new TimeSpan(23, 59, 59);
+                            if (eventStartTime == specificStart && eventFinishTime == specificFinish)
+                            {
+                                eventDescriptionTooltip.SetToolTip(displayEventTextbox, "Opis: " + eventDescription + " \nCały dzień");
+                            }
+                            else
+                            {
+                                eventDescriptionTooltip.SetToolTip(displayEventTextbox, "Opis: " + eventDescription + "\n" + "Godzina rozpoczęcia: " + formatEventStartTime + "\nGodzina zakończenia: " + formatEventFinishTime);
+                            }
                             displayEventTextbox.Text = eventCategory;
                             idLabel.Text = eventID;
                         }
@@ -117,13 +126,37 @@ namespace GreenOffice
                             string leaveReason = reader["leaveReason"].ToString();
                             isApproved = reader.GetInt32("leaveApproved");
                             leaveID = reader["leaveID"].ToString();
+                            TimeSpan specificStart = new TimeSpan(0, 0, 0);
+                            TimeSpan specificFinish = new TimeSpan(23, 59, 59);
                             if (isApproved == 0)
-                            { this.BackColor = Color.MintCream; displayEventTextbox.BackColor = Color.MintCream; ApprovedStatus = "Niezatwierdzone"; }
+                            { 
+                                this.BackColor = Color.MintCream; displayEventTextbox.BackColor = Color.MintCream; ApprovedStatus = "Niezatwierdzone";
+                                
+                                if (leaveStartTime == specificStart && leaveFinishTime == specificFinish)
+                                {
+                                    eventDescriptionTooltip.SetToolTip(displayEventTextbox, ApprovedStatus + " \nCały dzień");
+                                }
+                                else
+                                {
+                                    eventDescriptionTooltip.SetToolTip(displayEventTextbox, ApprovedStatus + " \nOd: " + formatLeaveStartTime + "\nDo: " + formatLeaveFinishTime);
+                                }
+                                displayEventTextbox.Text = leaveReason;
+                                idLabel.Text = leaveID;
+                            }
                             else if (isApproved == 1)
-                            { this.BackColor = Color.LightYellow; displayEventTextbox.BackColor = Color.LightYellow; ApprovedStatus = "Zatwierdzone"; }
-                            eventDescriptionTooltip.SetToolTip(displayEventTextbox, ApprovedStatus + " \nOd: " + formatLeaveStartTime + "\nDo: " + formatLeaveFinishTime);
-                            displayEventTextbox.Text = leaveReason;
-                            idLabel.Text = leaveID;
+                            { 
+                                this.BackColor = Color.LightYellow; displayEventTextbox.BackColor = Color.LightYellow; ApprovedStatus = "Zatwierdzone";
+                                if (leaveStartTime == specificStart && leaveFinishTime == specificFinish)
+                                {
+                                    eventDescriptionTooltip.SetToolTip(displayEventTextbox, ApprovedStatus + " \nCały dzień");
+                                }
+                                else
+                                {
+                                    eventDescriptionTooltip.SetToolTip(displayEventTextbox, ApprovedStatus + " \nOd: " + formatLeaveStartTime + "\nDo: " + formatLeaveFinishTime);
+                                }
+                                displayEventTextbox.Text = leaveReason;
+                                idLabel.Text = leaveID;
+                            }
                         }
                         
                     }
