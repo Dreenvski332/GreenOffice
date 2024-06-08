@@ -225,9 +225,9 @@ namespace GreenOffice
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
                 try
                 { //checks if there is a ROW in "timer" that contains current date and currently logged user
-                    MySqlCommand workStartChecker = new MySqlCommand($"SELECT startDate, username FROM timer WHERE startDate=@startDate AND username=@username"); //a query
+                    MySqlCommand workStartChecker = new MySqlCommand($"SELECT startDate, email FROM timer WHERE startDate=@startDate AND email=@email"); //a query
                     workStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets startTime to current time
-                    workStartChecker.Parameters.AddWithValue("@username", adminCode); //takes username from textbox
+                    workStartChecker.Parameters.AddWithValue("@email", adminCode); //takes username from textbox
                     workStartChecker.CommandType = CommandType.Text; //makes it so the program knows what a command is
                     workStartChecker.Connection = databaseConnection; // ummmm
 
@@ -242,14 +242,14 @@ namespace GreenOffice
                     else //if it doesn't then starts work for the day
                     {
                         databaseConnection.Close(); //still we neet to halt the connection
-                        String addStartingTimeQuery = "INSERT INTO `timer`(`username`, `startDate`, `startTime`) VALUES (@username,@startDate,@startTime)"; //define new query to add data into the DB
+                        String addStartingTimeQuery = "INSERT INTO `timer`(`email`, `startDate`, `startTime`) VALUES (@email,@startDate,@startTime)"; //define new query to add data into the DB
                         try
                         {
                             using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection)) //connects to DB
                             {
                                 addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("H:mm")); //sets startTime to current time
                                 addStartingTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets current date
-                                addStartingTimeCommand.Parameters.AddWithValue("@username", adminCode); //takes username from textbox
+                                addStartingTimeCommand.Parameters.AddWithValue("@email", adminCode); //takes username from textbox
                                 databaseConnection.Open(); //opens the connection
                                 int queryFeedback = addStartingTimeCommand.ExecuteNonQuery(); //executes the command, again not in a kill way
                                 databaseConnection.Close(); //stops the connection
@@ -274,9 +274,9 @@ namespace GreenOffice
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
                 try
                 { //checks if there is a ROW in "timer" that contains current date and currently logged user
-                    MySqlCommand rowExistenceChecker = new MySqlCommand($"SELECT * FROM timer WHERE startDate=@startDate AND username=@username");
+                    MySqlCommand rowExistenceChecker = new MySqlCommand($"SELECT * FROM timer WHERE startDate=@startDate AND email=@email");
                     rowExistenceChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //take startDate as a current date
-                    rowExistenceChecker.Parameters.AddWithValue("@username", adminCode); //username from textbox, we've been over this
+                    rowExistenceChecker.Parameters.AddWithValue("@email", adminCode); //username from textbox, we've been over this
                     rowExistenceChecker.CommandType = CommandType.Text; //program stupid, needs to know what a command is
                     rowExistenceChecker.Connection = databaseConnection; //ugh
                     databaseConnection.Open(); //opens the connection
@@ -285,9 +285,9 @@ namespace GreenOffice
                     if (boolRowExistence == true) //if row like that exists, then program checks whether the work has been ended for the day or not
                     {
                         databaseConnection.Close(); //QUERY BELLOW is looking for a ROW where startTime is set, but the endTime isn't \/
-                        MySqlCommand verifyWorkStartChecker = new MySqlCommand($"SELECT * FROM timer WHERE timer.startTime IS NOT NULL AND timer.finishTime IS NULL AND timer.startDate=@startDate AND timer.username=@username");
+                        MySqlCommand verifyWorkStartChecker = new MySqlCommand($"SELECT * FROM timer WHERE timer.startTime IS NOT NULL AND timer.finishTime IS NULL AND timer.startDate=@startDate AND timer.email=@email");
                         verifyWorkStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //take startDate as a current date
-                        verifyWorkStartChecker.Parameters.AddWithValue("@username", adminCode); //username from textbox, we've really been over this
+                        verifyWorkStartChecker.Parameters.AddWithValue("@email", adminCode); //username from textbox, we've really been over this
                         verifyWorkStartChecker.CommandType = CommandType.Text; //program stupid, needs to know what a command is
                         verifyWorkStartChecker.Connection = databaseConnection; //hmpf
                         databaseConnection.Open(); //opens the connection
@@ -296,12 +296,12 @@ namespace GreenOffice
                         if (boolVerifyWorkStart == true) //if a row like that exists then program updates said row with endTime - that is time when button was pressed
                         {
                             databaseConnection.Close(); //stops the connection
-                            String addEndTimeQuery = "UPDATE timer SET finishTime=@finishTime WHERE startDate=@startDate AND username=@username"; //update query, that's a fresh one here
+                            String addEndTimeQuery = "UPDATE timer SET finishTime=@finishTime WHERE startDate=@startDate AND email=@email"; //update query, that's a fresh one here
                             using (MySqlCommand addEndTimeCommand = new MySqlCommand(addEndTimeQuery, databaseConnection)) //makes the query into a command
                             {
                                 addEndTimeCommand.Parameters.AddWithValue("@finishTime", DateTime.Now.ToString("H:mm")); //sets finishTime as a current time
                                 addEndTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets startDate as current date
-                                addEndTimeCommand.Parameters.AddWithValue("@username", adminCode); //we all know what this does
+                                addEndTimeCommand.Parameters.AddWithValue("@email", adminCode); //we all know what this does
 
                                 databaseConnection.Open(); //opens the connection
                                 int queryFeedback = addEndTimeCommand.ExecuteNonQuery(); //makes connection work
@@ -392,8 +392,8 @@ namespace GreenOffice
                         string connectionString = connection; //create connection string
                         MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
 
-                        MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                        displayDateQuery.Parameters.AddWithValue("@login", adminCode); //takes login from viewUserTextbox
+                        MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE email=@email AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
+                        displayDateQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
                         displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
                         displayDateQuery.CommandType = CommandType.Text; //makes sure the program can read the query
                         displayDateQuery.Connection = databaseConnection; //idk connects with DB or something
@@ -417,8 +417,8 @@ namespace GreenOffice
                     string connectionString = connection; //create connection string
                     MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
 
-                    MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                    startingTimeQuery.Parameters.AddWithValue("@login", adminCode); //takes login from viewUserTextbox
+                    MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE email=@email AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
+                    startingTimeQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
                     startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
                     startingTimeQuery.CommandType = CommandType.Text; //makes sure the program can read the query
                     startingTimeQuery.Connection = databaseConnection; //idk connects with DB or something
@@ -444,8 +444,8 @@ namespace GreenOffice
                     displayStartTimeTextbox.Text = stringBuilderStart.ToString(); //and puts all of those dates in correct textbox
 
                     //does exactly same thing as the previous one, but with finish time, so imma just copy the comments, I like this green text :)
-                    MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE username=@login AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                    finishTimeQuery.Parameters.AddWithValue("@login", adminCode); //takes login from viewUserTextbox
+                    MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE email=@email AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
+                    finishTimeQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
                     finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
                     finishTimeQuery.CommandType = CommandType.Text; //makes sure the program can read the query
                     finishTimeQuery.Connection = databaseConnection; //idk connects with DB or something
