@@ -46,13 +46,14 @@ namespace GreenOffice
         }
         private void displayEvent()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory(); 
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) 
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
-                string displayEventQuery = "SELECT eventID, eventCategory, eventDescription, eventStartDate, eventFinishDate, eventStartTime, eventFinishTime FROM events WHERE email=@email AND @currentDate BETWEEN eventStartDate AND eventFinishDate";
+                string connection = streamReader.ReadToEnd(); 
+                string connectionString = connection; 
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); 
+                string displayEventQuery = "SELECT eventID, eventCategory, eventDescription, eventStartDate, eventFinishDate, eventStartTime, eventFinishTime FROM events " + 
+                    " WHERE email=@email AND @currentDate BETWEEN eventStartDate AND eventFinishDate";
                 databaseConnection.Open();
                 using (MySqlCommand displayEventCommand = new MySqlCommand(displayEventQuery, databaseConnection))
                 {
@@ -84,7 +85,8 @@ namespace GreenOffice
                             }
                             else
                             {
-                                eventDescriptionTooltip.SetToolTip(displayEventTextbox, "Opis: " + eventDescription + "\n" + "Godzina rozpoczęcia: " + formatEventStartTime + "\nGodzina zakończenia: " + formatEventFinishTime);
+                                eventDescriptionTooltip.SetToolTip(displayEventTextbox, "Opis: " + eventDescription + "\n" + "Godzina rozpoczęcia: " 
+                                    + formatEventStartTime + "\nGodzina zakończenia: " + formatEventFinishTime);
                             }
                             displayEventTextbox.Text = eventCategory;
                             idLabel.Text = eventID;
@@ -96,12 +98,12 @@ namespace GreenOffice
         }
         private void displayLeave()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory(); 
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) 
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd(); 
+                string connectionString = connection; 
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); 
                 string displayLeaveQuery = "SELECT leaveID, leaveStartDate, leaveFinishDate, leaveStartTime, leaveFinishTime, leaveApproved, leaveReason FROM leavetable WHERE email=@email AND @currentDate BETWEEN leaveStartDate AND leaveFinishDate";
                 databaseConnection.Open();
                 using (MySqlCommand displayLeaveCommand = new MySqlCommand(displayLeaveQuery, databaseConnection))
@@ -176,7 +178,7 @@ namespace GreenOffice
             if (!string.IsNullOrEmpty(displayEventTextbox.Text))
             {
                 passEventID = idLabel.Text;
-                f6_deleteEvent Open_f6_deleteEvent = new f6_deleteEvent(); //opens up user form instead
+                f6_deleteEvent Open_f6_deleteEvent = new f6_deleteEvent(); 
                 Open_f6_deleteEvent.ShowDialog();
             }
         }

@@ -68,6 +68,8 @@
             this.mondayLabel = new System.Windows.Forms.Label();
             this.killCalendarButton = new System.Windows.Forms.Button();
             this.leavePanel = new System.Windows.Forms.Panel();
+            this.availableDaysTextBox = new System.Windows.Forms.TextBox();
+            this.availableDaysLabel = new System.Windows.Forms.Label();
             this.deleteLabel = new System.Windows.Forms.Label();
             this.killLeavePanel = new System.Windows.Forms.Button();
             this.fullDayLeave = new System.Windows.Forms.CheckBox();
@@ -121,8 +123,6 @@
             this.welcomeGroupbox = new System.Windows.Forms.GroupBox();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
-            this.availableDaysTextBox = new System.Windows.Forms.TextBox();
-            this.availableDaysLabel = new System.Windows.Forms.Label();
             this.headerGroupBox.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
@@ -157,9 +157,9 @@
             this.timeoutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeoutLabel.Location = new System.Drawing.Point(316, 75);
             this.timeoutLabel.Name = "timeoutLabel";
-            this.timeoutLabel.Size = new System.Drawing.Size(121, 15);
+            this.timeoutLabel.Size = new System.Drawing.Size(141, 15);
             this.timeoutLabel.TabIndex = 2;
-            this.timeoutLabel.Text = "Zarejestruj dni wolne";
+            this.timeoutLabel.Text = "Zarejestruj nieobecności";
             // 
             // timeoutButton
             // 
@@ -652,6 +652,26 @@
             this.leavePanel.Size = new System.Drawing.Size(1172, 580);
             this.leavePanel.TabIndex = 9;
             this.leavePanel.Visible = false;
+            // 
+            // availableDaysTextBox
+            // 
+            this.availableDaysTextBox.BackColor = System.Drawing.Color.White;
+            this.availableDaysTextBox.Location = new System.Drawing.Point(247, 59);
+            this.availableDaysTextBox.Name = "availableDaysTextBox";
+            this.availableDaysTextBox.ReadOnly = true;
+            this.availableDaysTextBox.Size = new System.Drawing.Size(80, 21);
+            this.availableDaysTextBox.TabIndex = 23;
+            this.availableDaysTextBox.Visible = false;
+            // 
+            // availableDaysLabel
+            // 
+            this.availableDaysLabel.AutoSize = true;
+            this.availableDaysLabel.Location = new System.Drawing.Point(244, 42);
+            this.availableDaysLabel.Name = "availableDaysLabel";
+            this.availableDaysLabel.Size = new System.Drawing.Size(83, 15);
+            this.availableDaysLabel.TabIndex = 22;
+            this.availableDaysLabel.Text = "Dostępne dni:";
+            this.availableDaysLabel.Visible = false;
             // 
             // deleteLabel
             // 
@@ -1230,26 +1250,6 @@
             this.nameWelcomeTextbox.Size = new System.Drawing.Size(294, 73);
             this.nameWelcomeTextbox.TabIndex = 4;
             // 
-            // availableDaysTextBox
-            // 
-            this.availableDaysTextBox.BackColor = System.Drawing.Color.White;
-            this.availableDaysTextBox.Location = new System.Drawing.Point(247, 59);
-            this.availableDaysTextBox.Name = "availableDaysTextBox";
-            this.availableDaysTextBox.ReadOnly = true;
-            this.availableDaysTextBox.Size = new System.Drawing.Size(80, 21);
-            this.availableDaysTextBox.TabIndex = 23;
-            this.availableDaysTextBox.Visible = false;
-            // 
-            // availableDaysLabel
-            // 
-            this.availableDaysLabel.AutoSize = true;
-            this.availableDaysLabel.Location = new System.Drawing.Point(244, 42);
-            this.availableDaysLabel.Name = "availableDaysLabel";
-            this.availableDaysLabel.Size = new System.Drawing.Size(83, 15);
-            this.availableDaysLabel.TabIndex = 22;
-            this.availableDaysLabel.Text = "Dostępne dni:";
-            this.availableDaysLabel.Visible = false;
-            // 
             // f4_userBody
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1257,10 +1257,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 681);
             this.Controls.Add(this.headerGroupBox);
+            this.Controls.Add(this.welcomeGroupbox);
             this.Controls.Add(this.leavePanel);
             this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.timerPanel);
-            this.Controls.Add(this.welcomeGroupbox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f4_userBody";
             this.Text = "GREEN Office: Panel użytkownika";

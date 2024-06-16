@@ -75,10 +75,10 @@
             this.mondayLabel = new System.Windows.Forms.Label();
             this.killCalendarButton = new System.Windows.Forms.Button();
             this.adminPanel = new System.Windows.Forms.Panel();
-            this.adminPanelBG = new System.Windows.Forms.Panel();
             this.leaveApproval = new System.Windows.Forms.Button();
             this.manageUsers = new System.Windows.Forms.Button();
             this.manageUsersPanel = new System.Windows.Forms.Panel();
+            this.deleteUserButton = new System.Windows.Forms.Button();
             this.manageUsersIconPanel = new System.Windows.Forms.Panel();
             this.manageUsersLabel = new System.Windows.Forms.Label();
             this.adminSaveUser = new System.Windows.Forms.Button();
@@ -124,6 +124,7 @@
             this.adminWednesdayLabel = new System.Windows.Forms.Label();
             this.adminTuesdayLabel = new System.Windows.Forms.Label();
             this.adminMondayLabel = new System.Windows.Forms.Label();
+            this.adminPanelBG = new System.Windows.Forms.Panel();
             this.leavePanel = new System.Windows.Forms.Panel();
             this.availableDaysTextBox = new System.Windows.Forms.TextBox();
             this.availableDaysLabel = new System.Windows.Forms.Label();
@@ -348,19 +349,19 @@
             this.timeoutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeoutLabel.Location = new System.Drawing.Point(316, 75);
             this.timeoutLabel.Name = "timeoutLabel";
-            this.timeoutLabel.Size = new System.Drawing.Size(121, 15);
+            this.timeoutLabel.Size = new System.Drawing.Size(141, 15);
             this.timeoutLabel.TabIndex = 2;
-            this.timeoutLabel.Text = "Zarejestruj dni wolne";
+            this.timeoutLabel.Text = "Zarejestruj nieobecności";
             // 
             // calendarLabel
             // 
             this.calendarLabel.AutoSize = true;
             this.calendarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calendarLabel.Location = new System.Drawing.Point(168, 75);
+            this.calendarLabel.Location = new System.Drawing.Point(159, 75);
             this.calendarLabel.Name = "calendarLabel";
-            this.calendarLabel.Size = new System.Drawing.Size(123, 15);
+            this.calendarLabel.Size = new System.Drawing.Size(141, 15);
             this.calendarLabel.TabIndex = 2;
-            this.calendarLabel.Text = "Personalny terminarz";
+            this.calendarLabel.Text = "Terminarz użytkowników";
             // 
             // timerStartButton
             // 
@@ -791,15 +792,6 @@
             this.adminPanel.TabIndex = 14;
             this.adminPanel.Visible = false;
             // 
-            // adminPanelBG
-            // 
-            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
-            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
-            this.adminPanelBG.Name = "adminPanelBG";
-            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
-            this.adminPanelBG.TabIndex = 4;
-            // 
             // leaveApproval
             // 
             this.leaveApproval.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -834,6 +826,7 @@
             // 
             // manageUsersPanel
             // 
+            this.manageUsersPanel.Controls.Add(this.deleteUserButton);
             this.manageUsersPanel.Controls.Add(this.manageUsersIconPanel);
             this.manageUsersPanel.Controls.Add(this.manageUsersLabel);
             this.manageUsersPanel.Controls.Add(this.adminSaveUser);
@@ -868,6 +861,21 @@
             this.manageUsersPanel.Size = new System.Drawing.Size(1036, 560);
             this.manageUsersPanel.TabIndex = 2;
             // 
+            // deleteUserButton
+            // 
+            this.deleteUserButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.deleteUserButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.deleteUserButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.deleteUserButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteUserButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteUserButton.Location = new System.Drawing.Point(346, 522);
+            this.deleteUserButton.Name = "deleteUserButton";
+            this.deleteUserButton.Size = new System.Drawing.Size(94, 27);
+            this.deleteUserButton.TabIndex = 31;
+            this.deleteUserButton.Text = "Usuń";
+            this.deleteUserButton.UseVisualStyleBackColor = true;
+            this.deleteUserButton.Click += new System.EventHandler(this.deleteUserButton_Click);
+            // 
             // manageUsersIconPanel
             // 
             this.manageUsersIconPanel.BackgroundImage = global::GreenOffice.Properties.Resources.logoNoCap;
@@ -894,7 +902,7 @@
             this.adminSaveUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
             this.adminSaveUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.adminSaveUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminSaveUser.Location = new System.Drawing.Point(346, 500);
+            this.adminSaveUser.Location = new System.Drawing.Point(340, 479);
             this.adminSaveUser.Name = "adminSaveUser";
             this.adminSaveUser.Size = new System.Drawing.Size(105, 39);
             this.adminSaveUser.TabIndex = 28;
@@ -1329,6 +1337,15 @@
             this.adminMondayLabel.Size = new System.Drawing.Size(99, 20);
             this.adminMondayLabel.TabIndex = 3;
             this.adminMondayLabel.Text = "Poniedziałek";
+            // 
+            // adminPanelBG
+            // 
+            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
+            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
+            this.adminPanelBG.Name = "adminPanelBG";
+            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
+            this.adminPanelBG.TabIndex = 4;
             // 
             // leavePanel
             // 
@@ -2050,12 +2067,12 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1184, 681);
-            this.Controls.Add(this.adminPanel);
             this.Controls.Add(this.headerGroupBox);
+            this.Controls.Add(this.timerPanel);
+            this.Controls.Add(this.adminPanel);
             this.Controls.Add(this.mainCalendarPanel);
             this.Controls.Add(this.leavePanel);
             this.Controls.Add(this.welcomeGroupbox);
-            this.Controls.Add(this.timerPanel);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f3_adminBody";
@@ -2251,5 +2268,6 @@
         private System.Windows.Forms.ListBox adminEmailListbox;
         private System.Windows.Forms.TextBox notApprovedEmailsTextbox;
         private System.Windows.Forms.Panel adminPanelBG;
+        private System.Windows.Forms.Button deleteUserButton;
     }
 }

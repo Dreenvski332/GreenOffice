@@ -95,15 +95,13 @@ namespace GreenOffice
                 string connectionString = connection; //and makes a connection
                 using(MySqlConnection databaseConnection = new MySqlConnection(connectionString))
                 {
-                    string displayManagedAccountsQuery = $"SELECT email, name, surname FROM user"; //query to find name based on email
+                    string displayManagedAccountsQuery = $"SELECT email FROM user"; //query to find name based on email
                     databaseConnection.Open(); //opens connection
                     MySqlCommand displayManagedAccountsCommand = new MySqlCommand(displayManagedAccountsQuery, databaseConnection);
                     MySqlDataReader reader = displayManagedAccountsCommand.ExecuteReader();
                     while (reader.Read())
                     {
                         managedAccount.Items.Add(reader["email"].ToString());
-                        workerName = reader["name"].ToString();
-                        workerSurname = reader["surname"].ToString();
                     }
                 }
             }
@@ -215,105 +213,106 @@ namespace GreenOffice
             adminPanel.Visible = true;
             adminPanelBG.Visible = true;
         }
-        private void timerStartButton_Click(object sender, EventArgs e) //starts workday timer
+        private void timerStartButton_Click(object sender, EventArgs e) 
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory(); 
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) 
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd(); 
+                string connectionString = connection; 
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString); 
                 try
-                { //checks if there is a ROW in "timer" that contains current date and currently logged user
-                    MySqlCommand workStartChecker = new MySqlCommand($"SELECT startDate, email FROM timer WHERE startDate=@startDate AND email=@email"); //a query
-                    workStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets startTime to current time
-                    workStartChecker.Parameters.AddWithValue("@email", adminCode); //takes username from textbox
-                    workStartChecker.CommandType = CommandType.Text; //makes it so the program knows what a command is
-                    workStartChecker.Connection = databaseConnection; // ummmm
+                { 
+                    MySqlCommand workStartChecker = new MySqlCommand($"SELECT startDate, email FROM timer WHERE startDate=@startDate AND email=@email"); 
+                    workStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); 
+                    workStartChecker.Parameters.AddWithValue("@email", adminCode); 
+                    workStartChecker.CommandType = CommandType.Text; 
+                    workStartChecker.Connection = databaseConnection; 
 
-                    databaseConnection.Open(); //opens the connection
-                    MySqlDataReader readerWorkStart = workStartChecker.ExecuteReader(); //executes reader, not in a kill way
-                    bool boolWorkStart = readerWorkStart.HasRows; //checks if there actually are any matching rows in a DB
-                    if (boolWorkStart == true) //if that row exists, that means the work has already started for the day
+                    databaseConnection.Open(); 
+                    MySqlDataReader readerWorkStart = workStartChecker.ExecuteReader();
+                    bool boolWorkStart = readerWorkStart.HasRows; 
+                    if (boolWorkStart == true) 
                     {
-                        databaseConnection.Close(); //so we need to stop the connection
-                        MessageBox.Show("Praca dnia " + DateTime.Now.ToString("yyyy-MM-dd") + " została już rozpoczęta"); //and notify user about that
+                        databaseConnection.Close(); 
+                        MessageBox.Show("Praca dnia " + DateTime.Now.ToString("yyyy-MM-dd") + " została już rozpoczęta"); 
                     }
-                    else //if it doesn't then starts work for the day
+                    else 
                     {
-                        databaseConnection.Close(); //still we neet to halt the connection
-                        String addStartingTimeQuery = "INSERT INTO `timer`(`email`, `startDate`, `startTime`) VALUES (@email,@startDate,@startTime)"; //define new query to add data into the DB
+                        databaseConnection.Close(); 
+                        String addStartingTimeQuery = "INSERT INTO `timer`(`email`, `startDate`, `startTime`) VALUES (@email,@startDate,@startTime)";
                         try
                         {
-                            using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection)) //connects to DB
+                            using (MySqlCommand addStartingTimeCommand = new MySqlCommand(addStartingTimeQuery, databaseConnection)) 
                             {
-                                addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("H:mm")); //sets startTime to current time
-                                addStartingTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets current date
-                                addStartingTimeCommand.Parameters.AddWithValue("@email", adminCode); //takes username from textbox
-                                databaseConnection.Open(); //opens the connection
-                                int queryFeedback = addStartingTimeCommand.ExecuteNonQuery(); //executes the command, again not in a kill way
-                                databaseConnection.Close(); //stops the connection
-                                MessageBox.Show("Praca rozpoczęta"); //time to notify user about that
+                                addStartingTimeCommand.Parameters.AddWithValue("@startTime", DateTime.Now.ToString("H:mm")); 
+                                addStartingTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); 
+                                addStartingTimeCommand.Parameters.AddWithValue("@email", adminCode); 
+                                databaseConnection.Open(); 
+                                int queryFeedback = addStartingTimeCommand.ExecuteNonQuery(); 
+                                databaseConnection.Close(); 
+                                MessageBox.Show("Praca rozpoczęta"); 
                             }
                         }
-                        catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); } //error is latest query mucks up
+                        catch { MessageBox.Show("Nieoczekiwany błąd zaczynania pracy"); } 
                     }
                 }
-                catch { MessageBox.Show("Nieoczewkiwany błąd sprawdzania rejestru pracy na dzień " + DateTime.Now.ToString("yyyy-MM-dd")); } //error if something failed during checking whether there are any matching rows in the DB
+                catch { MessageBox.Show("Nieoczewkiwany błąd sprawdzania rejestru pracy na dzień " + DateTime.Now.ToString("yyyy-MM-dd")); } 
             }
         }
 
         private void endTimerButton_Click(object sender, EventArgs e) //stops the timer for the day
         {
 
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 try
-                { //checks if there is a ROW in "timer" that contains current date and currently logged user
+                { 
                     MySqlCommand rowExistenceChecker = new MySqlCommand($"SELECT * FROM timer WHERE startDate=@startDate AND email=@email");
-                    rowExistenceChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //take startDate as a current date
-                    rowExistenceChecker.Parameters.AddWithValue("@email", adminCode); //username from textbox, we've been over this
-                    rowExistenceChecker.CommandType = CommandType.Text; //program stupid, needs to know what a command is
-                    rowExistenceChecker.Connection = databaseConnection; //ugh
-                    databaseConnection.Open(); //opens the connection
-                    MySqlDataReader readerRowExistence = rowExistenceChecker.ExecuteReader(); //makes command actually do something, in this case just sends it to DB to retrieve data
-                    bool boolRowExistence = readerRowExistence.HasRows; //checks if there are any matching rows at all
-                    if (boolRowExistence == true) //if row like that exists, then program checks whether the work has been ended for the day or not
+                    rowExistenceChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); 
+                    rowExistenceChecker.Parameters.AddWithValue("@email", adminCode); 
+                    rowExistenceChecker.CommandType = CommandType.Text; 
+                    rowExistenceChecker.Connection = databaseConnection; 
+                    databaseConnection.Open(); 
+                    MySqlDataReader readerRowExistence = rowExistenceChecker.ExecuteReader(); 
+                    bool boolRowExistence = readerRowExistence.HasRows; 
+                    if (boolRowExistence == true) 
                     {
-                        databaseConnection.Close(); //QUERY BELLOW is looking for a ROW where startTime is set, but the endTime isn't \/
-                        MySqlCommand verifyWorkStartChecker = new MySqlCommand($"SELECT * FROM timer WHERE timer.startTime IS NOT NULL AND timer.finishTime IS NULL AND timer.startDate=@startDate AND timer.email=@email");
-                        verifyWorkStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //take startDate as a current date
-                        verifyWorkStartChecker.Parameters.AddWithValue("@email", adminCode); //username from textbox, we've really been over this
-                        verifyWorkStartChecker.CommandType = CommandType.Text; //program stupid, needs to know what a command is
-                        verifyWorkStartChecker.Connection = databaseConnection; //hmpf
-                        databaseConnection.Open(); //opens the connection
-                        MySqlDataReader readerVerifyWorkStart = verifyWorkStartChecker.ExecuteReader(); //makes command actually do something, in this case just sends it to DB to retrieve data
-                        bool boolVerifyWorkStart = readerVerifyWorkStart.HasRows; //checks if there are any matching rows at all
-                        if (boolVerifyWorkStart == true) //if a row like that exists then program updates said row with endTime - that is time when button was pressed
+                        databaseConnection.Close(); 
+                        MySqlCommand verifyWorkStartChecker = new MySqlCommand($"SELECT * FROM timer WHERE timer.startTime IS NOT NULL" + 
+                            " AND timer.finishTime IS NULL AND timer.startDate=@startDate AND timer.email=@email");
+                        verifyWorkStartChecker.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); 
+                        verifyWorkStartChecker.Parameters.AddWithValue("@email", adminCode); 
+                        verifyWorkStartChecker.CommandType = CommandType.Text; 
+                        verifyWorkStartChecker.Connection = databaseConnection; 
+                        databaseConnection.Open(); 
+                        MySqlDataReader readerVerifyWorkStart = verifyWorkStartChecker.ExecuteReader(); 
+                        bool boolVerifyWorkStart = readerVerifyWorkStart.HasRows; 
+                        if (boolVerifyWorkStart == true) 
                         {
-                            databaseConnection.Close(); //stops the connection
-                            String addEndTimeQuery = "UPDATE timer SET finishTime=@finishTime WHERE startDate=@startDate AND email=@email"; //update query, that's a fresh one here
-                            using (MySqlCommand addEndTimeCommand = new MySqlCommand(addEndTimeQuery, databaseConnection)) //makes the query into a command
+                            databaseConnection.Close(); 
+                            String addEndTimeQuery = "UPDATE timer SET finishTime=@finishTime WHERE startDate=@startDate AND email=@email"; 
+                            using (MySqlCommand addEndTimeCommand = new MySqlCommand(addEndTimeQuery, databaseConnection)) 
                             {
-                                addEndTimeCommand.Parameters.AddWithValue("@finishTime", DateTime.Now.ToString("H:mm")); //sets finishTime as a current time
-                                addEndTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); //sets startDate as current date
-                                addEndTimeCommand.Parameters.AddWithValue("@email", adminCode); //we all know what this does
+                                addEndTimeCommand.Parameters.AddWithValue("@finishTime", DateTime.Now.ToString("H:mm")); 
+                                addEndTimeCommand.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd")); 
+                                addEndTimeCommand.Parameters.AddWithValue("@email", adminCode); 
 
-                                databaseConnection.Open(); //opens the connection
-                                int queryFeedback = addEndTimeCommand.ExecuteNonQuery(); //makes connection work
-                                databaseConnection.Close(); //ends the connection
-                                MessageBox.Show("Praca zakończona"); //also a message not to leave user standing
+                                databaseConnection.Open(); 
+                                int queryFeedback = addEndTimeCommand.ExecuteNonQuery(); 
+                                databaseConnection.Close(); 
+                                MessageBox.Show("Praca zakończona"); 
                             }
-                        } //if row where startTime is set, and endTime isn't doesn't exist, then the only other option is that startTime and endTime are both set
+                        } 
                         else { databaseConnection.Close(); MessageBox.Show("W dniu " + DateTime.Now.ToString("yyyy-MM-dd") + " zakończono już pracę"); }
-                    }//this is because option where startTime isn't set was filtered earlier, and there is no way to set endTime without startTime
+                    }
                     else { databaseConnection.Close(); MessageBox.Show("W dniu " + DateTime.Now.ToString("yyyy-MM-dd") + " nie rozpoczęto jeszcze pracy"); }
                 }
-                catch { MessageBox.Show("Nieoczekiwany błąd weryfikacji rozpoczęcia pracy"); } //the ultimate error
+                catch { MessageBox.Show("Nieoczekiwany błąd weryfikacji rozpoczęcia pracy"); } 
             }
         }
         private void managedAccount_SelectedIndexChanged(object sender, EventArgs e)
@@ -322,7 +321,28 @@ namespace GreenOffice
             {
                 string selectedItem = managedAccount.SelectedItem.ToString();
                 adminCode = selectedItem;
-                if (timerPanel.Visible)
+                PathFactory pathFactory = new PathFactory();
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+                {
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+
+                    MySqlCommand selectNameForTimerStatsQuery = new MySqlCommand($"SELECT name, surname FROM user WHERE email=@email");
+                    selectNameForTimerStatsQuery.Parameters.AddWithValue("@startDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                    selectNameForTimerStatsQuery.Parameters.AddWithValue("@email", adminCode);
+                    selectNameForTimerStatsQuery.CommandType = CommandType.Text;
+                    selectNameForTimerStatsQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+                    using (MySqlDataReader readerName = selectNameForTimerStatsQuery.ExecuteReader())
+                    {
+                        readerName.Read();
+                        workerName = readerName["name"].ToString();
+                        workerSurname = readerName["surname"].ToString();
+                        databaseConnection.Close();
+                    }
+                }
+                if (timerPanel.Visible)       
                 {
                     timerStats();
                 }
@@ -470,19 +490,19 @@ namespace GreenOffice
                     databaseConnection.Close();//shuts down the connection with DB
                     displayFinishTimeTextbox.Text = stringBuilderEnd.ToString();//and puts all of those dates in correct textbox
 
-                    //this part right here counts how many hours an employee has on the clock
-                    string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); //creates array for startTime
-                    string[] finishTimes = displayFinishTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); //creates array for finishTime
-                    for (int i = 0; i < startTimes.Length; i++) // iterate through each pair of start and finish times
+                    
+                    string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); 
+                    string[] finishTimes = displayFinishTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); 
+                    for (int i = 0; i < startTimes.Length; i++) 
                     {
-                        if (DateTime.TryParse(startTimes[i], out DateTime startTime) && // parse the strings to DateTime
+                        if (DateTime.TryParse(startTimes[i], out DateTime startTime) && 
                             DateTime.TryParse(finishTimes[i], out DateTime finishTime))
                         {
-                            totalDifference += finishTime - startTime;// subtract finish time from start time and add to total difference
-                            string formattedDifference = $"{(int)totalDifference.TotalHours}:{totalDifference.Minutes:D2}"; //make it into a string
-                            displayTimeSpanTextbox.Text = formattedDifference.ToString(); //because we need a string to display it here
+                            totalDifference += finishTime - startTime;
+                            string formattedDifference = $"{(int)totalDifference.TotalHours}:{totalDifference.Minutes:D2}"; 
+                            displayTimeSpanTextbox.Text = formattedDifference.ToString(); 
                         }
-                        else { MessageBox.Show($"Błąd w przekazywaniu danych w rzędzie: {i + 1}"); return; } //just an error
+                        else { MessageBox.Show($"Błąd w przekazywaniu danych w rzędzie: {i + 1}"); return; } 
                     }
                 }
                 using (StreamReader streamReader = new StreamReader(pathFactory.connString))
@@ -532,11 +552,13 @@ namespace GreenOffice
                 string date = displayDateTextbox.Text;
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 string pdfFile = Path.Combine(desktopPath, "Godziny_pracy.pdf");
-                bool fileExists = File.Exists(pdfFile);
+                string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+                BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12, iTextSharp.text.Font.NORMAL);
                 Document document = new Document();
                 PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFile, FileMode.Append));
                 document.Open();
-
+                
                 document.Add(new Paragraph("Godziny pracy dla pracownika: " + workerName + " " + workerSurname));
                 document.Add(new Paragraph("   "));
                 
@@ -552,7 +574,6 @@ namespace GreenOffice
                 table.AddCell(finishTime);
                 document.Add(table);
 
-                // Close the document
                 document.Close();
                 MessageBox.Show("Raport wygenerowany");
             }
@@ -567,19 +588,19 @@ namespace GreenOffice
         // ============================ CALENDAR PANEL START ================================
 
 
-        public void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
+        public void DisplayCurrentMonth() 
         {
-            calendarJuicePanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
-            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); //sets the first time of the month
-            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); //then counts how many days are in said month
-            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7; //sets the first day of the month and makes sure the week start with monday
-            monthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture); // changes monthLabel to correct month in polish
-            yearLabel.Text = firstDayOfMonth.ToString("yyyy" + ","); //sets yearLabel to correct year
-            for (int i = 0; i < dayOfWeek; i++) //this is where magic begins
-            { //first, it finds how many days, from monday happend in previous month, if i is smaller then int of firstDayOfMonth
-                EmptyUserControl emptyUserControl = new EmptyUserControl(); //sets usercontrol as usercontrol
-                calendarJuicePanel.Controls.Add(emptyUserControl); //and populates one plot in tabelPanel
-            } //repeat if necessary
+            calendarJuicePanel.Controls.Clear(); 
+            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); 
+            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); 
+            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7; 
+            monthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture); 
+            yearLabel.Text = firstDayOfMonth.ToString("yyyy" + ","); 
+            for (int i = 0; i < dayOfWeek; i++) 
+            { 
+                EmptyUserControl emptyUserControl = new EmptyUserControl(); 
+                calendarJuicePanel.Controls.Add(emptyUserControl); 
+            } 
             for (int day = 1; day <= daysInMonth; day++)
             {
                 DayUserControl dayControl = new DayUserControl();
@@ -1420,6 +1441,33 @@ namespace GreenOffice
             }
             displayAdminCalendar();
         }
+
+        private void deleteUserButton_Click(object sender, EventArgs e)
+        {
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
+            {
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                String deleteUserQuery = "DELETE FROM user WHERE email=@email AND password=@password";
+                using (MySqlCommand deleteUserCommand = new MySqlCommand(deleteUserQuery, databaseConnection))
+                {
+                    deleteUserCommand.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
+                    deleteUserCommand.Parameters.AddWithValue("@password", adminPasswordTextbox.Text);
+
+                    databaseConnection.Open();
+                    int queryFeedback = deleteUserCommand.ExecuteNonQuery();
+                    databaseConnection.Close();
+                }
+            }
+            MessageBox.Show("Użytkownik " + adminEmailTextbox.Text + " został usunięty");
+            clearAdminTextboxes();
+            adminEmailTextbox.Text = "";
+            adminPasswordTextbox.Text = "";
+        }
+
+
 
 
         // ============================ ADMIN PANEL FINISH ===============================
