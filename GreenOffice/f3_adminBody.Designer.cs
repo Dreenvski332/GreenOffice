@@ -782,9 +782,9 @@
             // 
             this.adminPanel.Controls.Add(this.leaveApproval);
             this.adminPanel.Controls.Add(this.manageUsers);
-            this.adminPanel.Controls.Add(this.manageUsersPanel);
             this.adminPanel.Controls.Add(this.approveLeavePanel);
             this.adminPanel.Controls.Add(this.adminPanelBG);
+            this.adminPanel.Controls.Add(this.manageUsersPanel);
             this.adminPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminPanel.Location = new System.Drawing.Point(0, 99);
             this.adminPanel.Name = "adminPanel";
@@ -1196,7 +1196,7 @@
             this.adminEmailListbox.ItemHeight = 16;
             this.adminEmailListbox.Location = new System.Drawing.Point(823, 111);
             this.adminEmailListbox.Name = "adminEmailListbox";
-            this.adminEmailListbox.Size = new System.Drawing.Size(193, 308);
+            this.adminEmailListbox.Size = new System.Drawing.Size(193, 164);
             this.adminEmailListbox.TabIndex = 10;
             this.adminEmailListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.adminEmailListbox_DrawItem);
             this.adminEmailListbox.SelectedIndexChanged += new System.EventHandler(this.adminEmailListbox_SelectedIndexChanged);
@@ -2068,11 +2068,11 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1184, 681);
             this.Controls.Add(this.headerGroupBox);
+            this.Controls.Add(this.leavePanel);
+            this.Controls.Add(this.welcomeGroupbox);
             this.Controls.Add(this.timerPanel);
             this.Controls.Add(this.adminPanel);
             this.Controls.Add(this.mainCalendarPanel);
-            this.Controls.Add(this.leavePanel);
-            this.Controls.Add(this.welcomeGroupbox);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "f3_adminBody";

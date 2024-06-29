@@ -25,6 +25,7 @@ namespace GreenOffice
         public static string ApprovedStatus = "";
         private static string codeAdmin;
         private static string codeCalendar;
+        public static string passCategory = "";
         public DayUserControl()
         {
             InitializeComponent();
@@ -180,6 +181,7 @@ namespace GreenOffice
         {
             if (!string.IsNullOrEmpty(displayEventTextbox.Text))
             {
+                passCategory = displayEventTextbox.Text;
                 passEventID = idLabel.Text;
                 f6_deleteEvent Open_f6_deleteEvent = new f6_deleteEvent(); 
                 Open_f6_deleteEvent.ShowDialog();
