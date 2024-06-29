@@ -57,7 +57,7 @@
             this.emailTextbox.Name = "emailTextbox";
             this.emailTextbox.Size = new System.Drawing.Size(184, 26);
             this.emailTextbox.TabIndex = 0;
-            this.emailTextbox.Text = "dstn@grof.com";
+            this.emailTextbox.Text = "mstn@grof.com";
             // 
             // passwordTextbox
             // 

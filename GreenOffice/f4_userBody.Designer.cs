@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(f4_userBody));
             this.headerGroupBox = new System.Windows.Forms.GroupBox();
+            this.displayedAccountPanel = new System.Windows.Forms.Panel();
+            this.displayedCalendarAccount = new System.Windows.Forms.ListBox();
+            this.managedAccountLabel = new System.Windows.Forms.Label();
             this.timeoutLabel = new System.Windows.Forms.Label();
             this.timeoutButton = new System.Windows.Forms.Button();
             this.calendarLabel = new System.Windows.Forms.Label();
@@ -124,6 +127,7 @@
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.nameWelcomeTextbox = new System.Windows.Forms.TextBox();
             this.headerGroupBox.SuspendLayout();
+            this.displayedAccountPanel.SuspendLayout();
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
             this.leavePanel.SuspendLayout();
@@ -136,6 +140,7 @@
             // 
             // headerGroupBox
             // 
+            this.headerGroupBox.Controls.Add(this.displayedAccountPanel);
             this.headerGroupBox.Controls.Add(this.timeoutLabel);
             this.headerGroupBox.Controls.Add(this.timeoutButton);
             this.headerGroupBox.Controls.Add(this.calendarLabel);
@@ -150,6 +155,40 @@
             this.headerGroupBox.Size = new System.Drawing.Size(1184, 97);
             this.headerGroupBox.TabIndex = 1;
             this.headerGroupBox.TabStop = false;
+            // 
+            // displayedAccountPanel
+            // 
+            this.displayedAccountPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.displayedAccountPanel.Controls.Add(this.displayedCalendarAccount);
+            this.displayedAccountPanel.Controls.Add(this.managedAccountLabel);
+            this.displayedAccountPanel.Location = new System.Drawing.Point(759, 41);
+            this.displayedAccountPanel.Name = "displayedAccountPanel";
+            this.displayedAccountPanel.Size = new System.Drawing.Size(206, 52);
+            this.displayedAccountPanel.TabIndex = 13;
+            this.displayedAccountPanel.Visible = false;
+            // 
+            // displayedCalendarAccount
+            // 
+            this.displayedCalendarAccount.AllowDrop = true;
+            this.displayedCalendarAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displayedCalendarAccount.FormattingEnabled = true;
+            this.displayedCalendarAccount.ItemHeight = 20;
+            this.displayedCalendarAccount.Location = new System.Drawing.Point(3, 24);
+            this.displayedCalendarAccount.Name = "displayedCalendarAccount";
+            this.displayedCalendarAccount.Size = new System.Drawing.Size(198, 24);
+            this.displayedCalendarAccount.TabIndex = 14;
+            this.displayedCalendarAccount.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.displayedCalendarAccount_DrawItem);
+            this.displayedCalendarAccount.SelectedIndexChanged += new System.EventHandler(this.displayedCalendarAccount_SelectedIndexChanged);
+            // 
+            // managedAccountLabel
+            // 
+            this.managedAccountLabel.AutoSize = true;
+            this.managedAccountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.managedAccountLabel.Location = new System.Drawing.Point(34, 2);
+            this.managedAccountLabel.Name = "managedAccountLabel";
+            this.managedAccountLabel.Size = new System.Drawing.Size(149, 20);
+            this.managedAccountLabel.TabIndex = 0;
+            this.managedAccountLabel.Text = "Obsługiwane konto:";
             // 
             // timeoutLabel
             // 
@@ -1267,6 +1306,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.f4_userBody_FormClosing);
             this.headerGroupBox.ResumeLayout(false);
             this.headerGroupBox.PerformLayout();
+            this.displayedAccountPanel.ResumeLayout(false);
+            this.displayedAccountPanel.PerformLayout();
             this.mainCalendarPanel.ResumeLayout(false);
             this.mainCalendarPanel.PerformLayout();
             this.subCalendarPanel.ResumeLayout(false);
@@ -1382,5 +1423,8 @@
         private System.Windows.Forms.Label timerMonthLabel;
         private System.Windows.Forms.TextBox availableDaysTextBox;
         private System.Windows.Forms.Label availableDaysLabel;
+        private System.Windows.Forms.Panel displayedAccountPanel;
+        private System.Windows.Forms.ListBox displayedCalendarAccount;
+        private System.Windows.Forms.Label managedAccountLabel;
     }
 }

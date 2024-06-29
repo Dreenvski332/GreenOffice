@@ -10,6 +10,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using com.itextpdf.text.pdf;
 using System.Windows.Forms.VisualStyles;
+using System.Collections.Generic;
 
 namespace GreenOffice
 {
@@ -88,6 +89,8 @@ namespace GreenOffice
         }
         private void selectManagedUsers()
         {
+            string selectedEmail = viewUserTextbox.Text;
+            List<string> emails = new List<string>();
             PathFactory pathFactory = new PathFactory(); //path to use pathFactory
             using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
             {
@@ -101,10 +104,18 @@ namespace GreenOffice
                     MySqlDataReader reader = displayManagedAccountsCommand.ExecuteReader();
                     while (reader.Read())
                     {
-                        managedAccount.Items.Add(reader["email"].ToString());
+                        string email = reader.GetString("email");
+                        emails.Add(email);
                     }
                 }
             }
+            if (emails.Contains(selectedEmail))
+            {
+                emails.Remove(selectedEmail);
+                emails.Insert(0, selectedEmail);
+            }
+
+            managedAccount.DataSource = emails;
         }
         private void displayLoggedUser()
         {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Collections.Generic;
 
 namespace GreenOffice
 {
@@ -32,6 +33,7 @@ namespace GreenOffice
         private int adminNum;
         private string workerName;
         private string workerSurname;
+        public static string calendarCode = "";
 
         // ============================ OVERALL BODY START ==================================
 
@@ -53,6 +55,9 @@ namespace GreenOffice
             leaveStartTimePicker.CustomFormat = "hh:mm tt";
             leaveFinishTimePicker.CustomFormat = "hh:mm tt";
             isApproved = 0;
+            calendarCode = viewUserTextbox.Text;
+            selectCalendarUsers();
+            displayedCalendarAccount.DrawMode = DrawMode.OwnerDrawFixed;
 
             leaveStartTimePicker.Enabled = false;
             leaveFinishTimePicker.Enabled = false;
@@ -110,6 +115,7 @@ namespace GreenOffice
             subCalendarPanel.Visible = true; // it actually doesn't
             calendarJuicePanel.Visible = true; //just needed to be sure
             leavePanel.Visible = false;
+            displayedAccountPanel.Visible = true;
             DisplayCurrentMonth(); //starts DisplayCurrentMonth function, the code is way down
         }
         private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
@@ -120,6 +126,7 @@ namespace GreenOffice
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
             leavePanel.Visible = false;
+            displayedAccountPanel.Visible = false;
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
             codeMonthLabel.Text = firstDayOfMonth.ToString("MM");
             timerMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
@@ -133,6 +140,7 @@ namespace GreenOffice
             calendarJuicePanel.Visible = false;
             welcomeGroupbox.Visible = false;
             leavePanel.Visible = true;
+            displayedAccountPanel.Visible = false;
         }
         private void timerStartButton_Click(object sender, EventArgs e) //starts workday timer
         {
@@ -426,7 +434,50 @@ namespace GreenOffice
 
 
         // ============================ CALENDAR PANEL START ================================
+        private void selectCalendarUsers()
+        {
+            string selectedEmail = viewUserTextbox.Text;
+            List<string> emails = new List<string>();
+            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            {
+                string connection = streamReader.ReadToEnd(); //reads "connString" file
+                string connectionString = connection; //and makes a connection
+                using (MySqlConnection databaseConnection = new MySqlConnection(connectionString))
+                {
+                    string displayedCalendarAccountQuery = $"SELECT email FROM user"; //query to find name based on email
+                    databaseConnection.Open(); //opens connection
+                    MySqlCommand displayedCalendarAccountCommand = new MySqlCommand(displayedCalendarAccountQuery, databaseConnection);
+                    MySqlDataReader reader = displayedCalendarAccountCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string email = reader.GetString("email");
+                        emails.Add(email);
+                    }
+                }
+            }
+            if (emails.Contains(selectedEmail))
+            {
+                emails.Remove(selectedEmail);
+                emails.Insert(0, selectedEmail);
+            }
 
+            displayedCalendarAccount.DataSource = emails;
+        }
+        private void displayedCalendarAccount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem = displayedCalendarAccount.SelectedItem.ToString();
+            calendarCode = selectedItem;
+            DisplayCurrentMonth();
+        }
+        private void displayedCalendarAccount_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            { e.Graphics.FillRectangle(Brushes.LightGreen, e.Bounds); }
+            else { e.Graphics.FillRectangle(Brushes.White, e.Bounds); }
+            e.Graphics.DrawString(displayedCalendarAccount.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
+        }
 
         public void DisplayCurrentMonth() //this bad boy is a function called in other parts of calendar
         {
@@ -452,6 +503,7 @@ namespace GreenOffice
         {
             mainCalendarPanel.Visible = false;
             welcomeGroupbox.Visible = true;
+            displayedAccountPanel.Visible = false;
         }
         private void previousButton_Click(object sender, EventArgs e) //changes month to previous one
         {
