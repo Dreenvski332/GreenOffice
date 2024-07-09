@@ -16,10 +16,10 @@ namespace GreenOffice
 {
     public partial class f3_adminBody : Form
     {
-        private int currentYear; //creates global year int
+        private int currentYear;
         private int currentMonth;
-        private int currentDay;//same thing but with month
-        private readonly CultureInfo polishCulture; //POLSKA GUROM - POLISH MOUNTAIN
+        private int currentDay;
+        private readonly CultureInfo polishCulture;
         private const string PlaceholderText = "Opis wydarzenia (opcjonalne)";
         private Color PlaceholderColor = Color.Gray;
         private Color TextColor = Color.Black;
@@ -41,17 +41,17 @@ namespace GreenOffice
 
         public f3_adminBody()
         {
-            InitializeComponent(); //you know starts the whole ordeal
+            InitializeComponent();
             viewUserTextbox.Text = f1_login.email;
-            displayedViewUserTextbox.Text = f1_login.email;//sets user email, puts it into textbox - taken from login screen
-            timerPanel.Visible = false; //makes scary Timer not appear at first
-            mainCalendarPanel.Visible = false; //makes scary Calendar not appear at first
+            displayedViewUserTextbox.Text = f1_login.email;
+            timerPanel.Visible = false;
+            mainCalendarPanel.Visible = false;
             approveLeavePanel.Visible = false;
             manageUsersPanel.Visible = false;
-            currentYear = DateTime.Now.Year; //sets global int to currnt year
+            currentYear = DateTime.Now.Year;
             currentMonth = DateTime.Now.Month;
-            currentDay = DateTime.Now.Day;//sets global int to current month
-            polishCulture = new CultureInfo("pl-PL"); //this bad girl is to translate month names into polish later
+            currentDay = DateTime.Now.Day;
+            polishCulture = new CultureInfo("pl-PL");
             calendarJuicePanel.RowCount = rowCount;
             calendarJuicePanel.ColumnCount = columnCount;
             startTimePicker.CustomFormat = "hh:mm tt";
@@ -91,15 +91,15 @@ namespace GreenOffice
         {
             string selectedEmail = viewUserTextbox.Text;
             List<string> emails = new List<string>();
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
                 using(MySqlConnection databaseConnection = new MySqlConnection(connectionString))
                 {
-                    string displayManagedAccountsQuery = $"SELECT email FROM user"; //query to find name based on email
-                    databaseConnection.Open(); //opens connection
+                    string displayManagedAccountsQuery = $"SELECT email FROM user";
+                    databaseConnection.Open();
                     MySqlCommand displayManagedAccountsCommand = new MySqlCommand(displayManagedAccountsQuery, databaseConnection);
                     MySqlDataReader reader = displayManagedAccountsCommand.ExecuteReader();
                     while (reader.Read())
@@ -119,41 +119,41 @@ namespace GreenOffice
         }
         private void displayLoggedUser()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email"); //query to find name based on email
-                displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text); //takes email from textbox
-                displayName.CommandType = CommandType.Text; //makes command readable for the app
-                displayName.Connection = databaseConnection; //does something?
+                MySqlCommand displayName = new MySqlCommand($"SELECT email, name FROM user WHERE email=@email");
+                displayName.Parameters.AddWithValue("@email", viewUserTextbox.Text);
+                displayName.CommandType = CommandType.Text;
+                displayName.Connection = databaseConnection;
 
-                databaseConnection.Open(); //opens connection
-                using (MySqlDataReader readerDisplayName = displayName.ExecuteReader()) //executes command
+                databaseConnection.Open();
+                using (MySqlDataReader readerDisplayName = displayName.ExecuteReader())
                 {
-                    readerDisplayName.Read(); //reads data recieved from query
-                    nameWelcomeTextbox.Text = readerDisplayName["name"].ToString() + "!"; //shoots name into a textbox with "!" at the end
-                    databaseConnection.Close(); //stops the connection
+                    readerDisplayName.Read();
+                    nameWelcomeTextbox.Text = readerDisplayName["name"].ToString() + "!";
+                    databaseConnection.Close();
                 }
             }
         }
         private void leaveNotification()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand displayName = new MySqlCommand($"SELECT leaveApproved FROM leaveTable WHERE leaveApproved = @leaveApproved"); //query to find name based on email
+                MySqlCommand displayName = new MySqlCommand($"SELECT leaveApproved FROM leaveTable WHERE leaveApproved = @leaveApproved");
                 displayName.Parameters.AddWithValue("@leaveApproved", 0);
-                displayName.CommandType = CommandType.Text; //makes command readable for the app
-                displayName.Connection = databaseConnection; //does something?
-                databaseConnection.Open(); //opens connection
+                displayName.CommandType = CommandType.Text;
+                displayName.Connection = databaseConnection;
+                databaseConnection.Open();
                 
                 using(MySqlDataReader reader = displayName.ExecuteReader())
                 {
@@ -176,23 +176,23 @@ namespace GreenOffice
         }
         private void f3_adminBody_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit(); //just makes sure, that entire app closes when the windows X button is pressed
+            Application.Exit();
         }
-        private void calendarButton_Click(object sender, EventArgs e) //makes scary Calendar appear
+        private void calendarButton_Click(object sender, EventArgs e)
         {
-            timerPanel.Visible = false; //also makes sure that timer is, you know, not in the way
-            welcomeGroupbox.Visible = false; //makes big bad welcome go away
-            mainCalendarPanel.Visible = true; //calendar is so good it needs to appear three times
-            subCalendarPanel.Visible = true; // it actually doesn't
-            calendarJuicePanel.Visible = true; //just needed to be sure
+            timerPanel.Visible = false;
+            welcomeGroupbox.Visible = false;
+            mainCalendarPanel.Visible = true;
+            subCalendarPanel.Visible = true;
+            calendarJuicePanel.Visible = true;
             leavePanel.Visible = false;
             adminPanel.Visible = false;
-            DisplayCurrentMonth(); //starts DisplayCurrentMonth function, the code is way down
+            DisplayCurrentMonth();
         }
-        private void timerPanelButton_Click(object sender, EventArgs e) //TIMER PANEL BUTTON
+        private void timerPanelButton_Click(object sender, EventArgs e)
         {
-            timerPanel.Visible = true; //I mean, it does what it says it does
-            welcomeGroupbox.Visible = false; //makes big bad welcome go away
+            timerPanel.Visible = true;
+            welcomeGroupbox.Visible = false;
             mainCalendarPanel.Visible = false;
             subCalendarPanel.Visible = false;
             calendarJuicePanel.Visible = false;
@@ -201,7 +201,7 @@ namespace GreenOffice
             DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
             codeMonthLabel.Text = firstDayOfMonth.ToString("MM");
             timerMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
-            timerStats(); //calls timerStats function, that's named in camelCase although it shouldn't
+            timerStats();
         }
         private void timeoutButton_Click(object sender, EventArgs e)
         {
@@ -272,7 +272,7 @@ namespace GreenOffice
             }
         }
 
-        private void endTimerButton_Click(object sender, EventArgs e) //stops the timer for the day
+        private void endTimerButton_Click(object sender, EventArgs e)
         {
 
             PathFactory pathFactory = new PathFactory();
@@ -384,13 +384,13 @@ namespace GreenOffice
         // ============================ TIMER PANEL START ===================================
 
 
-        private void killTimerButton_Click(object sender, EventArgs e) //makes scary Timer go away
+        private void killTimerButton_Click(object sender, EventArgs e)
         {
             timerPanel.Visible = false;
             welcomeGroupbox.Visible = true;
         }
-        private void styczeńToolStripMenuItem_Click(object sender, EventArgs e) //next twelve actions are my proud baby of lazines
-        { //all this thing do is sets invisible label depending on which month was chosen from a list
+        private void styczeńToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             codeMonthLabel.Text = "1"; timerMonthLabel.Text = "styczeń"; timerStats();
         }
         private void lutyToolStripMenuItem_Click(object sender, EventArgs e) { codeMonthLabel.Text = "2"; timerMonthLabel.Text = "luty"; timerStats(); }
@@ -407,99 +407,98 @@ namespace GreenOffice
 
         private void timerStats()
         {
-            displayDateTextbox.Text = ""; //all of those are just to clear textboxes, so the data doesn't repeat itself
+            displayDateTextbox.Text = "";
             displayFinishTimeTextbox.Text = "";
             displayStartTimeTextbox.Text = "";
             displayTimeSpanTextbox.Text = "";
             suggestedPayTextbox.Text = "";
-            try //debug try, kinda afraid to delete it :/
+            try
             {
-                PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-                using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+                PathFactory pathFactory = new PathFactory();
+                using (StreamReader streamReader = new StreamReader(pathFactory.connString))
                 {
-                    try //real try this time
+                    try
                     {
-                        string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
-                        string connectionString = connection; //create connection string
-                        MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+                        string connection = streamReader.ReadToEnd();
+                        string connectionString = connection;
+                        MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                        MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE email=@email AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                        displayDateQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
-                        displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
-                        displayDateQuery.CommandType = CommandType.Text; //makes sure the program can read the query
-                        displayDateQuery.Connection = databaseConnection; //idk connects with DB or something
-                        databaseConnection.Open(); //starts the actual connection
+                        MySqlCommand displayDateQuery = new MySqlCommand($"SELECT startDate FROM timer WHERE email=@email AND MONTH(startDate)=@month");
+                        displayDateQuery.Parameters.AddWithValue("@email", adminCode);
+                        displayDateQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                        displayDateQuery.CommandType = CommandType.Text;
+                        displayDateQuery.Connection = databaseConnection;
+                        databaseConnection.Open();
 
-                        MySqlDataReader reader = displayDateQuery.ExecuteReader(); //this boy executes my commands!
-                        while (reader.Read()) //basically, as long as the command is still being read
+                        MySqlDataReader reader = displayDateQuery.ExecuteReader();
+                        while (reader.Read())
                         {
-                            DateTime date = reader.GetDateTime("startDate"); //sets date to startDate from DB
-                            string formattedDate = date.ToString("yyyy-MM-dd"); // formats the date into MySQL approved system
-                            displayDateTextbox.AppendText(formattedDate + Environment.NewLine);// append each date to the TextBox with a new line
+                            DateTime date = reader.GetDateTime("startDate");
+                            string formattedDate = date.ToString("yyyy-MM-dd");
+                            displayDateTextbox.AppendText(formattedDate + Environment.NewLine);
                         }
-                        databaseConnection.Close(); //ends the connection
-                        reader.Close(); //and stops the reader
+                        databaseConnection.Close();
+                        reader.Close();
                     }
-                    catch { MessageBox.Show("Błąd wczytywania daty z bazy danych"); } //if s*&t hits the fan, there's a failsafe - this is the failsafe
+                    catch { MessageBox.Show("Błąd wczytywania daty z bazy danych"); }
                 }
                 using (StreamReader streamReader = new StreamReader(pathFactory.connString))
                 {
-                    string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
-                    string connectionString = connection; //create connection string
-                    MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                    MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE email=@email AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                    startingTimeQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
-                    startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
-                    startingTimeQuery.CommandType = CommandType.Text; //makes sure the program can read the query
-                    startingTimeQuery.Connection = databaseConnection; //idk connects with DB or something
-                    databaseConnection.Open(); //starts the actual connection
+                    MySqlCommand startingTimeQuery = new MySqlCommand($"SELECT startTime FROM timer WHERE email=@email AND MONTH(startDate)=@month");
+                    startingTimeQuery.Parameters.AddWithValue("@email", adminCode);
+                    startingTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    startingTimeQuery.CommandType = CommandType.Text;
+                    startingTimeQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
 
-                    MySqlDataAdapter startDataAdapter = new MySqlDataAdapter(startingTimeQuery); //it gets real, when you need an adapter
-                    DataTable startingTimeTable = new DataTable(); //creates DataTable
-                    startDataAdapter.Fill(startingTimeTable); //populates said table with data from adapter
-                    StringBuilder stringBuilderStart = new StringBuilder(); //build string with data from DataTable
-                    foreach (DataRow row in startingTimeTable.Rows) //now as long as there are rows in DataTable
+                    MySqlDataAdapter startDataAdapter = new MySqlDataAdapter(startingTimeQuery);
+                    DataTable startingTimeTable = new DataTable();
+                    startDataAdapter.Fill(startingTimeTable);
+                    StringBuilder stringBuilderStart = new StringBuilder();
+                    foreach (DataRow row in startingTimeTable.Rows)
                     {
-                        for (int i = 0; i < startingTimeTable.Columns.Count; i++) //counts columns in DataTable and increses "i" every repeat
+                        for (int i = 0; i < startingTimeTable.Columns.Count; i++)
                         {
-                            stringBuilderStart.Append(row[i].ToString()); //takes data from DataTable and makes it into string
-                            if (i < startingTimeTable.Columns.Count - 1) //decreses imaginary "i" by one, you know to count how many more repeats are needed
+                            stringBuilderStart.Append(row[i].ToString());
+                            if (i < startingTimeTable.Columns.Count - 1)
                             {
-                                stringBuilderStart.Append("\t"); //makes it so text in a string starts with new line every time
+                                stringBuilderStart.Append("\t");
                             }
                         }
-                        stringBuilderStart.AppendLine(); //I mean, it must do something, cause it doesn't work without it
+                        stringBuilderStart.AppendLine();
                     }
-                    databaseConnection.Close(); //shuts down the connection with DB
-                    displayStartTimeTextbox.Text = stringBuilderStart.ToString(); //and puts all of those dates in correct textbox
+                    databaseConnection.Close();
+                    displayStartTimeTextbox.Text = stringBuilderStart.ToString();
 
-                    //does exactly same thing as the previous one, but with finish time, so imma just copy the comments, I like this green text :)
-                    MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE email=@email AND MONTH(startDate)=@month"); //an SQL query, kinda self explanatory
-                    finishTimeQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
-                    finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text); //takes month from invisible label :)
-                    finishTimeQuery.CommandType = CommandType.Text; //makes sure the program can read the query
-                    finishTimeQuery.Connection = databaseConnection; //idk connects with DB or something
-                    databaseConnection.Open(); //starts the actual connection
+                    MySqlCommand finishTimeQuery = new MySqlCommand($"SELECT finishTime FROM timer WHERE email=@email AND MONTH(startDate)=@month");
+                    finishTimeQuery.Parameters.AddWithValue("@email", adminCode);
+                    finishTimeQuery.Parameters.AddWithValue("@month", codeMonthLabel.Text);
+                    finishTimeQuery.CommandType = CommandType.Text;
+                    finishTimeQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
 
-                    MySqlDataAdapter endDataAdapter = new MySqlDataAdapter(finishTimeQuery); //it gets real, when you need an adapter
-                    DataTable timeTable = new DataTable(); //creates DataTable
-                    endDataAdapter.Fill(timeTable); //populates said table with data from adapter
-                    StringBuilder stringBuilderEnd = new StringBuilder();//build string with data from DataTable
-                    foreach (DataRow row in timeTable.Rows) //now as long as there are rows in DataTable
+                    MySqlDataAdapter endDataAdapter = new MySqlDataAdapter(finishTimeQuery);
+                    DataTable timeTable = new DataTable();
+                    endDataAdapter.Fill(timeTable);
+                    StringBuilder stringBuilderEnd = new StringBuilder();
+                    foreach (DataRow row in timeTable.Rows) 
                     {
-                        for (int i = 0; i < timeTable.Columns.Count; i++) //counts columns in DataTable and increses "i" every repeat
+                        for (int i = 0; i < timeTable.Columns.Count; i++) 
                         {
-                            stringBuilderEnd.Append(row[i].ToString()); //takes data from DataTable and makes it into string
-                            if (i < timeTable.Columns.Count - 1) //decreses imaginary "i" by one, you know to count how many more repeats are needed
+                            stringBuilderEnd.Append(row[i].ToString()); 
+                            if (i < timeTable.Columns.Count - 1) 
                             {
-                                stringBuilderEnd.Append("\t"); //makes it so text in a string starts with new line every time
+                                stringBuilderEnd.Append("\t"); 
                             }
                         }
-                        stringBuilderEnd.AppendLine(); //It must do something!
+                        stringBuilderEnd.AppendLine(); 
                     }
-                    databaseConnection.Close();//shuts down the connection with DB
-                    displayFinishTimeTextbox.Text = stringBuilderEnd.ToString();//and puts all of those dates in correct textbox
+                    databaseConnection.Close();
+                    displayFinishTimeTextbox.Text = stringBuilderEnd.ToString();
 
                     
                     string[] startTimes = displayStartTimeTextbox.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); 
@@ -518,20 +517,20 @@ namespace GreenOffice
                 }
                 using (StreamReader streamReader = new StreamReader(pathFactory.connString))
                 {
-                    string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
-                    string connectionString = connection; //create connection string
-                    MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+                    string connection = streamReader.ReadToEnd();
+                    string connectionString = connection;
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                    MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT wage FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
-                    calculateWageQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
-                    calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
-                    calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
-                    databaseConnection.Open(); //starts the actual connection
-                    using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                    MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT wage FROM user WHERE email=@email");
+                    calculateWageQuery.Parameters.AddWithValue("@email", adminCode);
+                    calculateWageQuery.CommandType = CommandType.Text;
+                    calculateWageQuery.Connection = databaseConnection;
+                    databaseConnection.Open();
+                    using (MySqlDataReader reader = calculateWageQuery.ExecuteReader())
                     {
-                        reader.Read(); //reads data recieved from query
+                        reader.Read();
                         int wage = reader.GetInt32("wage");
-                        databaseConnection.Close(); //stops the connection
+                        databaseConnection.Close();
                     
                         int calculatedWage = CalculateWage(totalDifference, wage);
                         suggestedPayTextbox.Text = calculatedWage.ToString() + " PLN";
@@ -539,16 +538,13 @@ namespace GreenOffice
                 }
                 int CalculateWage(TimeSpan timeWorked, int hourlyWage)
                 {
-                    // Convert TimeSpan to total hours
                     double totalHours = timeWorked.TotalHours;
-
-                    // Calculate total wage
                     int totalWage = (int)(totalHours * hourlyWage);
 
                     return totalWage;
                 }
             }
-            catch //like I said before, this is debug try-catch, I'm just afraid to delete it
+            catch 
             {
                 timerPanel.Visible = true;
                 mainCalendarPanel.Visible = false;
@@ -619,45 +615,45 @@ namespace GreenOffice
                 calendarJuicePanel.Controls.Add(dayControl);
             }
         }
-        private void killCalendarButton_Click(object sender, EventArgs e) //makes scary Calendar go away
+        private void killCalendarButton_Click(object sender, EventArgs e)
         {
             mainCalendarPanel.Visible = false;
             welcomeGroupbox.Visible = true;
         }
-        private void previousButton_Click(object sender, EventArgs e) //changes month to previous one
+        private void previousButton_Click(object sender, EventArgs e)
         {
-            if (currentMonth == 1) //simple maths really, if currentMonth is equal to one(january)
+            if (currentMonth == 1)
             {
-                currentMonth = 12; //then sets currentMonth to twelve(december)
-                currentYear--; //and decreses year
+                currentMonth = 12;
+                currentYear--;
             }
             else
             {
-                currentMonth--; //else just decreses month by one
+                currentMonth--;
             }
-            DisplayCurrentMonth(); //also calls a function
+            DisplayCurrentMonth();
         }
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (currentMonth == 12) //same thing here, but in reverse, if month is 12(december)
+            if (currentMonth == 12)
             {
-                currentMonth = 1; //then sets currenMonth to one(January)
-                currentYear++; //and increses year by one
+                currentMonth = 1;
+                currentYear++;
             }
             else
             {
-                currentMonth++; //else just increses month by one
+                currentMonth++;
             }
-            DisplayCurrentMonth(); //and still calls a function, that's like the main thing
+            DisplayCurrentMonth();
         }
 
-        private void categoryChecklist_ItemCheck(object sender, ItemCheckEventArgs e) //makes sure only one category can be picked
+        private void categoryChecklist_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Checked) //when new value is picked
+            if (e.NewValue == CheckState.Checked)
             {
-                for (int i = 0; i < categoryChecklist.Items.Count; i++) //checks how many boxes are checked
+                for (int i = 0; i < categoryChecklist.Items.Count; i++)
                 {
-                    if (i != e.Index) { categoryChecklist.SetItemChecked(i, false); } //literally just wipes the previous check
+                    if (i != e.Index) { categoryChecklist.SetItemChecked(i, false); }
                 }
             }
         }
@@ -677,24 +673,24 @@ namespace GreenOffice
                 descriptionTextbox.ForeColor = PlaceholderColor;
             }
         }
-        private void oneDayEventCheckbox_CheckedChanged(object sender, EventArgs e) //handles sytuation when it's a one day only event
+        private void oneDayEventCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if (oneDayEventCheckbox.Checked) //if textbox is checked
+            if (oneDayEventCheckbox.Checked)
             {
-                finishEventDatePicker.Enabled = false; //makes finishEventDatePicker read-only
-                finishEventDatePicker.Value = startEventDatePicker.Value; //sets the same value in finishEventDatePicker as in startEventDatePicker
-                startEventDatePicker.ValueChanged += startEventDatePicker_ValueChanged; //handle the ValueChanged event of startEventDatePicker to keep finishEventDatePicker updated
+                finishEventDatePicker.Enabled = false;
+                finishEventDatePicker.Value = startEventDatePicker.Value;
+                startEventDatePicker.ValueChanged += startEventDatePicker_ValueChanged;
             }
-            else //when unchecked
+            else
             {
-                finishEventDatePicker.Enabled = true; //enables finishEventDatePicker
-                startEventDatePicker.ValueChanged -= startEventDatePicker_ValueChanged; // stop handling the ValueChanged event of startEventDatePicker
+                finishEventDatePicker.Enabled = true;
+                startEventDatePicker.ValueChanged -= startEventDatePicker_ValueChanged;
             }
         }
 
         private void startEventDatePicker_ValueChanged(object sender, EventArgs e)
         {
-            finishEventDatePicker.Value = startEventDatePicker.Value; //sync the date of both DatePickers
+            finishEventDatePicker.Value = startEventDatePicker.Value;
         }
         private void allDayEventCheckbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -922,20 +918,20 @@ namespace GreenOffice
             PathFactory pathFactory = new PathFactory();
             using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
-                string connectionString = connection; //create connection string
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveDays FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
-                calculateWageQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
-                calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
-                calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
-                databaseConnection.Open(); //starts the actual connection
-                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveDays FROM user WHERE email=@email");
+                calculateWageQuery.Parameters.AddWithValue("@email", adminCode);
+                calculateWageQuery.CommandType = CommandType.Text;
+                calculateWageQuery.Connection = databaseConnection;
+                databaseConnection.Open();
+                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader())
                 {
-                    reader.Read(); //reads data recieved from query
+                    reader.Read();
                     int leftLeaveDays = reader.GetInt32("leftLeaveDays");
-                    databaseConnection.Close(); //stops the connection
+                    databaseConnection.Close();
                     availableDaysTextBox.Text = leftLeaveDays.ToString();
                     dayCountPaid = leftLeaveDays;
                 }
@@ -946,20 +942,20 @@ namespace GreenOffice
             PathFactory pathFactory = new PathFactory();
             using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //let's read the connection first. Literally that
-                string connectionString = connection; //create connection string
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //that's used here, it's to create connection with DB
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveOnDemandDays FROM user WHERE email=@email"); //an SQL query, kinda self explanatory
-                calculateWageQuery.Parameters.AddWithValue("@email", adminCode); //takes login from viewUserTextbox
-                calculateWageQuery.CommandType = CommandType.Text; //makes sure the program can read the query
-                calculateWageQuery.Connection = databaseConnection; //idk connects with DB or something
-                databaseConnection.Open(); //starts the actual connection
-                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader()) //executes command
+                MySqlCommand calculateWageQuery = new MySqlCommand($"SELECT leftLeaveOnDemandDays FROM user WHERE email=@email");
+                calculateWageQuery.Parameters.AddWithValue("@email", adminCode);
+                calculateWageQuery.CommandType = CommandType.Text;
+                calculateWageQuery.Connection = databaseConnection;
+                databaseConnection.Open();
+                using (MySqlDataReader reader = calculateWageQuery.ExecuteReader())
                 {
-                    reader.Read(); //reads data recieved from query
+                    reader.Read();
                     int leftLeaveDays = reader.GetInt32("leftLeaveOnDemandDays");
-                    databaseConnection.Close(); //stops the connection
+                    databaseConnection.Close();
                     availableDaysTextBox.Text = leftLeaveDays.ToString();
                     dayCountOnDemand = leftLeaveDays;
                 }
@@ -967,16 +963,16 @@ namespace GreenOffice
         }
         private void oneDayLeave_CheckedChanged(object sender, EventArgs e)
         {
-            if (oneDayLeave.Checked) //if textbox is checked
+            if (oneDayLeave.Checked)
             {
-                leaveFinishDatePicker.Enabled = false; //makes finishEventDatePicker read-only
-                leaveFinishDatePicker.Value = startEventDatePicker.Value; //sets the same value in finishEventDatePicker as in startEventDatePicker
-                leaveStartDatePicker.ValueChanged += leaveStartDatePicker_ValueChanged; //handle the ValueChanged event of startEventDatePicker to keep finishEventDatePicker updated
+                leaveFinishDatePicker.Enabled = false;
+                leaveFinishDatePicker.Value = startEventDatePicker.Value;
+                leaveStartDatePicker.ValueChanged += leaveStartDatePicker_ValueChanged;
             }
-            else //when unchecked
+            else
             {
-                leaveFinishDatePicker.Enabled = true; //enables finishEventDatePicker
-                leaveStartDatePicker.ValueChanged -= leaveStartDatePicker_ValueChanged; // stop handling the ValueChanged event of startEventDatePicker
+                leaveFinishDatePicker.Enabled = true;
+                leaveStartDatePicker.ValueChanged -= leaveStartDatePicker_ValueChanged;
             }
         }
 
@@ -1011,21 +1007,17 @@ namespace GreenOffice
         {
             OpenFileDialog openPictureDialog = new OpenFileDialog();
 
-            // image filters  
             openPictureDialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.jfif)|*.jpg; *.jpeg; *.gif; *.bmp; *.jfif";
             openPictureDialog.Title = "Wybierz zdjęcie adnotacji od lekarza";
             if (openPictureDialog.ShowDialog() == DialogResult.OK)
             {
                 FileInfo fileInfo = new FileInfo(openPictureDialog.FileName);
-                if (fileInfo.Length > 1 * 1024 * 1024) // Check if file size exceeds 1MB
+                if (fileInfo.Length > 1 * 1024 * 1024)
                 {
                     MessageBox.Show("Plik przekracza maksymalną wielkość (1MB) proszę dodać mniejszy plik!");
                     return;
                 }
-                // Read the entire file into a byte array
                 imageBytes = File.ReadAllBytes(openPictureDialog.FileName);
-
-                // Load the image into the PictureBox
                 using (MemoryStream memoryStream = new MemoryStream(imageBytes))
                 {
                     doctorsNoticePictureBox.Load(openPictureDialog.FileName);
@@ -1131,7 +1123,7 @@ namespace GreenOffice
             dayCountPaid = dayCountPaid - dayCount;
             dayCountOnDemand = dayCountOnDemand - dayCount;
 
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            PathFactory pathFactory = new PathFactory();
             if (adminNum == 1)
             {
                 using (StreamReader streamReader = new StreamReader(pathFactory.connString))
@@ -1171,12 +1163,12 @@ namespace GreenOffice
         }
 
 
-
-
         // ============================ LEAVE PANEL FINISH ===============================
 
 
         // ============================ ADMIN PANEL START ================================
+
+
         private void manageUsers_Click(object sender, EventArgs e)
         {
             manageUsersPanel.Visible = true;
@@ -1194,22 +1186,22 @@ namespace GreenOffice
         private void loadManagedUser_Click(object sender, EventArgs e)
         {
             clearAdminTextboxes();
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand displayManagedUser = new MySqlCommand($"SELECT * FROM user WHERE email=@email"); //query to find name based on email
-                displayManagedUser.Parameters.AddWithValue("@email", adminCode); //takes email from textbox
-                displayManagedUser.CommandType = CommandType.Text; //makes command readable for the app
-                displayManagedUser.Connection = databaseConnection; //does something?
+                MySqlCommand displayManagedUser = new MySqlCommand($"SELECT * FROM user WHERE email=@email");
+                displayManagedUser.Parameters.AddWithValue("@email", adminCode);
+                displayManagedUser.CommandType = CommandType.Text;
+                displayManagedUser.Connection = databaseConnection;
 
-                databaseConnection.Open(); //opens connection
-                using (MySqlDataReader reader = displayManagedUser.ExecuteReader()) //executes command
+                databaseConnection.Open();
+                using (MySqlDataReader reader = displayManagedUser.ExecuteReader())
                 {
-                    reader.Read(); //reads data recieved from query
+                    reader.Read();
                     adminUser = reader["userID"].ToString();
                     adminEmailTextbox.Text = reader["email"].ToString();
                     adminPasswordTextbox.Text = reader["password"].ToString();
@@ -1229,7 +1221,7 @@ namespace GreenOffice
                     adminLeaveOnDemandDaysTextbox.Text = reader["leaveOnDemandDays"].ToString();
                     adminLeftOnDemandLeaveDaysTextbox.Text = reader["leftLeaveOnDemandDays"].ToString();
                     
-                    databaseConnection.Close(); //stops the connection
+                    databaseConnection.Close();
                 }
             }
         }
@@ -1259,19 +1251,19 @@ namespace GreenOffice
 
         private void adminSaveUser_Click(object sender, EventArgs e)
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand saveUserQuery = new MySqlCommand($"SELECT email FROM user WHERE email=@email"); //query to find name based on email
-                saveUserQuery.Parameters.AddWithValue("@email", adminEmailTextbox.Text); //takes email from textbox
-                saveUserQuery.CommandType = CommandType.Text; //makes command readable for the app
+                MySqlCommand saveUserQuery = new MySqlCommand($"SELECT email FROM user WHERE email=@email");
+                saveUserQuery.Parameters.AddWithValue("@email", adminEmailTextbox.Text);
+                saveUserQuery.CommandType = CommandType.Text;
                 saveUserQuery.Connection = databaseConnection;
-                databaseConnection.Open(); //opens connection
-                MySqlDataReader reader = saveUserQuery.ExecuteReader();//does something?
+                databaseConnection.Open();
+                MySqlDataReader reader = saveUserQuery.ExecuteReader();
                 try
                 {
                     if (reader.HasRows)
@@ -1296,12 +1288,12 @@ namespace GreenOffice
         
         private void updateUserOnSave()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 databaseConnection.Open();
                 String updateUserQuery = "UPDATE `user` SET `email`=@email,`password`=@password,`isAdmin`=@isAdmin,`name`=@name,`surname`=@surname,`birthdate`=@birthdate,`pesel`=@pesel,`contract`=@contract,`wage`=@wage,`leaveDays`=@leaveDays,`leaveOnDemandDays`=@leaveOnDemandDays WHERE userID=@userID";
                 using (MySqlCommand updateUserCommand = new MySqlCommand(updateUserQuery, databaseConnection))
@@ -1330,12 +1322,12 @@ namespace GreenOffice
         {
             adminLeftLeaveDaysTextbox.Text = adminLeaveDaysTextbox.Text;
             adminLeftOnDemandLeaveDaysTextbox.Text = adminLeaveOnDemandDaysTextbox.Text;
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 databaseConnection.Open();
                 string insertUserQuery = "INSERT INTO `user`(`email`, `password`, `isAdmin`, `name`, `surname`, `birthdate`, `pesel`, `contract`, `wage`, `leaveDays`, `leftLeaveDays`, `leaveOnDemandDays`, `leftLeaveOnDemandDays`) VALUES (@email, @password, @isAdmin, @name, @surname, @birthdate, @pesel, @contract, @wage, @leaveDays, @leftLeaveDays, @leaveOnDemandDays, @leftLeaveOnDemandDays)";
                 using (MySqlCommand insertUserCommand = new MySqlCommand(insertUserQuery, databaseConnection))
@@ -1363,11 +1355,11 @@ namespace GreenOffice
         private void displayNotApprovedEmails()
         {
             adminEmailListbox.Items.Clear();
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //renames connection :)
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
                 string selectNotApprovedLeavesQuery = "SELECT DISTINCT user.email FROM user LEFT JOIN leavetable ON user.email = leavetable.email WHERE leavetable.leaveApproved = 0";
                 using (MySqlConnection databaseConnection = new MySqlConnection(connection))
                 {
@@ -1387,17 +1379,17 @@ namespace GreenOffice
         }
         private void displayAdminCalendar()
         {
-            adminCalendarLayoutPanel.Controls.Clear(); //first and formost it clears up the "main" calendar panel
-            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1); //sets the first time of the month
-            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth); //then counts how many days are in said month
-            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7; //sets the first day of the month and makes sure the week start with monday
-            adminApproveMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture); // changes monthLabel to correct month in polish
-            adminApproveYearLabel.Text = firstDayOfMonth.ToString("yyyy" + ","); //sets yearLabel to correct year
-            for (int i = 0; i < dayOfWeek; i++) //this is where magic begins
-            { //first, it finds how many days, from monday happend in previous month, if i is smaller then int of firstDayOfMonth
-                EmptyUserControl emptyUserControl = new EmptyUserControl(); //sets usercontrol as usercontrol
-                adminCalendarLayoutPanel.Controls.Add(emptyUserControl); //and populates one plot in tabelPanel
-            } //repeat if necessary
+            adminCalendarLayoutPanel.Controls.Clear();
+            DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+            int daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
+            int dayOfWeek = ((int)firstDayOfMonth.DayOfWeek + 6) % 7;
+            adminApproveMonthLabel.Text = firstDayOfMonth.ToString("MMMM", polishCulture);
+            adminApproveYearLabel.Text = firstDayOfMonth.ToString("yyyy" + ",");
+            for (int i = 0; i < dayOfWeek; i++)
+            {
+                EmptyUserControl emptyUserControl = new EmptyUserControl();
+                adminCalendarLayoutPanel.Controls.Add(emptyUserControl);
+            }
             for (int day = 1; day <= daysInMonth; day++)
             {
                 AdminCalendarUserControl dayControl = new AdminCalendarUserControl();
@@ -1427,28 +1419,28 @@ namespace GreenOffice
 
         private void adminPreviousMonthButton_Click(object sender, EventArgs e)
         {
-            if (currentMonth == 1) //simple maths really, if currentMonth is equal to one(january)
+            if (currentMonth == 1)
             {
-                currentMonth = 12; //then sets currentMonth to twelve(december)
-                currentYear--; //and decreses year
+                currentMonth = 12;
+                currentYear--;
             }
             else
             {
-                currentMonth--; //else just decreses month by one
+                currentMonth--;
             }
             displayAdminCalendar();
         }
 
         private void adminNextMonthButton_Click(object sender, EventArgs e)
         {
-            if (currentMonth == 12) //same thing here, but in reverse, if month is 12(december)
+            if (currentMonth == 12)
             {
-                currentMonth = 1; //then sets currenMonth to one(January)
-                currentYear++; //and increses year by one
+                currentMonth = 1;
+                currentYear++;
             }
             else
             {
-                currentMonth++; //else just increses month by one
+                currentMonth++;
             }
             displayAdminCalendar();
         }

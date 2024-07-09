@@ -77,6 +77,23 @@
             this.adminPanel = new System.Windows.Forms.Panel();
             this.leaveApproval = new System.Windows.Forms.Button();
             this.manageUsers = new System.Windows.Forms.Button();
+            this.approveLeavePanel = new System.Windows.Forms.Panel();
+            this.adminApproveLeaveCalendarPanel = new System.Windows.Forms.Panel();
+            this.notApprovedEmailsTextbox = new System.Windows.Forms.TextBox();
+            this.adminApproveYearLabel = new System.Windows.Forms.Label();
+            this.adminEmailListbox = new System.Windows.Forms.ListBox();
+            this.adminApproveMonthLabel = new System.Windows.Forms.Label();
+            this.adminNextMonthButton = new System.Windows.Forms.Button();
+            this.adminPreviousMonthButton = new System.Windows.Forms.Button();
+            this.adminCalendarLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.adminSundayLabel = new System.Windows.Forms.Label();
+            this.adminSaturdayLabel = new System.Windows.Forms.Label();
+            this.adminFridayLabel = new System.Windows.Forms.Label();
+            this.adminThursdayLabel = new System.Windows.Forms.Label();
+            this.adminWednesdayLabel = new System.Windows.Forms.Label();
+            this.adminTuesdayLabel = new System.Windows.Forms.Label();
+            this.adminMondayLabel = new System.Windows.Forms.Label();
+            this.adminPanelBG = new System.Windows.Forms.Panel();
             this.manageUsersPanel = new System.Windows.Forms.Panel();
             this.deleteUserButton = new System.Windows.Forms.Button();
             this.manageUsersIconPanel = new System.Windows.Forms.Panel();
@@ -108,23 +125,6 @@
             this.adminEmailLabel = new System.Windows.Forms.Label();
             this.loadManagedUser = new System.Windows.Forms.Button();
             this.adminEmailTextbox = new System.Windows.Forms.TextBox();
-            this.approveLeavePanel = new System.Windows.Forms.Panel();
-            this.adminApproveLeaveCalendarPanel = new System.Windows.Forms.Panel();
-            this.notApprovedEmailsTextbox = new System.Windows.Forms.TextBox();
-            this.adminApproveYearLabel = new System.Windows.Forms.Label();
-            this.adminEmailListbox = new System.Windows.Forms.ListBox();
-            this.adminApproveMonthLabel = new System.Windows.Forms.Label();
-            this.adminNextMonthButton = new System.Windows.Forms.Button();
-            this.adminPreviousMonthButton = new System.Windows.Forms.Button();
-            this.adminCalendarLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.adminSundayLabel = new System.Windows.Forms.Label();
-            this.adminSaturdayLabel = new System.Windows.Forms.Label();
-            this.adminFridayLabel = new System.Windows.Forms.Label();
-            this.adminThursdayLabel = new System.Windows.Forms.Label();
-            this.adminWednesdayLabel = new System.Windows.Forms.Label();
-            this.adminTuesdayLabel = new System.Windows.Forms.Label();
-            this.adminMondayLabel = new System.Windows.Forms.Label();
-            this.adminPanelBG = new System.Windows.Forms.Panel();
             this.leavePanel = new System.Windows.Forms.Panel();
             this.availableDaysTextBox = new System.Windows.Forms.TextBox();
             this.availableDaysLabel = new System.Windows.Forms.Label();
@@ -192,9 +192,9 @@
             this.mainCalendarPanel.SuspendLayout();
             this.subCalendarPanel.SuspendLayout();
             this.adminPanel.SuspendLayout();
-            this.manageUsersPanel.SuspendLayout();
             this.approveLeavePanel.SuspendLayout();
             this.adminApproveLeaveCalendarPanel.SuspendLayout();
+            this.manageUsersPanel.SuspendLayout();
             this.leavePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doctorsNoticePictureBox)).BeginInit();
             this.welcomeGroupbox.SuspendLayout();
@@ -373,7 +373,7 @@
             this.timerStartButton.Name = "timerStartButton";
             this.timerStartButton.Size = new System.Drawing.Size(155, 23);
             this.timerStartButton.TabIndex = 6;
-            this.timerStartButton.Text = "zacznij czasomierz";
+            this.timerStartButton.Text = "rozpocznij czasomierz";
             this.timerStartButton.UseVisualStyleBackColor = true;
             this.timerStartButton.Click += new System.EventHandler(this.timerStartButton_Click);
             // 
@@ -824,6 +824,219 @@
             this.manageUsers.UseVisualStyleBackColor = true;
             this.manageUsers.Click += new System.EventHandler(this.manageUsers_Click);
             // 
+            // approveLeavePanel
+            // 
+            this.approveLeavePanel.Controls.Add(this.adminApproveLeaveCalendarPanel);
+            this.approveLeavePanel.Location = new System.Drawing.Point(133, 10);
+            this.approveLeavePanel.Name = "approveLeavePanel";
+            this.approveLeavePanel.Size = new System.Drawing.Size(1045, 565);
+            this.approveLeavePanel.TabIndex = 3;
+            // 
+            // adminApproveLeaveCalendarPanel
+            // 
+            this.adminApproveLeaveCalendarPanel.BackColor = System.Drawing.Color.White;
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.notApprovedEmailsTextbox);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminApproveYearLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminEmailListbox);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminApproveMonthLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminNextMonthButton);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminPreviousMonthButton);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminCalendarLayoutPanel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminSundayLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminSaturdayLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminFridayLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminThursdayLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminWednesdayLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminTuesdayLabel);
+            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminMondayLabel);
+            this.adminApproveLeaveCalendarPanel.Location = new System.Drawing.Point(6, 2);
+            this.adminApproveLeaveCalendarPanel.Name = "adminApproveLeaveCalendarPanel";
+            this.adminApproveLeaveCalendarPanel.Size = new System.Drawing.Size(1022, 560);
+            this.adminApproveLeaveCalendarPanel.TabIndex = 9;
+            // 
+            // notApprovedEmailsTextbox
+            // 
+            this.notApprovedEmailsTextbox.BackColor = System.Drawing.Color.White;
+            this.notApprovedEmailsTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.notApprovedEmailsTextbox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.notApprovedEmailsTextbox.Location = new System.Drawing.Point(823, 65);
+            this.notApprovedEmailsTextbox.Multiline = true;
+            this.notApprovedEmailsTextbox.Name = "notApprovedEmailsTextbox";
+            this.notApprovedEmailsTextbox.ReadOnly = true;
+            this.notApprovedEmailsTextbox.Size = new System.Drawing.Size(193, 39);
+            this.notApprovedEmailsTextbox.TabIndex = 11;
+            this.notApprovedEmailsTextbox.Text = "Poniższe konta mają niezatwierdzone nieobecności:";
+            // 
+            // adminApproveYearLabel
+            // 
+            this.adminApproveYearLabel.AutoSize = true;
+            this.adminApproveYearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminApproveYearLabel.Location = new System.Drawing.Point(327, 501);
+            this.adminApproveYearLabel.Name = "adminApproveYearLabel";
+            this.adminApproveYearLabel.Size = new System.Drawing.Size(50, 24);
+            this.adminApproveYearLabel.TabIndex = 15;
+            this.adminApproveYearLabel.Text = "year";
+            this.adminApproveYearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // adminEmailListbox
+            // 
+            this.adminEmailListbox.AllowDrop = true;
+            this.adminEmailListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.adminEmailListbox.FormattingEnabled = true;
+            this.adminEmailListbox.ItemHeight = 16;
+            this.adminEmailListbox.Location = new System.Drawing.Point(823, 111);
+            this.adminEmailListbox.Name = "adminEmailListbox";
+            this.adminEmailListbox.Size = new System.Drawing.Size(193, 164);
+            this.adminEmailListbox.TabIndex = 10;
+            this.adminEmailListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.adminEmailListbox_DrawItem);
+            this.adminEmailListbox.SelectedIndexChanged += new System.EventHandler(this.adminEmailListbox_SelectedIndexChanged);
+            // 
+            // adminApproveMonthLabel
+            // 
+            this.adminApproveMonthLabel.AutoSize = true;
+            this.adminApproveMonthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminApproveMonthLabel.Location = new System.Drawing.Point(383, 501);
+            this.adminApproveMonthLabel.Name = "adminApproveMonthLabel";
+            this.adminApproveMonthLabel.Size = new System.Drawing.Size(68, 24);
+            this.adminApproveMonthLabel.TabIndex = 14;
+            this.adminApproveMonthLabel.Text = "month";
+            this.adminApproveMonthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // adminNextMonthButton
+            // 
+            this.adminNextMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
+            this.adminNextMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminNextMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminNextMonthButton.FlatAppearance.BorderSize = 0;
+            this.adminNextMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminNextMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminNextMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminNextMonthButton.Location = new System.Drawing.Point(756, 488);
+            this.adminNextMonthButton.Name = "adminNextMonthButton";
+            this.adminNextMonthButton.Size = new System.Drawing.Size(53, 53);
+            this.adminNextMonthButton.TabIndex = 13;
+            this.adminNextMonthButton.UseVisualStyleBackColor = true;
+            this.adminNextMonthButton.Click += new System.EventHandler(this.adminNextMonthButton_Click);
+            // 
+            // adminPreviousMonthButton
+            // 
+            this.adminPreviousMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
+            this.adminPreviousMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPreviousMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adminPreviousMonthButton.FlatAppearance.BorderSize = 0;
+            this.adminPreviousMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
+            this.adminPreviousMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
+            this.adminPreviousMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adminPreviousMonthButton.Location = new System.Drawing.Point(20, 488);
+            this.adminPreviousMonthButton.Name = "adminPreviousMonthButton";
+            this.adminPreviousMonthButton.Size = new System.Drawing.Size(53, 53);
+            this.adminPreviousMonthButton.TabIndex = 9;
+            this.adminPreviousMonthButton.UseVisualStyleBackColor = true;
+            this.adminPreviousMonthButton.Click += new System.EventHandler(this.adminPreviousMonthButton_Click);
+            // 
+            // adminCalendarLayoutPanel
+            // 
+            this.adminCalendarLayoutPanel.BackColor = System.Drawing.Color.White;
+            this.adminCalendarLayoutPanel.ColumnCount = 7;
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
+            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
+            this.adminCalendarLayoutPanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.adminCalendarLayoutPanel.Location = new System.Drawing.Point(3, 36);
+            this.adminCalendarLayoutPanel.Name = "adminCalendarLayoutPanel";
+            this.adminCalendarLayoutPanel.RowCount = 6;
+            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.adminCalendarLayoutPanel.Size = new System.Drawing.Size(805, 426);
+            this.adminCalendarLayoutPanel.TabIndex = 12;
+            // 
+            // adminSundayLabel
+            // 
+            this.adminSundayLabel.AutoSize = true;
+            this.adminSundayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminSundayLabel.Location = new System.Drawing.Point(711, 13);
+            this.adminSundayLabel.Name = "adminSundayLabel";
+            this.adminSundayLabel.Size = new System.Drawing.Size(73, 20);
+            this.adminSundayLabel.TabIndex = 11;
+            this.adminSundayLabel.Text = "Niedziela";
+            // 
+            // adminSaturdayLabel
+            // 
+            this.adminSaturdayLabel.AutoSize = true;
+            this.adminSaturdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminSaturdayLabel.Location = new System.Drawing.Point(603, 13);
+            this.adminSaturdayLabel.Name = "adminSaturdayLabel";
+            this.adminSaturdayLabel.Size = new System.Drawing.Size(61, 20);
+            this.adminSaturdayLabel.TabIndex = 10;
+            this.adminSaturdayLabel.Text = "Sobota";
+            // 
+            // adminFridayLabel
+            // 
+            this.adminFridayLabel.AutoSize = true;
+            this.adminFridayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminFridayLabel.Location = new System.Drawing.Point(496, 13);
+            this.adminFridayLabel.Name = "adminFridayLabel";
+            this.adminFridayLabel.Size = new System.Drawing.Size(53, 20);
+            this.adminFridayLabel.TabIndex = 7;
+            this.adminFridayLabel.Text = "Piątek";
+            // 
+            // adminThursdayLabel
+            // 
+            this.adminThursdayLabel.AutoSize = true;
+            this.adminThursdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminThursdayLabel.Location = new System.Drawing.Point(367, 13);
+            this.adminThursdayLabel.Name = "adminThursdayLabel";
+            this.adminThursdayLabel.Size = new System.Drawing.Size(75, 20);
+            this.adminThursdayLabel.TabIndex = 6;
+            this.adminThursdayLabel.Text = "Czwartek";
+            // 
+            // adminWednesdayLabel
+            // 
+            this.adminWednesdayLabel.AutoSize = true;
+            this.adminWednesdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminWednesdayLabel.Location = new System.Drawing.Point(266, 13);
+            this.adminWednesdayLabel.Name = "adminWednesdayLabel";
+            this.adminWednesdayLabel.Size = new System.Drawing.Size(52, 20);
+            this.adminWednesdayLabel.TabIndex = 5;
+            this.adminWednesdayLabel.Text = "Środa";
+            // 
+            // adminTuesdayLabel
+            // 
+            this.adminTuesdayLabel.AutoSize = true;
+            this.adminTuesdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminTuesdayLabel.Location = new System.Drawing.Point(143, 13);
+            this.adminTuesdayLabel.Name = "adminTuesdayLabel";
+            this.adminTuesdayLabel.Size = new System.Drawing.Size(60, 20);
+            this.adminTuesdayLabel.TabIndex = 4;
+            this.adminTuesdayLabel.Text = "Wtorek";
+            // 
+            // adminMondayLabel
+            // 
+            this.adminMondayLabel.AutoSize = true;
+            this.adminMondayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminMondayLabel.Location = new System.Drawing.Point(16, 13);
+            this.adminMondayLabel.Name = "adminMondayLabel";
+            this.adminMondayLabel.Size = new System.Drawing.Size(99, 20);
+            this.adminMondayLabel.TabIndex = 3;
+            this.adminMondayLabel.Text = "Poniedziałek";
+            // 
+            // adminPanelBG
+            // 
+            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
+            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
+            this.adminPanelBG.Name = "adminPanelBG";
+            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
+            this.adminPanelBG.TabIndex = 4;
+            // 
             // manageUsersPanel
             // 
             this.manageUsersPanel.Controls.Add(this.deleteUserButton);
@@ -1133,219 +1346,6 @@
             this.adminEmailTextbox.Name = "adminEmailTextbox";
             this.adminEmailTextbox.Size = new System.Drawing.Size(295, 21);
             this.adminEmailTextbox.TabIndex = 0;
-            // 
-            // approveLeavePanel
-            // 
-            this.approveLeavePanel.Controls.Add(this.adminApproveLeaveCalendarPanel);
-            this.approveLeavePanel.Location = new System.Drawing.Point(133, 10);
-            this.approveLeavePanel.Name = "approveLeavePanel";
-            this.approveLeavePanel.Size = new System.Drawing.Size(1045, 565);
-            this.approveLeavePanel.TabIndex = 3;
-            // 
-            // adminApproveLeaveCalendarPanel
-            // 
-            this.adminApproveLeaveCalendarPanel.BackColor = System.Drawing.Color.White;
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.notApprovedEmailsTextbox);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminApproveYearLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminEmailListbox);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminApproveMonthLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminNextMonthButton);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminPreviousMonthButton);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminCalendarLayoutPanel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminSundayLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminSaturdayLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminFridayLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminThursdayLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminWednesdayLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminTuesdayLabel);
-            this.adminApproveLeaveCalendarPanel.Controls.Add(this.adminMondayLabel);
-            this.adminApproveLeaveCalendarPanel.Location = new System.Drawing.Point(6, 2);
-            this.adminApproveLeaveCalendarPanel.Name = "adminApproveLeaveCalendarPanel";
-            this.adminApproveLeaveCalendarPanel.Size = new System.Drawing.Size(1022, 560);
-            this.adminApproveLeaveCalendarPanel.TabIndex = 9;
-            // 
-            // notApprovedEmailsTextbox
-            // 
-            this.notApprovedEmailsTextbox.BackColor = System.Drawing.Color.White;
-            this.notApprovedEmailsTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.notApprovedEmailsTextbox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.notApprovedEmailsTextbox.Location = new System.Drawing.Point(823, 65);
-            this.notApprovedEmailsTextbox.Multiline = true;
-            this.notApprovedEmailsTextbox.Name = "notApprovedEmailsTextbox";
-            this.notApprovedEmailsTextbox.ReadOnly = true;
-            this.notApprovedEmailsTextbox.Size = new System.Drawing.Size(193, 39);
-            this.notApprovedEmailsTextbox.TabIndex = 11;
-            this.notApprovedEmailsTextbox.Text = "Poniższe konta mają niezatwierdzone nieobecności:";
-            // 
-            // adminApproveYearLabel
-            // 
-            this.adminApproveYearLabel.AutoSize = true;
-            this.adminApproveYearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminApproveYearLabel.Location = new System.Drawing.Point(327, 501);
-            this.adminApproveYearLabel.Name = "adminApproveYearLabel";
-            this.adminApproveYearLabel.Size = new System.Drawing.Size(50, 24);
-            this.adminApproveYearLabel.TabIndex = 15;
-            this.adminApproveYearLabel.Text = "year";
-            this.adminApproveYearLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // adminEmailListbox
-            // 
-            this.adminEmailListbox.AllowDrop = true;
-            this.adminEmailListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.adminEmailListbox.FormattingEnabled = true;
-            this.adminEmailListbox.ItemHeight = 16;
-            this.adminEmailListbox.Location = new System.Drawing.Point(823, 111);
-            this.adminEmailListbox.Name = "adminEmailListbox";
-            this.adminEmailListbox.Size = new System.Drawing.Size(193, 164);
-            this.adminEmailListbox.TabIndex = 10;
-            this.adminEmailListbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.adminEmailListbox_DrawItem);
-            this.adminEmailListbox.SelectedIndexChanged += new System.EventHandler(this.adminEmailListbox_SelectedIndexChanged);
-            // 
-            // adminApproveMonthLabel
-            // 
-            this.adminApproveMonthLabel.AutoSize = true;
-            this.adminApproveMonthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminApproveMonthLabel.Location = new System.Drawing.Point(383, 501);
-            this.adminApproveMonthLabel.Name = "adminApproveMonthLabel";
-            this.adminApproveMonthLabel.Size = new System.Drawing.Size(68, 24);
-            this.adminApproveMonthLabel.TabIndex = 14;
-            this.adminApproveMonthLabel.Text = "month";
-            this.adminApproveMonthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // adminNextMonthButton
-            // 
-            this.adminNextMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.next;
-            this.adminNextMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminNextMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminNextMonthButton.FlatAppearance.BorderSize = 0;
-            this.adminNextMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminNextMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminNextMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminNextMonthButton.Location = new System.Drawing.Point(756, 488);
-            this.adminNextMonthButton.Name = "adminNextMonthButton";
-            this.adminNextMonthButton.Size = new System.Drawing.Size(53, 53);
-            this.adminNextMonthButton.TabIndex = 13;
-            this.adminNextMonthButton.UseVisualStyleBackColor = true;
-            this.adminNextMonthButton.Click += new System.EventHandler(this.adminNextMonthButton_Click);
-            // 
-            // adminPreviousMonthButton
-            // 
-            this.adminPreviousMonthButton.BackgroundImage = global::GreenOffice.Properties.Resources.back;
-            this.adminPreviousMonthButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPreviousMonthButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adminPreviousMonthButton.FlatAppearance.BorderSize = 0;
-            this.adminPreviousMonthButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.ForestGreen;
-            this.adminPreviousMonthButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkSeaGreen;
-            this.adminPreviousMonthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adminPreviousMonthButton.Location = new System.Drawing.Point(20, 488);
-            this.adminPreviousMonthButton.Name = "adminPreviousMonthButton";
-            this.adminPreviousMonthButton.Size = new System.Drawing.Size(53, 53);
-            this.adminPreviousMonthButton.TabIndex = 9;
-            this.adminPreviousMonthButton.UseVisualStyleBackColor = true;
-            this.adminPreviousMonthButton.Click += new System.EventHandler(this.adminPreviousMonthButton_Click);
-            // 
-            // adminCalendarLayoutPanel
-            // 
-            this.adminCalendarLayoutPanel.BackColor = System.Drawing.Color.White;
-            this.adminCalendarLayoutPanel.ColumnCount = 7;
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118F));
-            this.adminCalendarLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
-            this.adminCalendarLayoutPanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.adminCalendarLayoutPanel.Location = new System.Drawing.Point(3, 36);
-            this.adminCalendarLayoutPanel.Name = "adminCalendarLayoutPanel";
-            this.adminCalendarLayoutPanel.RowCount = 6;
-            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.adminCalendarLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.adminCalendarLayoutPanel.Size = new System.Drawing.Size(805, 426);
-            this.adminCalendarLayoutPanel.TabIndex = 12;
-            // 
-            // adminSundayLabel
-            // 
-            this.adminSundayLabel.AutoSize = true;
-            this.adminSundayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminSundayLabel.Location = new System.Drawing.Point(711, 13);
-            this.adminSundayLabel.Name = "adminSundayLabel";
-            this.adminSundayLabel.Size = new System.Drawing.Size(73, 20);
-            this.adminSundayLabel.TabIndex = 11;
-            this.adminSundayLabel.Text = "Niedziela";
-            // 
-            // adminSaturdayLabel
-            // 
-            this.adminSaturdayLabel.AutoSize = true;
-            this.adminSaturdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminSaturdayLabel.Location = new System.Drawing.Point(603, 13);
-            this.adminSaturdayLabel.Name = "adminSaturdayLabel";
-            this.adminSaturdayLabel.Size = new System.Drawing.Size(61, 20);
-            this.adminSaturdayLabel.TabIndex = 10;
-            this.adminSaturdayLabel.Text = "Sobota";
-            // 
-            // adminFridayLabel
-            // 
-            this.adminFridayLabel.AutoSize = true;
-            this.adminFridayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminFridayLabel.Location = new System.Drawing.Point(496, 13);
-            this.adminFridayLabel.Name = "adminFridayLabel";
-            this.adminFridayLabel.Size = new System.Drawing.Size(53, 20);
-            this.adminFridayLabel.TabIndex = 7;
-            this.adminFridayLabel.Text = "Piątek";
-            // 
-            // adminThursdayLabel
-            // 
-            this.adminThursdayLabel.AutoSize = true;
-            this.adminThursdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminThursdayLabel.Location = new System.Drawing.Point(367, 13);
-            this.adminThursdayLabel.Name = "adminThursdayLabel";
-            this.adminThursdayLabel.Size = new System.Drawing.Size(75, 20);
-            this.adminThursdayLabel.TabIndex = 6;
-            this.adminThursdayLabel.Text = "Czwartek";
-            // 
-            // adminWednesdayLabel
-            // 
-            this.adminWednesdayLabel.AutoSize = true;
-            this.adminWednesdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminWednesdayLabel.Location = new System.Drawing.Point(266, 13);
-            this.adminWednesdayLabel.Name = "adminWednesdayLabel";
-            this.adminWednesdayLabel.Size = new System.Drawing.Size(52, 20);
-            this.adminWednesdayLabel.TabIndex = 5;
-            this.adminWednesdayLabel.Text = "Środa";
-            // 
-            // adminTuesdayLabel
-            // 
-            this.adminTuesdayLabel.AutoSize = true;
-            this.adminTuesdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminTuesdayLabel.Location = new System.Drawing.Point(143, 13);
-            this.adminTuesdayLabel.Name = "adminTuesdayLabel";
-            this.adminTuesdayLabel.Size = new System.Drawing.Size(60, 20);
-            this.adminTuesdayLabel.TabIndex = 4;
-            this.adminTuesdayLabel.Text = "Wtorek";
-            // 
-            // adminMondayLabel
-            // 
-            this.adminMondayLabel.AutoSize = true;
-            this.adminMondayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.adminMondayLabel.Location = new System.Drawing.Point(16, 13);
-            this.adminMondayLabel.Name = "adminMondayLabel";
-            this.adminMondayLabel.Size = new System.Drawing.Size(99, 20);
-            this.adminMondayLabel.TabIndex = 3;
-            this.adminMondayLabel.Text = "Poniedziałek";
-            // 
-            // adminPanelBG
-            // 
-            this.adminPanelBG.BackgroundImage = global::GreenOffice.Properties.Resources.logoAdminPanelWhiteBG;
-            this.adminPanelBG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.adminPanelBG.Location = new System.Drawing.Point(133, 4);
-            this.adminPanelBG.Name = "adminPanelBG";
-            this.adminPanelBG.Size = new System.Drawing.Size(1036, 574);
-            this.adminPanelBG.TabIndex = 4;
             // 
             // leavePanel
             // 
@@ -2087,11 +2087,11 @@
             this.subCalendarPanel.ResumeLayout(false);
             this.subCalendarPanel.PerformLayout();
             this.adminPanel.ResumeLayout(false);
-            this.manageUsersPanel.ResumeLayout(false);
-            this.manageUsersPanel.PerformLayout();
             this.approveLeavePanel.ResumeLayout(false);
             this.adminApproveLeaveCalendarPanel.ResumeLayout(false);
             this.adminApproveLeaveCalendarPanel.PerformLayout();
+            this.manageUsersPanel.ResumeLayout(false);
+            this.manageUsersPanel.PerformLayout();
             this.leavePanel.ResumeLayout(false);
             this.leavePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doctorsNoticePictureBox)).EndInit();

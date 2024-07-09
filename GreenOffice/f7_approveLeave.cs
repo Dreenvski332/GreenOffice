@@ -26,20 +26,20 @@ namespace GreenOffice
             passedLeaveID = AdminCalendarUserControl.passLeaveID;
             passedAdminCode = f3_adminBody.adminCode;
 
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand selectLeaveReasonQuery = new MySqlCommand($"SELECT leftLeaveDays, leftLeaveOnDemandDays FROM user WHERE email=@email"); //query to find name based on email
-                selectLeaveReasonQuery.Parameters.AddWithValue("@email", passedAdminCode); //takes email from textbox
-                selectLeaveReasonQuery.CommandType = CommandType.Text; //makes command readable for the app
-                selectLeaveReasonQuery.Connection = databaseConnection; //does something?
+                MySqlCommand selectLeaveReasonQuery = new MySqlCommand($"SELECT leftLeaveDays, leftLeaveOnDemandDays FROM user WHERE email=@email");
+                selectLeaveReasonQuery.Parameters.AddWithValue("@email", passedAdminCode);
+                selectLeaveReasonQuery.CommandType = CommandType.Text;
+                selectLeaveReasonQuery.Connection = databaseConnection;
 
-                databaseConnection.Open(); //opens connection
-                using (MySqlDataReader reader = selectLeaveReasonQuery.ExecuteReader()) //executes command
+                databaseConnection.Open();
+                using (MySqlDataReader reader = selectLeaveReasonQuery.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -96,20 +96,20 @@ namespace GreenOffice
         }
         private void produceAdminNum()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
 
-                MySqlCommand selectLeaveReasonQuery = new MySqlCommand($"SELECT leaveID, email, leaveStartDate, leaveFinishDate, leaveReason FROM leavetable WHERE leaveID=@leaveID"); //query to find name based on email
-                selectLeaveReasonQuery.Parameters.AddWithValue("@leaveID", passedLeaveID); //takes email from textbox
-                selectLeaveReasonQuery.CommandType = CommandType.Text; //makes command readable for the app
-                selectLeaveReasonQuery.Connection = databaseConnection; //does something?
+                MySqlCommand selectLeaveReasonQuery = new MySqlCommand($"SELECT leaveID, email, leaveStartDate, leaveFinishDate, leaveReason FROM leavetable WHERE leaveID=@leaveID");
+                selectLeaveReasonQuery.Parameters.AddWithValue("@leaveID", passedLeaveID);
+                selectLeaveReasonQuery.CommandType = CommandType.Text;
+                selectLeaveReasonQuery.Connection = databaseConnection;
 
-                databaseConnection.Open(); //opens connection
-                using (MySqlDataReader reader = selectLeaveReasonQuery.ExecuteReader()) //executes command
+                databaseConnection.Open();
+                using (MySqlDataReader reader = selectLeaveReasonQuery.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -135,7 +135,7 @@ namespace GreenOffice
         private void calculateLeftLeaveDays()
         {
             produceAdminNum();
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
+            PathFactory pathFactory = new PathFactory();
             if (adminNum == 1)
             {
                 using (StreamReader streamReader = new StreamReader(pathFactory.connString))

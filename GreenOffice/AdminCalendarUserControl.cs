@@ -43,12 +43,12 @@ namespace GreenOffice
         
         private void displayLeave()
         {
-            PathFactory pathFactory = new PathFactory(); //path to use pathFactory
-            using (StreamReader streamReader = new StreamReader(pathFactory.connString)) //loads path from pathFactory - from file "connString"
+            PathFactory pathFactory = new PathFactory();
+            using (StreamReader streamReader = new StreamReader(pathFactory.connString))
             {
-                string connection = streamReader.ReadToEnd(); //reads "connString" file
-                string connectionString = connection; //and makes a connection
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString); //sets connection to database as "connectionString"
+                string connection = streamReader.ReadToEnd();
+                string connectionString = connection;
+                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 string displayLeaveQuery = "SELECT leaveID, leaveStartDate, leaveFinishDate, leaveStartTime, leaveFinishTime, leaveApproved, leaveReason FROM leavetable WHERE email=@email AND @currentDate BETWEEN leaveStartDate AND leaveFinishDate";
                 databaseConnection.Open();
                 using (MySqlCommand displayLeaveCommand = new MySqlCommand(displayLeaveQuery, databaseConnection))
@@ -109,7 +109,7 @@ namespace GreenOffice
             if (!string.IsNullOrEmpty(displayLeaveTextbox.Text))
             {
                 passLeaveID = idLabel.Text;
-                f7_approveLeave Open_f7_approveLeave = new f7_approveLeave(); //opens up user form instead
+                f7_approveLeave Open_f7_approveLeave = new f7_approveLeave();
                 Open_f7_approveLeave.ShowDialog();
             }
         }

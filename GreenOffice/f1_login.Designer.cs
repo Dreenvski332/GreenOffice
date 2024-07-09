@@ -57,7 +57,6 @@
             this.emailTextbox.Name = "emailTextbox";
             this.emailTextbox.Size = new System.Drawing.Size(184, 26);
             this.emailTextbox.TabIndex = 0;
-            this.emailTextbox.Text = "mstn@grof.com";
             // 
             // passwordTextbox
             // 
@@ -68,7 +67,6 @@
             this.passwordTextbox.PasswordChar = '*';
             this.passwordTextbox.Size = new System.Drawing.Size(184, 26);
             this.passwordTextbox.TabIndex = 1;
-            this.passwordTextbox.Text = "1234";
             // 
             // emailLabel
             // 

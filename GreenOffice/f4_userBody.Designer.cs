@@ -252,7 +252,7 @@
             this.timerStartButton.Name = "timerStartButton";
             this.timerStartButton.Size = new System.Drawing.Size(155, 23);
             this.timerStartButton.TabIndex = 6;
-            this.timerStartButton.Text = "zacznij czasomierz";
+            this.timerStartButton.Text = "rozpocznij czasomierz";
             this.timerStartButton.UseVisualStyleBackColor = true;
             this.timerStartButton.Click += new System.EventHandler(this.timerStartButton_Click);
             // 
